@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "110345355356",
+    "project_id": "know-wealth",
+    "storage_bucket": "know-wealth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110345355356:android:bf9446977d6a2a4904e699",
+        "android_client_info": {
+          "package_name": "com.example.knowwealth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110345355356-g4m1md6krcrlmmqftnfganie567d344d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAY4aQxfqb6SB6GgLlqWrxmjlsf7DbsfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110345355356-g4m1md6krcrlmmqftnfganie567d344d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
