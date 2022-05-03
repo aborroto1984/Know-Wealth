@@ -14,9 +14,9 @@
         android:background="@drawable/main_button"
         android:clipToOutline="false"
         android:contextClickable="false"
-        android:paddingRight="28dp"
+        android:paddingEnd="28dp"
         android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
-        android:text="Sign Up"
+        android:text="@string/sign_up"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
         android:id="@+id/createAccountText"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="Create Account"
+        android:text="@string/create_account"
         android:textColor="@color/main_color"
         android:textSize="34sp"
         android:textStyle="normal"
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Confirm Password"
+        android:text="@string/confirm_password"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/passwordCreateAccount2"
         app:layout_constraintEnd_toEndOf="@+id/passwordCreateAccount2"
@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Password"
+        android:text="@string/password"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/passwordCreateAccount1"
         app:layout_constraintEnd_toEndOf="@+id/passwordCreateAccount1"
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="User Id"
+        android:text="@string/user_id"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/userIdCreateAccount"
         app:layout_constraintEnd_toEndOf="@+id/userIdCreateAccount"
@@ -79,7 +79,7 @@
         android:layout_marginBottom="40dp"
         android:background="@drawable/rectangle_122"
         android:ems="10"
-        android:hint="Enter name"
+        android:hint="@string/enter_name"
         android:inputType="textShortMessage|textPassword"
         android:maxLength="20"
         android:maxLines="1"
@@ -90,7 +90,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/userIdCreateAccount"
@@ -99,7 +100,7 @@
         android:layout_marginBottom="40dp"
         android:background="@drawable/rectangle_122"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textShortMessage|textPassword"
         android:maxLength="30"
         android:maxLines="1"
@@ -108,7 +109,8 @@
         android:textColorHint="#800B6374"
         app:layout_constraintBottom_toTopOf="@+id/passwordCreateAccount1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/passwordCreateAccount2"
@@ -116,7 +118,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle_122"
         android:ems="10"
-        android:hint="••••••••"
+        android:hint="@string/password_dots"
         android:inputType="textPassword"
         android:padding="16dp"
         android:textColorHint="#800B6374"
@@ -124,7 +126,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintVertical_bias="0.75"
+        tools:ignore="DuplicateSpeakableTextCheck"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/passwordCreateAccount1"
@@ -134,13 +138,14 @@
         android:background="@drawable/rectangle_122"
         android:ems="10"
 
-        android:hint="••••••••"
+        android:hint="@string/password_dots"
         android:inputType="textPassword"
         android:padding="16dp"
         android:textColorHint="#800B6374"
         app:layout_constraintBottom_toTopOf="@+id/passwordCreateAccount2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:autofillHints="" />
 
     <ImageView
         android:id="@+id/imageView9"
@@ -172,7 +177,7 @@
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/top_header"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -184,7 +189,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Full Name"
+        android:text="@string/full_name"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/fullName"
         app:layout_constraintEnd_toEndOf="@+id/fullName"
@@ -195,18 +200,21 @@
         android:id="@+id/buttonArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/arrow_button"
         android:rotation="180"
         app:layout_constraintBottom_toBottomOf="@+id/createAccountButton"
         app:layout_constraintEnd_toEndOf="@+id/createAccountButton"
         app:layout_constraintHorizontal_bias="0.64"
         app:layout_constraintStart_toStartOf="@+id/createAccountButton"
         app:layout_constraintTop_toTopOf="@+id/createAccountButton"
-        app:srcCompat="@drawable/arrow" />
+        app:srcCompat="@drawable/arrow"
+        tools:ignore="RedundantDescriptionCheck" />
 
     <ImageView
         android:id="@+id/backArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/back_arrow"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
@@ -218,9 +226,9 @@
         android:id="@+id/SignInText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Already have an account? Sign In"
+        android:text="@string/already_have_an_account_sign_in"
         android:textColor="#FFFFFF"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView9"
         app:layout_constraintStart_toStartOf="@+id/imageView9"

@@ -1,4 +1,26 @@
 <resources>
     <string name="app_name">Know Wealth</string>
     <string name="todo">TODO</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_account">Create Account</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="user_id">User Id</string>
+    <string name="enter_name">Enter name</string>
+    <string name="email">Email</string>
+    <string name="password_dots">••••••••</string>
+    <string name="full_name">Full Name</string>
+    <string name="already_have_an_account_sign_in">Already have an account? Sign In</string>
+    <string name="top_header">Top header</string>
+    <string name="arrow_button">arrow button</string>
+    <string name="back_arrow">back arrow</string>
+    <string name="bottom_header">bottom header</string>
+    <string name="know_wealth_top">Know Wealth top</string>
+    <string name="main_logo">main logo</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="login">Login</string>
+    <string name="button_arrow">button arrow</string>
+    <string name="iser_id_icon">iser ID icon</string>
+    <string name="password_icon">password icon</string>
 </resources>
