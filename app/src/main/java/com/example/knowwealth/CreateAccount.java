@@ -33,11 +33,23 @@ public class CreateAccount extends AppCompatActivity {
         Button createAccountButton = findViewById(R.id.createAccountButton);
         final EditText userIdCreateAccount = findViewById(R.id.userIdCreateAccount);
         final EditText passwordCreateAccount1 = findViewById(R.id.passwordCreateAccount1);
+        final EditText passwordVerify = findViewById(R.id.passwordCreateAccount2);
 
         createAccountButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
+                if(userIdCreateAccount.getText().toString().isEmpty()){
+                    Toast.makeText(CreateAccount.this, "Email cannot be blank.",
+                            Toast.LENGTH_SHORT).show();
+                }else if(passwordCreateAccount1.getText().toString().isEmpty()) {
+                    Toast.makeText(CreateAccount.this, "Password cannot be blank.",
+                            Toast.LENGTH_SHORT).show();
+                }else if(passwordCreateAccount1.getText().toString() != passwordVerify.getText().toString()){
+                    Toast.makeText(CreateAccount.this, "Passwords do not match.",
+                            Toast.LENGTH_LONG).show();
+                }else{
+                    createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
+                }
             }
         });
 
