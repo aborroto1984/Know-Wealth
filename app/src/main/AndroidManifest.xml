@@ -10,6 +10,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KnowWealth">
         <activity
+            android:name=".NotificationSettings"
+            android:exported="false" />
+        <activity
+            android:name=".AccountEdit"
+            android:exported="false" />
+        <activity
+            android:name=".Menu"
+            android:exported="false" />
+        <activity
+            android:name=".DueDatesCalendar"
+            android:exported="false" />
+        <activity
+            android:name=".MonthlyExpenses"
+            android:exported="false" />
+        <activity
+            android:name=".DashBoard"
+            android:exported="false" />
+        <activity
+            android:name=".BudgetAdd"
+            android:exported="false" />
+        <activity
+            android:name=".ExpenseAdd"
+            android:exported="false" />
+        <activity
+            android:name=".CreditDatesProcessing"
+            android:exported="false" />
+        <activity
+            android:name=".SubscriptionProcessing"
+            android:exported="false" />
+        <activity
+            android:name=".UtilityProcessing"
+            android:exported="false" />
+        <activity
             android:name=".CreateAccount"
             android:exported="false" />
         <activity
