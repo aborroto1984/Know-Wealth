@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -54,12 +54,12 @@
         app:srcCompat="@drawable/app_logo_no_border" />
 
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/UserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle_122"
         android:ems="10"
-        android:hint="User Id"
+        android:hint="Email"
         android:inputType="textShortMessage|textPassword"
         android:maxLength="20"
         android:maxLines="1"
@@ -141,7 +141,7 @@
         android:textColor="@color/main_color"
         android:textSize="34sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/Password"
+        app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toStartOf="parent"
@@ -154,11 +154,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/Password"
-        app:layout_constraintEnd_toEndOf="@+id/Password"
+        app:layout_constraintBottom_toBottomOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="@+id/password"
         app:layout_constraintHorizontal_bias="0.893"
-        app:layout_constraintStart_toStartOf="@+id/Password"
-        app:layout_constraintTop_toTopOf="@+id/Password"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toTopOf="@+id/password"
         app:srcCompat="@drawable/icon" />
 
     <ImageView

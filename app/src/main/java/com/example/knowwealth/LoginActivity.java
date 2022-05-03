@@ -1,6 +1,9 @@
 package com.example.knowwealth;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -10,75 +13,63 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class CreateAccount extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    final String TAG = "CreateAccount";
-
+    final String TAG = "LoginActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_account);
+        setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
 
-        Button createAccountButton = findViewById(R.id.createAccountButton);
-        final EditText userIdCreateAccount = findViewById(R.id.userIdCreateAccount);
-        final EditText passwordCreateAccount1 = findViewById(R.id.passwordCreateAccount1);
+        Button loginButton = findViewById(R.id.button);
+        final EditText usernameInput = findViewById(R.id.UserName);
+        final EditText passwordInput = findViewById(R.id.password);
 
-        createAccountButton.setOnClickListener(new View.OnClickListener(){
+        loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
+                signIn(usernameInput.getText().toString(),passwordInput.getText().toString());
             }
         });
 
-        TextView signInLink = findViewById(R.id.SignInText);
-        signInLink.setOnClickListener(new View.OnClickListener(){
+        TextView registerLink = findViewById(R.id.signUpText);
+        registerLink.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(CreateAccount.this, LoginActivity.class));
+                startActivity(new Intent(LoginActivity.this, CreateAccount.class));
             }
         });
     }
-
-    public void createAccount(String email, String password){
+    public void signIn(String email, String password){
         //todo add validation for password and email
-
-        mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
+                            Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            Toast.makeText(CreateAccount.this, "Authentication Success." + user.getEmail(),
+                            Toast.makeText(LoginActivity.this, "Authentication Success." + user.getEmail(),
                                     Toast.LENGTH_SHORT).show();
-
-                            finish();
-
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(CreateAccount.this, "Authentication failed.",
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
-        }
-
     }
 
-
-
+}
