@@ -14,9 +14,9 @@
         android:background="@drawable/main_button"
         android:clipToOutline="false"
         android:contextClickable="false"
+        android:paddingRight="28dp"
         android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
         android:text="Sign Up"
-        android:paddingRight="20dp"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,9 +47,9 @@
         android:text="Confirm Password"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/passwordCreateAccount2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/passwordCreateAccount2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordCreateAccount2" />
 
     <TextView
         android:id="@+id/createPasswordLabel1"
@@ -59,9 +59,9 @@
         android:text="Password"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/passwordCreateAccount1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/passwordCreateAccount1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordCreateAccount1" />
 
     <TextView
         android:id="@+id/userIdLabel"
@@ -71,9 +71,9 @@
         android:text="User Id"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/userIdCreateAccount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/userIdCreateAccount"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/userIdCreateAccount" />
 
     <EditText
         android:id="@+id/fullName"
@@ -117,7 +117,6 @@
         android:id="@+id/passwordCreateAccount2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="216dp"
         android:background="@drawable/rectangle_122"
         android:ems="10"
         android:hint="••••••••"
@@ -126,7 +125,9 @@
         android:textColorHint="#800B6374"
         app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.75" />
 
     <EditText
         android:id="@+id/passwordCreateAccount1"
@@ -189,9 +190,9 @@
         android:text="Full Name"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/fullName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/fullName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/fullName" />
 
     <ImageView
         android:id="@+id/buttonArrow"
