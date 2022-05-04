@@ -44,10 +44,10 @@ public class CreateAccount extends AppCompatActivity {
                 }else if(passwordCreateAccount1.getText().toString().isEmpty()) {
                     Toast.makeText(CreateAccount.this, "Password cannot be blank.",
                             Toast.LENGTH_SHORT).show();
-                }else if(passwordCreateAccount1.getText().toString() != passwordVerify.getText().toString()){
+                }else if(!passwordCreateAccount1.getText().toString().equals(passwordVerify.getText().toString())){
                     Toast.makeText(CreateAccount.this, "Passwords do not match.",
                             Toast.LENGTH_LONG).show();
-                }else{
+                } else{
                     createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
                 }
             }
