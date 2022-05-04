@@ -12,7 +12,7 @@ public class User {
     List<UtilDate> utilities;
     List<CreditDate> creditCards;
     List<SubscriptDate> Subscriptions;
-    List<Expence> expenses;
+    List<Expense> expenses;
 
     // Constructors
     public User(){
@@ -21,14 +21,26 @@ public class User {
         Subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
     }
-    public User(String fullName, String firstName){
-        this.firstName = firstName;
+    public User(String fullName){
         this.fullName = fullName;
+        String[] getName = fullName.split(" ");
+        this.firstName = getName[0];
         utilities = new ArrayList<>();
         creditCards = new ArrayList<>();
         Subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
     }
+
+    // firstName and fullName setters
+    public void setFullName(String fullName){
+        this.fullName = fullName;
+        String[] getName = fullName.split(" ");
+        this.firstName = getName[0];
+    }
+
+    // firstName and fullName getters
+    public String getFullName() { return fullName; }
+    public String getFirstName() { return firstName; }
 
     // Utilities
     public class UtilDate{
@@ -47,15 +59,15 @@ public class User {
     public class SubscriptDate extends UtilDate{}
 
     // Expenses
-    public class Expence {
+    public class Expense {
         // Fields
         private String name;
         private float amount = 0;
         private float budget;
 
         //Constructors
-        public Expence(){}
-        public Expence(String name){
+        public Expense(){}
+        public Expense(String name){
             this.name = name;
         }
 
@@ -63,7 +75,7 @@ public class User {
         public float getAmount() { return amount; }
 
         // Method to add to the expense amount
-        public void AddExpence(float amount){ this.amount += amount; }
+        public void AddExpense(float amount){ this.amount += amount; }
 
         // Budget getter and setter
         public float getBudget() { return budget; }
