@@ -7,6 +7,7 @@ public class User {
     // User's first name to be used in DashBoard
     private String firstName;
     private String fullName;
+    private String email;
 
     // Data fields
     List<UtilDate> utilities;
@@ -15,16 +16,11 @@ public class User {
     List<Expense> expenses;
 
     // Constructors
-    public User(){
-        utilities = new ArrayList<>();
-        creditCards = new ArrayList<>();
-        Subscriptions = new ArrayList<>();
-        expenses = new ArrayList<>();
-    }
-    public User(String fullName){
+    public User(String fullName, String email){
         this.fullName = fullName;
         String[] getName = fullName.split(" ");
         this.firstName = getName[0];
+        this.email = email;
         utilities = new ArrayList<>();
         creditCards = new ArrayList<>();
         Subscriptions = new ArrayList<>();
@@ -41,6 +37,10 @@ public class User {
     // firstName and fullName getters
     public String getFullName() { return fullName; }
     public String getFirstName() { return firstName; }
+
+    // email getter and setter
+    public String getEmail() { return email; }
+    public void setEmail( String email){ this.email = email; }
 
     // Utilities
     public class UtilDate{
