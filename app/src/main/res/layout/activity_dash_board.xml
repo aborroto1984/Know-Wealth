@@ -6,4 +6,151 @@
     android:layout_height="match_parent"
     tools:context=".DashBoard">
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/primary" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/know_wealth_top"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView1"
+        app:layout_constraintEnd_toEndOf="@+id/imageView1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/group_1" />
+
+    <TextView
+        android:id="@+id/view_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        app:layout_constraintBottom_toTopOf="@+id/WelcomeText"
+        app:layout_constraintEnd_toEndOf="@+id/imageView1"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="@+id/imageView1"
+        app:layout_constraintTop_toBottomOf="@+id/imageView1" />
+
+    <TextView
+        android:id="@+id/WelcomeText"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/welcome"
+        android:textColor="@color/main_color"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView1"
+        app:layout_constraintHorizontal_bias="0.159"
+        app:layout_constraintStart_toStartOf="@+id/imageView1"
+        app:layout_constraintTop_toBottomOf="@+id/imageView1" />
+
+    <TextView
+        android:id="@+id/view_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/main_color"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="@+id/WelcomeText"
+        app:layout_constraintTop_toBottomOf="@+id/WelcomeText" />
+
+    <TextView
+        android:id="@+id/due_dates_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="This weeks due dates"
+        android:textColor="@color/main_color"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/view_Name"
+        app:layout_constraintStart_toStartOf="@id/view_Name"
+        tools:layout_editor_absoluteX="41dp" />
+
+    <TextView
+        android:id="@+id/date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="Due Date"
+        android:textColor="@color/main_color"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/due_dates_week"
+        app:layout_constraintTop_toTopOf="@+id/due_dates_week" />
+
+    <ListView
+        android:id="@+id/Due_List"
+        android:layout_width="414dp"
+        android:layout_height="144dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/due_dates_week" />
+
+    <TextView
+        android:id="@+id/projected_budget_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/main_color"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"
+        android:text="Projected budgets"
+        app:layout_constraintStart_toStartOf="@+id/due_dates_week"
+        app:layout_constraintTop_toBottomOf="@+id/Due_List" />
+
+    <TextView
+        android:id="@+id/expended_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/main_color"
+        android:textSize="20sp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:text="Expended"
+        app:layout_constraintStart_toEndOf="@+id/projected_budget_label"
+        app:layout_constraintTop_toBottomOf="@+id/Due_List" />
+
+    <TextView
+        android:id="@+id/budget_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/main_color"
+        android:textSize="20sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:text="Budget"
+        app:layout_constraintStart_toEndOf="@+id/expended_label"
+        app:layout_constraintTop_toBottomOf="@+id/Due_List" />
+
+    <ListView
+        android:id="@+id/projected_budget_list"
+        android:layout_width="403dp"
+        android:layout_height="212dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/projected_budget_label" />
+
+    <Button
+        android:id="@+id/add_expense_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="261dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/main_button"
+        android:contextClickable="false"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="Add Expense"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/projected_budget_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>
