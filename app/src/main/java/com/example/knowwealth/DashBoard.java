@@ -20,5 +20,9 @@ public class DashBoard extends AppCompatActivity {
 
         TextView viewDate = findViewById(R.id.view_date);
         viewDate.setText(curDate);
+
+        String userName = User.getFirstName();
+        TextView userFirstName = findViewById(R.id.view_Name);
+        userFirstName.setText(userName);
     }
 }
