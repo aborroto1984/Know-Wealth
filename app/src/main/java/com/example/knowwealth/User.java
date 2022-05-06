@@ -5,8 +5,8 @@ import java.util.List;
 
 public class User {
     // User's first name to be used in DashBoard
-    private String firstName;
-    private String fullName;
+    private static String firstName;
+    private static String fullName;
 
     // Data fields
     List<UtilDate> utilities;
@@ -39,8 +39,8 @@ public class User {
     }
 
     // firstName and fullName getters
-    public String getFullName() { return fullName; }
-    public String getFirstName() { return firstName; }
+    public static String getFullName() { return fullName; }
+    public static String getFirstName() { return firstName; }
 
     // Utilities
     public class UtilDate{
