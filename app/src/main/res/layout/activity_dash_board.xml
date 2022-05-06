@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="This weeks due dates"
+        android:text="@string/this_weeks_due_dates"
         android:textColor="@color/main_color"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/view_Name"
@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:text="Due Date"
+        android:text="@string/due_date"
         android:textColor="@color/main_color"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/due_dates_week"
@@ -102,7 +102,7 @@
         android:textColor="@color/main_color"
         android:textSize="20sp"
         android:layout_marginTop="15dp"
-        android:text="Projected budgets"
+        android:text="@string/projected_budget"
         app:layout_constraintStart_toStartOf="@+id/due_dates_week"
         app:layout_constraintTop_toBottomOf="@+id/Due_List" />
 
@@ -114,7 +114,7 @@
         android:textSize="20sp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="15dp"
-        android:text="Expended"
+        android:text="@string/expended"
         app:layout_constraintStart_toEndOf="@+id/projected_budget_label"
         app:layout_constraintTop_toBottomOf="@+id/Due_List" />
 
@@ -126,7 +126,7 @@
         android:textSize="20sp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
-        android:text="Budget"
+        android:text="@string/budget"
         app:layout_constraintStart_toEndOf="@+id/expended_label"
         app:layout_constraintTop_toBottomOf="@+id/Due_List" />
 
@@ -147,7 +147,7 @@
         android:contextClickable="false"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:text="Add Expense"
+        android:text="@string/add_expense"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

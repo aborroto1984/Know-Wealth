@@ -21,6 +21,15 @@
     <string name="sign_in">Sign In</string>
     <string name="login">Login</string>
     <string name="button_arrow">button arrow</string>
-    <string name="iser_id_icon">iser ID icon</string>
+    <string name="user_id_icon">user ID icon</string>
     <string name="password_icon">password icon</string>
+    <string name="welcome">Welcome</string>
+    <string name="name">Name</string>
+    <string name="this_weeks_due_dates">This weeks due dates</string>
+    <string name="due_date">Due Date</string>
+    <string name="projected_budget">Projected budget</string>
+    <string name="expended">Expended</string>
+    <string name="budget">Budget</string>
+    <string name="add_expense">Add Expense</string>
+
 </resources>
