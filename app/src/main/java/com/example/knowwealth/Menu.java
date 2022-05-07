@@ -20,7 +20,7 @@ public class Menu extends AppCompatActivity {
         TextView creditCardLink = findViewById(R.id.creditCardLink);
         TextView budgetLink = findViewById(R.id.budgetLink);
         TextView notifyLink = findViewById(R.id.notifyLink);
-        TextView signOutLink = findViewById(R.id.signoutLink);
+        TextView signOutLink = findViewById(R.id.signOutLink);
 
         dashBoardLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, DashBoard.class)));
         utilitiesLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, UtilityProcessing.class)));

@@ -23,4 +23,12 @@
     <string name="button_arrow">button arrow</string>
     <string name="iser_id_icon">iser ID icon</string>
     <string name="password_icon">password icon</string>
+    <string name="account">Account</string>
+    <string name="utilities">Utilities</string>
+    <string name="subscriptions">Subscriptions</string>
+    <string name="credit_cards">Credit Cards</string>
+    <string name="budget">Budget</string>
+    <string name="notifications">Notifications</string>
+    <string name="sign_out">Sign out</string>
+    <string name="close_button">close_button</string>
 </resources>
