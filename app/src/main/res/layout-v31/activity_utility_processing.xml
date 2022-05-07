@@ -108,7 +108,7 @@
         tools:ignore="RedundantDescriptionCheck" />
 
     <TextView
-        android:id="@+id/signUpText2"
+        android:id="@+id/skip_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/skip"

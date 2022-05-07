@@ -5,10 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,9 @@ public class UtilityProcessing extends AppCompatActivity {
 
     Button addBtn;
     FloatingActionButton closeBtn;
+    ImageView backArrow;
+    TextView skipNext;
+
     //Recycler view fields
     ArrayList<String> utilities, dates;
     RecyclerView utilityList;
@@ -37,6 +42,8 @@ public class UtilityProcessing extends AppCompatActivity {
         utilities = new ArrayList<>();
         dates = new ArrayList<>();
 
+        backArrow = findViewById(R.id.backArrow2);
+        skipNext = findViewById(R.id.skip_next);
         addBtn = findViewById(R.id.addButton);
         closeBtn = findViewById(R.id.closeButton);
         utilityList = (RecyclerView) findViewById(R.id.utilityDueDatesList);
@@ -46,6 +53,18 @@ public class UtilityProcessing extends AppCompatActivity {
         utilityList.setAdapter(adapter);
         utilityList.setLayoutManager(layoutManager);
 
+        skipNext.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(UtilityProcessing.this, CreditDatesProcessing.class));
+            }
+        });
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UtilityProcessing.this, CreateAccount.class));
+            }
+        });
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -75,6 +94,7 @@ public class UtilityProcessing extends AppCompatActivity {
                 String date = dueDateSpinner.getSelectedItem().toString();
                 utilities.add(utility);
                 dates.add(date);
+                skipNext.setText("Next");
                 adapter.notifyDataSetChanged();
                 if (dialog.isShowing()) {
                     dialog.dismiss();
