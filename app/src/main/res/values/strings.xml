@@ -27,10 +27,8 @@
     <string name="skip">Skip</string>
     <string name="plus_sign_on_add_button">plus sign on add button</string>
     <string name="add">Add</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name= "Utilities">
-        <item>Select...</item>
         <item>Mortgage / Rent</item>
         <item>Power</item>
         <item>Water</item>
@@ -40,7 +38,7 @@
         <item>Home Phone</item>
     </string-array>
     <string-array name= "MonthDays">
-        <item>Select...</item><item>every 1<sup>st</sup></item><item>every 2<sup>nd</sup></item><item>every 3<sup>rd</sup></item><item>every 4<sup>th</sup></item><item>every 5<sup>th</sup></item><item>every 6<sup>th</sup></item><item>every 7<sup>th</sup></item><item>every 8<sup>th</sup></item><item>every 9<sup>th</sup></item><item>every 10<sup>th</sup></item>
+        <item>every 1<sup>st</sup></item><item>every 2<sup>nd</sup></item><item>every 3<sup>rd</sup></item><item>every 4<sup>th</sup></item><item>every 5<sup>th</sup></item><item>every 6<sup>th</sup></item><item>every 7<sup>th</sup></item><item>every 8<sup>th</sup></item><item>every 9<sup>th</sup></item><item>every 10<sup>th</sup></item>
         <item>every 11<sup>th</sup></item><item>every 12<sup>th</sup></item><item>every 13<sup>th</sup></item><item>every 14<sup>th</sup></item><item>every 15<sup>th</sup></item><item>every 16<sup>th</sup></item><item>every 17<sup>th</sup></item><item>every 18<sup>th</sup></item><item>every 19<sup>th</sup></item><item>every 20<sup>th</sup></item>
         <item>every 21<sup>st</sup></item><item>every 22<sup>nd</sup></item><item>every 23<sup>rd</sup></item><item>every 24<sup>th</sup></item><item>every 25<sup>th</sup></item><item>every 26<sup>th</sup></item><item>every 27<sup>th</sup></item><item>every 28<sup>th</sup></item><item>every 29<sup>th</sup></item><item>every 30<sup>th</sup></item>
         <item>every 31<sup>st</sup></item>

@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -20,8 +21,7 @@ import java.util.ArrayList;
 public class UtilityProcessing extends AppCompatActivity {
 
     Button addBtn;
-    //Button closeBtn;
-
+    FloatingActionButton closeBtn;
     //Recycler view fields
     ArrayList<String> utilities, dates;
     RecyclerView utilityList;
@@ -36,15 +36,12 @@ public class UtilityProcessing extends AppCompatActivity {
 
         utilities = new ArrayList<>();
         dates = new ArrayList<>();
-        utilities.add("Power");
-        utilities.add("Gas");
-        dates.add("every 1st");
-        dates.add("every 2nd");
+
         addBtn = findViewById(R.id.addButton);
-        //closeBtn = findViewById(R.id.closeButton);
+        closeBtn = findViewById(R.id.closeButton);
         utilityList = (RecyclerView) findViewById(R.id.utilityDueDatesList);
 
-        adapter = new RecyclerViewAdapter(this, utilities, dates);//, closeBtn);
+        adapter = new RecyclerViewAdapter(this, utilities, dates, closeBtn);
         layoutManager = new LinearLayoutManager(this);
         utilityList.setAdapter(adapter);
         utilityList.setLayoutManager(layoutManager);
@@ -56,6 +53,7 @@ public class UtilityProcessing extends AppCompatActivity {
             }
         });
     }
+
 
     private void showDialog(){
         Dialog dialog = new Dialog(this);
@@ -69,18 +67,20 @@ public class UtilityProcessing extends AppCompatActivity {
         Spinner dueDateSpinner = dialog.findViewById(R.id.dueDateSpinner);
         FloatingActionButton addValueBtn = dialog.findViewById(R.id.addValueButton);
 
-//        addValueBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String utility = utilitySpinner.toString();
-//                utilities.add(utility);
-//                String date = dueDateSpinner.toString();
-//                dates.add(date);
-//                if (dialog.isShowing()){
-//                    dialog.dismiss();
-//                }
-//            }
-//        });
+        addValueBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String utility = utilitySpinner.getSelectedItem().toString();
+                String date = dueDateSpinner.getSelectedItem().toString();
+                utilities.add(utility);
+                dates.add(date);
+                adapter.notifyDataSetChanged();
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        });
 
 
 

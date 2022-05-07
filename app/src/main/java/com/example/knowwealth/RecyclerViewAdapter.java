@@ -1,5 +1,6 @@
 package com.example.knowwealth;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.common.util.Strings;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +21,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     ArrayList<String> utilities;
     ArrayList<String> dueDates;
-    Button closeBtn;
+    FloatingActionButton closeBtn;
     Context context;
 
-    public RecyclerViewAdapter (Context ct, ArrayList<String> utilities, ArrayList<String> dueDates){//, Button closeBtn){
+    public RecyclerViewAdapter (Context ct, ArrayList<String> utilities, ArrayList<String> dueDates, FloatingActionButton closeBtn){
         this.utilities = utilities;
         this.dueDates = dueDates;
-        //this.closeBtn = closeBtn;
+        this.closeBtn = closeBtn;
         this.context = ct;
     }
 
@@ -37,9 +39,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.text1.setText(utilities.get(position));
         holder.text2.setText(dueDates.get(position));
+        holder.closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                utilities.remove(position);
+                dueDates.remove(position);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -49,13 +59,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView text1, text2;
-        //Button closeBtn;
+        FloatingActionButton closeBtn;
 
         public MyViewHolder( View itemView) {
             super(itemView);
             text1 = itemView.findViewById(R.id.name_type);
             text2 = itemView.findViewById(R.id.amount_date);
-           // closeBtn = itemView.findViewById(R.id.closeButton);
+            closeBtn = itemView.findViewById(R.id.closeButton);
         }
     }
 }
