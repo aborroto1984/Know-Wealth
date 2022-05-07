@@ -11,6 +11,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="261dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/main_button"
         android:clipToOutline="false"
         android:contextClickable="false"
@@ -21,7 +22,8 @@
         app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordCreateAccount2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.93" />
 
     <TextView
         android:id="@+id/createAccountText"

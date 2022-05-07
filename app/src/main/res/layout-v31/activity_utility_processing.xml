@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UtilityProcessing">
+    tools:context=".UtilityProcessing"
+    tools:ignore="ExtraText">
+    tools:ignore="RtlSymmetry"
 
     <ImageView
         android:id="@+id/imageView12"
@@ -43,7 +45,8 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/group_1" />
+        app:srcCompat="@drawable/group_1"
+        tools:ignore="UnknownIdInLayout" />
 
     <TextView
         android:id="@+id/createAccountText2"
@@ -77,17 +80,52 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="261dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/main_button"
         android:clipToOutline="false"
         android:contextClickable="false"
-        android:paddingRight="20dp"
+        android:paddingStart="20dp"
         android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
-        android:text="Add"
+        android:text="@string/add"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/imageView12"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView11"
-        app:layout_constraintVertical_bias="0.494" />
+        app:layout_constraintVertical_bias="0.93" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/plus_sign_on_add_button"
+        app:layout_constraintBottom_toBottomOf="@+id/addButton"
+        app:layout_constraintEnd_toEndOf="@+id/addButton"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="@+id/addButton"
+        app:layout_constraintTop_toTopOf="@+id/addButton"
+        app:srcCompat="@drawable/resource__"
+        tools:ignore="RedundantDescriptionCheck" />
+
+    <TextView
+        android:id="@+id/signUpText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skip"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
+        app:layout_constraintEnd_toEndOf="@+id/imageView12"
+        app:layout_constraintStart_toStartOf="@+id/imageView12"
+        app:layout_constraintTop_toTopOf="@+id/imageView12" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/utilityDueDatesList"
+        android:layout_width="match_parent"
+        android:layout_height="444dp"
+        app:layout_constraintBottom_toTopOf="@+id/addButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAccountText2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
