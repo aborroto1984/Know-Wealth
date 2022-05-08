@@ -23,4 +23,16 @@
     <string name="button_arrow">button arrow</string>
     <string name="iser_id_icon">iser ID icon</string>
     <string name="password_icon">password icon</string>
+    <string name="paid">Paid</string>
+    <string name="due_date">Due date</string>
+    <string name="_1">1</string>
+    <string name="f">F</string>
+    <string name="th">Th</string>
+    <string name="w">W</string>
+    <string name="t">T</string>
+    <string name="m">M</string>
+    <string name="s">S</string>
+    <string name="due_dates">Due Dates</string>
+    <string name="month">Month</string>
+    <string name="menu_button">Menu_button</string>
 </resources>
