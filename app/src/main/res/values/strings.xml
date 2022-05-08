@@ -35,4 +35,6 @@
     <string name="due_dates">Due Dates</string>
     <string name="month">Month</string>
     <string name="menu_button">Menu_button</string>
+    <string name="back_arrow_calendar"><![CDATA[<]]></string>
+    <string name="next_arrow_calendar"><![CDATA[>]]></string>
 </resources>
