@@ -35,8 +35,8 @@ public class User {
     }
 
     // firstName and fullName getters
-    public String getFullName() { return fullName; }
-    public String getFirstName() { return firstName; }
+    public static String getFullName() { return fullName; }
+    public static String getFirstName() { return firstName; }
 
     // email getter and setter
     public String getEmail() { return email; }
