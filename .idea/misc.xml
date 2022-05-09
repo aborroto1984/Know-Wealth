@@ -3,18 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout-v31/activity_create_account.xml" value="0.2644927536231884" />
-        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout-v31/activity_main.xml" value="0.41458333333333336" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout-v31/activity_utility_processing.xml" value="0.26773049645390073" />
-        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_create_account.xml" value="0.4466666666666667" />
-        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_menu.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_utility_processing.xml" value="0.26773049645390073" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/KnowWealth/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.544" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/KnowWealth/app/src/main/res/drawable/ic_launcher_background.xml" value="0.544" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/KnowWealth/app/src/main/res/drawable/main_button.xml" value="0.544" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/KnowWealth/app/src/main/res/layout/activity_create_account.xml" value="0.34769736842105264" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/KnowWealth/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_account_edit.xml" value="0.3625" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_budget_add.xml" value="0.25" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_create_account.xml" value="0.3625" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_credit_dates_processing.xml" value="0.3625" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_due_dates_calendar.xml" value="0.3625" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_expense_add.xml" value="0.3625" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_main.xml" value="0.3211050724637681" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_menu.xml" value="0.3625" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_monthly_expenses.xml" value="0.3625" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_notification_settings.xml" value="0.3625" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_subscription_processing.xml" value="0.3625" />
+        <entry key="..\:/Users/cmmnd/StudioProjects/Know-Wealth/app/src/main/res/layout/activity_utility_processing.xml" value="0.3625" />
         <entry key="..\:/Users/ronal/Documents/VisualStudio2019/FullSail/AHI/Know-Wealth/app/src/main/res/layout/activity_create_account.xml" value="0.2269021739130435" />
         <entry key="..\:/Users/ronal/Documents/VisualStudio2019/FullSail/AHI/Know-Wealth/app/src/main/res/layout/activity_main.xml" value="0.16236068895643363" />
       </map>
