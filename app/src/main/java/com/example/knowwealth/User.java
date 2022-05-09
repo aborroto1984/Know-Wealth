@@ -5,9 +5,9 @@ import java.util.List;
 
 public class User {
     // User's first name to be used in DashBoard
-    private String firstName;
-    private String fullName;
-    private String email;
+    private static String firstName;
+    private static String fullName;
+    private static String email;
 
     // Data fields
     List<UtilDate> utilities;
