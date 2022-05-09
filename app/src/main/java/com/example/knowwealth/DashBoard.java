@@ -2,11 +2,15 @@ package com.example.knowwealth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class DashBoard extends AppCompatActivity {
 
@@ -25,4 +29,9 @@ public class DashBoard extends AppCompatActivity {
         TextView userFirstName = findViewById(R.id.view_Name);
         userFirstName.setText(userName);
     }
+
+    public void Menu(View view) {
+        startActivity(new Intent(DashBoard.this, Menu.class));
+    }
+
 }

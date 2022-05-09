@@ -29,10 +29,10 @@
     <string name="due_date">Due Date</string>
     <string name="projected_budget">Projected budget</string>
     <string name="expended">Expended</string>
-    <string name="budget">Budget</string>
+
     <string name="add_expense">Add Expense</string>
 
-    <string name="utilities">Utilities</string>
+
     <string name="skip">Skip</string>
     <string name="plus_sign_on_add_button">plus sign on add button</string>
     <string name="add">Add</string>
@@ -52,4 +52,12 @@
         <item>every 21<sup>st</sup></item><item>every 22<sup>nd</sup></item><item>every 23<sup>rd</sup></item><item>every 24<sup>th</sup></item><item>every 25<sup>th</sup></item><item>every 26<sup>th</sup></item><item>every 27<sup>th</sup></item><item>every 28<sup>th</sup></item><item>every 29<sup>th</sup></item><item>every 30<sup>th</sup></item>
         <item>every 31<sup>st</sup></item>
     </string-array>
+    <string name="account">Account</string>
+    <string name="utilities">Utilities</string>
+    <string name="subscriptions">Subscriptions</string>
+    <string name="credit_cards">Credit Cards</string>
+    <string name="budget">Budget</string>
+    <string name="notifications">Notifications</string>
+    <string name="sign_out">Sign out</string>
+    <string name="close_button">close_button</string>
 </resources>
