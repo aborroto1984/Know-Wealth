@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -85,5 +86,8 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
             TextView textView = findViewById(R.id.selectedDay);
             textView.setText(dayText);
         }
+    }
+    public void Menu(View view) {
+        startActivity(new Intent(DueDatesCalendar.this, Menu.class));
     }
 }

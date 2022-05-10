@@ -28,12 +28,7 @@ public class Menu extends AppCompatActivity {
         creditCardLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, CreditDatesProcessing.class)));
         budgetLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, BudgetAdd.class)));
         notifyLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, NotificationSettings.class)));
-        signOutLink.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        });
+        signOutLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, LoginActivity.class)));
     }
 
     public void backToPrevious(View view) {

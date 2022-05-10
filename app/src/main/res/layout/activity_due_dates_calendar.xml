@@ -31,6 +31,7 @@
             android:layout_weight="0.25"
             android:paddingEnd="6dp"
             android:paddingStart="0dp"
+            android:onClick="Menu"
             app:srcCompat="@drawable/ic_baseline_menu_24"
             android:contentDescription="@string/menu_button" />
 
