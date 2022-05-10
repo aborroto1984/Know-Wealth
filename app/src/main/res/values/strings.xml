@@ -26,7 +26,7 @@
     <string name="welcome">Welcome</string>
     <string name="name">Name</string>
     <string name="this_weeks_due_dates">This weeks due dates</string>
-    <string name="due_date">Due Date</string>
+
     <string name="projected_budget">Projected budget</string>
     <string name="expended">Expended</string>
 
@@ -60,4 +60,18 @@
     <string name="notifications">Notifications</string>
     <string name="sign_out">Sign out</string>
     <string name="close_button">close_button</string>
+    <string name="paid">Paid</string>
+    <string name="due_date">Due date</string>
+    <string name="_1">1</string>
+    <string name="f">F</string>
+    <string name="th">Th</string>
+    <string name="w">W</string>
+    <string name="t">T</string>
+    <string name="m">M</string>
+    <string name="s">S</string>
+    <string name="due_dates">Due Dates</string>
+    <string name="month">Month</string>
+    <string name="menu_button">Menu_button</string>
+    <string name="back_arrow_calendar"><![CDATA[<]]></string>
+    <string name="next_arrow_calendar"><![CDATA[>]]></string>
 </resources>
