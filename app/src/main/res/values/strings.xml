@@ -74,4 +74,6 @@
     <string name="menu_button">Menu_button</string>
     <string name="back_arrow_calendar"><![CDATA[<]]></string>
     <string name="next_arrow_calendar"><![CDATA[>]]></string>
+    <string name="account_info">Account Info</string>
+    <string name="Home">Home</string>
 </resources>

@@ -14,19 +14,19 @@ public class Menu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        TextView dashBoardLink = findViewById(R.id.dashBoardLink);
+        TextView editAccountLink = findViewById(R.id.accountInfoLink);
         TextView utilitiesLink = findViewById(R.id.utilitiesLink);
         TextView subsLInk = findViewById(R.id.subsLInk);
         TextView creditCardLink = findViewById(R.id.creditCardLink);
-        TextView budgetLink = findViewById(R.id.budgetLink);
+        TextView homeLink = findViewById(R.id.dashBoardLink);
         TextView notifyLink = findViewById(R.id.notifyLink);
         TextView signOutLink = findViewById(R.id.signOutLink);
 
-        dashBoardLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, DashBoard.class)));
+        editAccountLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, AccountEdit.class)));
         utilitiesLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, UtilityProcessing.class)));
         subsLInk.setOnClickListener(v -> startActivity(new Intent(Menu.this, SubscriptionProcessing.class)));
         creditCardLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, CreditDatesProcessing.class)));
-        budgetLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, BudgetAdd.class)));
+        homeLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, DashBoard.class)));
         notifyLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, NotificationSettings.class)));
         signOutLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, LoginActivity.class)));
     }
