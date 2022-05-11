@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
                    // }
                 //});
-        startActivity(new Intent(LoginActivity.this, DueDatesCalendar.class));
+        startActivity(new Intent(LoginActivity.this, DashBoard.class));
     }
 
 }

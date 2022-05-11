@@ -72,7 +72,9 @@ public class UtilityProcessing extends AppCompatActivity {
             }
         });
     }
-
+    public void Menu(View view) {
+        startActivity(new Intent(UtilityProcessing.this, Menu.class));
+    }
 
     private void showDialog(){
         Dialog dialog = new Dialog(this);
