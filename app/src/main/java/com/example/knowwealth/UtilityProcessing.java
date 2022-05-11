@@ -26,6 +26,7 @@ public class UtilityProcessing extends AppCompatActivity {
     FloatingActionButton closeBtn;
     ImageView backArrow;
     TextView skipNext;
+    User user = LoginActivity.user;
 
     //Recycler view fields
     ArrayList<String> utilities, dates;
@@ -41,7 +42,13 @@ public class UtilityProcessing extends AppCompatActivity {
 
         utilities = new ArrayList<>();
         dates = new ArrayList<>();
-
+        if (user.utilities.size() > 0) {
+            for (int i = 0; i <= user.utilities.size()-1; i++) {
+                User.UtilDate temp = user.utilities.get(i);
+                utilities.add(temp.getName());
+                dates.add(temp.getDueDay());
+            }
+        }
         backArrow = findViewById(R.id.backArrow2);
         skipNext = findViewById(R.id.skip_next);
         addBtn = findViewById(R.id.addButton);
@@ -96,6 +103,7 @@ public class UtilityProcessing extends AppCompatActivity {
                 String date = dueDateSpinner.getSelectedItem().toString();
                 utilities.add(utility);
                 dates.add(date);
+                user.utilities.add(new User.UtilDate(date,utility));
                 skipNext.setText("Next");
                 adapter.notifyDataSetChanged();
                 if (dialog.isShowing()) {

@@ -49,15 +49,17 @@ public class User {
     public void setEmail( String email){ this.email = email; }
 
     // Utilities
-    public class UtilDate{
-        private int dueDay;
+    public static class UtilDate{
+        private String dueDay;
         private String name;
 
         public UtilDate(){ }
         public UtilDate(String dueDay, String name){
-            this.dueDay = Integer.parseInt(dueDay);
+            this.dueDay = dueDay;
             this.name = name;
         }
+        public String getDueDay(){return dueDay;}
+        public String getName(){return name;}
     }
 
     // The rest of the processing screens data collected

@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
+    public static User user;
     private FirebaseAuth mAuth;
     final String TAG = "LoginActivity";
     @Override
@@ -69,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
                    // }
                 //});
-        User userName = new User();
+        user = new User();
         startActivity(new Intent(LoginActivity.this, DashBoard.class));
     }
 
