@@ -88,7 +88,7 @@
         app:layout_constraintStart_toEndOf="@+id/due_dates_week"
         app:layout_constraintTop_toTopOf="@+id/due_dates_week" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Due_List"
         android:layout_width="414dp"
         android:layout_height="144dp"
