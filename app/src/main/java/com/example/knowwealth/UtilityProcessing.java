@@ -60,6 +60,7 @@ public class UtilityProcessing extends AppCompatActivity {
         utilityList.setAdapter(adapter);
         utilityList.setLayoutManager(layoutManager);
 
+
         skipNext.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

@@ -1,6 +1,8 @@
 package com.example.knowwealth;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +68,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             text1 = itemView.findViewById(R.id.name_type);
             text2 = itemView.findViewById(R.id.amount_date);
             closeBtn = itemView.findViewById(R.id.closeButton);
+
+            String curAct = context.getClass().getName();
+            if(curAct.equals("com.example.knowwealth.UtilityProcessing")){
+                text1.setPadding(0,0,32,0);
+                text2.setPadding(0,0,64,0);
+                closeBtn.setVisibility(View.VISIBLE);
+                closeBtn.setPadding(0,0,32,0);
+
+            }
         }
     }
 }

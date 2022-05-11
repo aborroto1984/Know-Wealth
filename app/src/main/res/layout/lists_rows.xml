@@ -23,6 +23,7 @@
         android:background="#6B0B6374"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -33,20 +34,20 @@
             android:text="amount/ date"
             android:textColor="@color/main_color"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.60"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/closeButton"
+            app:layout_constraintHorizontal_bias="0.80"
+            app:layout_constraintStart_toStartOf="@id/name_type"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/name_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
             android:text="Name"
             android:textColor="@color/main_color"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.15"
+            app:layout_constraintEnd_toStartOf="@id/amount_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,12 +59,13 @@
             android:contentDescription="@string/add"
             android:rotation="45"
             android:scrollIndicators="none"
+            android:visibility="gone"
             app:backgroundTint="@color/main_color"
             app:fabCustomSize="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.85"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/amount_date"
             app:layout_constraintTop_toTopOf="parent"
             app:maxImageSize="15dp"
             app:srcCompat="@drawable/resource__"
