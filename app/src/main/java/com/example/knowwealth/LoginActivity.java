@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
                    // }
                 //});
+        User userName = new User();
         startActivity(new Intent(LoginActivity.this, DashBoard.class));
     }
 

@@ -16,6 +16,12 @@ public class User {
     List<Expense> expenses;
 
     // Constructors
+    public User(){
+        utilities = new ArrayList<>();
+        creditCards = new ArrayList<>();
+        Subscriptions = new ArrayList<>();
+        expenses = new ArrayList<>();
+    }
     public User(String fullName, String email){
         this.fullName = fullName;
         String[] getName = fullName.split(" ");
