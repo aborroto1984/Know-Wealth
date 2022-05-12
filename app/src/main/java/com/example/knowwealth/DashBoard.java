@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,7 +20,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class DashBoard extends AppCompatActivity {
+public class DashBoard extends AppCompatActivity implements GestureDetector.OnGestureListener{
 
     Button addExp;
 
@@ -29,6 +31,7 @@ public class DashBoard extends AppCompatActivity {
     RecyclerView utilityList;
     RecyclerView.LayoutManager  layoutManager;
     RecyclerView.Adapter adapter;
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +71,82 @@ public class DashBoard extends AppCompatActivity {
                 startActivity(new Intent(DashBoard.this, MonthlyExpenses.class));
             }
         });
+
+        gestureDetector = new GestureDetector(this);
     }
 
     public void Menu(View view) {
         startActivity(new Intent(DashBoard.this, Menu.class));
     }
 
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent downEvent, MotionEvent motionEvent, float x, float y) {
+        boolean result = false;
+        float diffY = motionEvent.getY() - downEvent.getY();
+        float diffX = motionEvent.getX() - downEvent.getX();
+
+        if (Math.abs(diffX) > 100 && Math.abs(x) > 100){
+            if (diffX > 0){
+                onSwipeRight();
+            }else{
+                onSwipeLeft();
+            }
+            result = true;
+        }else{
+            if (Math.abs(diffY) > 100 && Math.abs(y) > 100){
+                if (diffX > 0){
+                    onSwipeBottom();
+                }else{
+                    onSwipeTop();
+                }
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
+    private void onSwipeTop() {
+    }
+
+    private void onSwipeBottom() {
+    }
+
+    private void onSwipeLeft() {
+        startActivity(new Intent(DashBoard.this, DueDatesCalendar.class));
+    }
+
+    private void onSwipeRight() {
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
 }
