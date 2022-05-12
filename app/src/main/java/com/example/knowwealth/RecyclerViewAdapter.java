@@ -5,28 +5,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.util.Strings;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     ArrayList<String> utilities;
-    ArrayList<String> dueDates;
+    ArrayList<String> uDates;
     FloatingActionButton closeBtn;
     Context context;
 
-    public RecyclerViewAdapter (Context ct, ArrayList<String> utilities, ArrayList<String> dueDates, FloatingActionButton closeBtn){
+    public RecyclerViewAdapter (Context ct, ArrayList<String> utilities, ArrayList<String> uDates, FloatingActionButton closeBtn){
         this.utilities = utilities;
-        this.dueDates = dueDates;
+        this.uDates = uDates;
         this.closeBtn = closeBtn;
         this.context = ct;
     }
@@ -41,12 +37,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.text1.setText(utilities.get(position));
-        holder.text2.setText(dueDates.get(position));
+        holder.text2.setText(uDates.get(position));
         holder.closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 utilities.remove(position);
-                dueDates.remove(position);
+                uDates.remove(position);
                 notifyDataSetChanged();
             }
         });

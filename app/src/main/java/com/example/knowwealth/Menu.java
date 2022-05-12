@@ -23,7 +23,7 @@ public class Menu extends AppCompatActivity {
         TextView signOutLink = findViewById(R.id.signOutLink);
 
         dashBoardLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, DashBoard.class)));
-        utilitiesLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, UtilityProcessing.class)));
+        utilitiesLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, ProcessingScreens.class)));
         subsLInk.setOnClickListener(v -> startActivity(new Intent(Menu.this, SubscriptionProcessing.class)));
         creditCardLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, CreditDatesProcessing.class)));
         budgetLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, BudgetAdd.class)));
