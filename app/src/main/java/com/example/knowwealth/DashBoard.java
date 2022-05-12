@@ -20,8 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DashBoard extends AppCompatActivity {
 
-    Button addBtn;
-    FloatingActionButton closeBtn;
+    Button addExp;
 
     User user = LoginActivity.user;
 
@@ -61,6 +60,14 @@ public class DashBoard extends AppCompatActivity {
             utilityList.setAdapter(adapter);
             utilityList.setLayoutManager(layoutManager);
         }
+        addExp = findViewById(R.id.add_expense_button);
+
+        addExp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(DashBoard.this, MonthlyExpenses.class));
+            }
+        });
     }
 
     public void Menu(View view) {
