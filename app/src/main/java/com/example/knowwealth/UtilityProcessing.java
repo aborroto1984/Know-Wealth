@@ -42,6 +42,8 @@ public class UtilityProcessing extends AppCompatActivity {
 
         utilities = new ArrayList<>();
         dates = new ArrayList<>();
+
+        //repopulates utilities and dates from user class
         if (user.utilities.size() > 0) {
             for (int i = 0; i <= user.utilities.size()-1; i++) {
                 User.UtilDate temp = user.utilities.get(i);
@@ -49,12 +51,12 @@ public class UtilityProcessing extends AppCompatActivity {
                 dates.add(temp.getDueDay());
             }
         }
+
         backArrow = findViewById(R.id.backArrow2);
         skipNext = findViewById(R.id.skip_next);
         addBtn = findViewById(R.id.addButton);
         closeBtn = findViewById(R.id.closeButton);
         utilityList = (RecyclerView) findViewById(R.id.utilityDueDatesList);
-
         adapter = new RecyclerViewAdapter(this, utilities, dates, closeBtn);
         layoutManager = new LinearLayoutManager(this);
         utilityList.setAdapter(adapter);

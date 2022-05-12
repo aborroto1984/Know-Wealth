@@ -10,7 +10,7 @@ public class User {
     private static String email;
 
     // Data fields
-    List<UtilDate> utilities;
+    static List<UtilDate> utilities;
     List<CreditDate> creditCards;
     List<SubscriptDate> Subscriptions;
     List<Expense> expenses;
@@ -61,7 +61,15 @@ public class User {
         public String getDueDay(){return dueDay;}
         public String getName(){return name;}
     }
-
+    // method to remove deleted entries
+    public static void deleteFromList(String removeDueDay, String removeName){
+        for (int i = 0; i < utilities.size() -1; i++) {
+            UtilDate data = utilities.get(i);
+            if(data.name.equals(removeName) && data.dueDay.equals(removeDueDay)){
+                utilities.remove(i);
+            }
+        }
+    }
     // The rest of the processing screens data collected
     public class CreditDate extends UtilDate{}
     public class SubscriptDate extends UtilDate{}

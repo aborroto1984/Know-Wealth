@@ -47,6 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                User.deleteFromList(dueDates.get(position),utilities.get(position));
                 utilities.remove(position);
                 dueDates.remove(position);
                 notifyDataSetChanged();
@@ -69,6 +70,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             text2 = itemView.findViewById(R.id.amount_date);
             closeBtn = itemView.findViewById(R.id.closeButton);
 
+            //checks active activity to adjust layout of view
             String curAct = context.getClass().getName();
             if(curAct.equals("com.example.knowwealth.UtilityProcessing")){
                 text1.setPadding(0,0,32,0);
