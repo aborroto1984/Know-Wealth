@@ -27,6 +27,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
     RecyclerView utilityList;
     RecyclerView.LayoutManager  layoutManager;
     RecyclerView.Adapter adapter;
+    Calendar calendar = Calendar.getInstance();
     private GestureDetector gestureDetector;
 
     @Override
@@ -35,7 +36,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         setContentView(R.layout.activity_dash_board);
 
         //used to add current date to display
-        Calendar calendar = Calendar.getInstance();
+
         String curDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         TextView viewDate = findViewById(R.id.view_date);
         viewDate.setText(curDate);
@@ -48,41 +49,37 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         name = new ArrayList<>();
         data = new ArrayList<>();
 
-        if (user.utilities.size() > 0 || user.creditCards.size() > 0 || user.subscriptions.size() > 0 || user.expenses.size() > 0) {
             if(user.utilities.size() > 0) {
                 for (int i = 0; i <= user.utilities.size() - 1; i++) {
                     User.UtilDate temp = user.utilities.get(i);
-                    name.add(temp.getName());
-                    data.add(temp.getDueDay());
+                    addToList(temp);
                 }
             }
             if(user.creditCards.size() > 0) {
                 for (int i = 0; i <= user.creditCards.size() - 1; i++) {
                     User.UtilDate temp = user.creditCards.get(i);
-                    name.add(temp.getName());
-                    data.add(temp.getDueDay());
+                    addToList(temp);
                 }
             }
             if(user.subscriptions.size() > 0) {
                 for (int i = 0; i <= user.subscriptions.size() - 1; i++) {
                     User.UtilDate temp = user.subscriptions.get(i);
-                    name.add(temp.getName());
-                    data.add(temp.getDueDay());
+                    addToList(temp);
                 }
             }
             if(user.expenses.size() > 0) {
                 for (int i = 0; i <= user.expenses.size() - 1; i++) {
                     User.UtilDate temp = user.expenses.get(i);
-                    name.add(temp.getName());
-                    data.add(temp.getDueDay());
+                    addToList(temp);
                 }
             }
-            utilityList = (RecyclerView) findViewById(R.id.Due_List);
-            adapter = new RecyclerViewAdapter(this, name, data, null);
-            layoutManager = new LinearLayoutManager(this);
-            utilityList.setAdapter(adapter);
-            utilityList.setLayoutManager(layoutManager);
-        }
+            if (name.size() > 0) {
+                utilityList = (RecyclerView) findViewById(R.id.Due_List);
+                adapter = new RecyclerViewAdapter(this, name, data, null);
+                layoutManager = new LinearLayoutManager(this);
+                utilityList.setAdapter(adapter);
+                utilityList.setLayoutManager(layoutManager);
+            }
         addExp = findViewById(R.id.add_expense_button);
 
         addExp.setOnClickListener(new View.OnClickListener(){
@@ -95,6 +92,18 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         gestureDetector = new GestureDetector(this);
     }
 
+    private void addToList(User.UtilDate temp){
+        String[] tempdayNum = temp.getDueDay().split(" ");
+        String dayNum = tempdayNum[1];
+        int dayLength = dayNum.length();
+        dayNum = dayNum.substring(0,dayLength -2);
+        dayLength = Integer.parseInt(dayNum);
+        int today = calendar.get(Calendar.DAY_OF_MONTH);
+        if (dayLength >= today && dayLength < today + 7) {
+            name.add(temp.getName());
+            data.add(temp.getDueDay());
+        }
+    }
     public void Menu(View view) {
         startActivity(new Intent(DashBoard.this, Menu.class));
     }
