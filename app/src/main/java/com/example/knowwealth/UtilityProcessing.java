@@ -26,7 +26,6 @@ public class UtilityProcessing extends AppCompatActivity {
     FloatingActionButton closeBtn;
     ImageView backArrow;
     TextView skipNext;
-    User user = LoginActivity.user;
 
     //Recycler view fields
     ArrayList<String> utilities, dates;
@@ -43,25 +42,16 @@ public class UtilityProcessing extends AppCompatActivity {
         utilities = new ArrayList<>();
         dates = new ArrayList<>();
 
-        //repopulates utilities and dates from user class
-        if (user.utilities.size() > 0) {
-            for (int i = 0; i <= user.utilities.size()-1; i++) {
-                User.UtilDate temp = user.utilities.get(i);
-                utilities.add(temp.getName());
-                dates.add(temp.getDueDay());
-            }
-        }
-
         backArrow = findViewById(R.id.backArrow2);
         skipNext = findViewById(R.id.skip_next);
         addBtn = findViewById(R.id.addButton);
         closeBtn = findViewById(R.id.closeButton);
         utilityList = (RecyclerView) findViewById(R.id.utilityDueDatesList);
+
         adapter = new RecyclerViewAdapter(this, utilities, dates, closeBtn);
         layoutManager = new LinearLayoutManager(this);
         utilityList.setAdapter(adapter);
         utilityList.setLayoutManager(layoutManager);
-
 
         skipNext.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -82,9 +72,7 @@ public class UtilityProcessing extends AppCompatActivity {
             }
         });
     }
-    public void Menu(View view) {
-        startActivity(new Intent(UtilityProcessing.this, Menu.class));
-    }
+
 
     private void showDialog(){
         Dialog dialog = new Dialog(this);
@@ -106,7 +94,6 @@ public class UtilityProcessing extends AppCompatActivity {
                 String date = dueDateSpinner.getSelectedItem().toString();
                 utilities.add(utility);
                 dates.add(date);
-                user.utilities.add(new User.UtilDate(date,utility));
                 skipNext.setText("Next");
                 adapter.notifyDataSetChanged();
                 if (dialog.isShowing()) {
@@ -114,6 +101,8 @@ public class UtilityProcessing extends AppCompatActivity {
                 }
             }
         });
+
+
 
     }
 

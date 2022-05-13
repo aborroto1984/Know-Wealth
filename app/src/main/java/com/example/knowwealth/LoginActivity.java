@@ -20,9 +20,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    public static User user;
     private FirebaseAuth mAuth;
     final String TAG = "LoginActivity";
+    public static User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,13 @@ public class LoginActivity extends AppCompatActivity {
                    // }
                 //});
         user = new User();
-        startActivity(new Intent(LoginActivity.this, DashBoard.class));
+        if (!user.getProcessingCompleted()){
+            user.setCurrentActivity("utility");
+            startActivity(new Intent(LoginActivity.this, ProcessingScreens.class));
+        }else{
+            startActivity( new Intent(LoginActivity.this, DashBoard.class));
+        }
+
     }
 
 }

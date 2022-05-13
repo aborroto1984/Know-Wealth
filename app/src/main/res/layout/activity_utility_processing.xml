@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UtilityProcessing"
+    tools:context=".ProcessingScreens"
     tools:ignore="ExtraText">
     tools:ignore="RtlSymmetry"
 
@@ -49,7 +49,7 @@
         tools:ignore="UnknownIdInLayout" />
 
     <TextView
-        android:id="@+id/createAccountText2"
+        android:id="@+id/pageTitle"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:text="@string/utilities"
@@ -139,6 +139,6 @@
         app:layout_constraintBottom_toTopOf="@+id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAccountText2" />
+        app:layout_constraintTop_toBottomOf="@+id/pageTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

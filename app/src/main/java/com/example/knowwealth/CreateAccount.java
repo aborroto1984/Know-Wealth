@@ -40,19 +40,21 @@ public class CreateAccount extends AppCompatActivity {
         createAccountButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                if(userIdCreateAccount.getText().toString().isEmpty()){
-                    Toast.makeText(CreateAccount.this, "Email cannot be blank.",
-                            Toast.LENGTH_SHORT).show();
-                }else if(passwordCreateAccount1.getText().toString().isEmpty()) {
-                    Toast.makeText(CreateAccount.this, "Password cannot be blank.",
-                            Toast.LENGTH_SHORT).show();
-                }else if(!passwordCreateAccount1.getText().toString().equals(passwordVerify.getText().toString())){
-                    Toast.makeText(CreateAccount.this, "Passwords do not match.",
-                            Toast.LENGTH_LONG).show();
-                } else{
-                    User userName = new User(fullName.getText().toString(), userIdCreateAccount.getText().toString());
-                    createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
-                }
+//                if(userIdCreateAccount.getText().toString().isEmpty()){
+//                    Toast.makeText(CreateAccount.this, "Email cannot be blank.",
+//                            Toast.LENGTH_SHORT).show();
+//                }else if(passwordCreateAccount1.getText().toString().isEmpty()) {
+//                    Toast.makeText(CreateAccount.this, "Password cannot be blank.",
+//                            Toast.LENGTH_SHORT).show();
+//                }else if(!passwordCreateAccount1.getText().toString().equals(passwordVerify.getText().toString())){
+//                    Toast.makeText(CreateAccount.this, "Passwords do not match.",
+//                            Toast.LENGTH_LONG).show();
+//                } else{
+//                    User userName = new User(fullName.getText().toString(), userIdCreateAccount.getText().toString());
+//                    createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
+//                }
+
+                startActivity(new Intent(CreateAccount.this, ProcessingScreens.class));
             }
         });
 
