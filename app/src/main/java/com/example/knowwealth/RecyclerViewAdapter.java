@@ -88,7 +88,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             //checks active activity to adjust layout of view
             String curAct = context.getClass().getName();
-            if(curAct.equals("com.example.knowwealth.UtilityProcessing")){
+            if(curAct.equals("com.example.knowwealth.ProccessingScreens")){
                 text1.setPadding(0,0,32,0);
                 text2.setPadding(0,0,64,0);
                 closeBtn.setVisibility(View.VISIBLE);
