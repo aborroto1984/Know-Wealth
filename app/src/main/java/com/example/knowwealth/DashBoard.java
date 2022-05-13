@@ -15,10 +15,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DashBoard extends AppCompatActivity implements GestureDetector.OnGestureListener{
 
@@ -27,7 +23,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
     User user = LoginActivity.user;
 
     //Recycler view fields
-    ArrayList<String> utilities, dates;
+    ArrayList<String> name, data;
     RecyclerView utilityList;
     RecyclerView.LayoutManager  layoutManager;
     RecyclerView.Adapter adapter;
@@ -38,27 +34,51 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
 
+        //used to add current date to display
         Calendar calendar = Calendar.getInstance();
         String curDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-
         TextView viewDate = findViewById(R.id.view_date);
         viewDate.setText(curDate);
 
+        //Added user name to display
         String userName = User.getFirstName();
         TextView userFirstName = findViewById(R.id.view_Name);
         userFirstName.setText(userName);
 
-        utilities = new ArrayList<>();
-        dates = new ArrayList<>();
+        name = new ArrayList<>();
+        data = new ArrayList<>();
 
-        if (user.utilities.size() > 0) {
-            for (int i = 0; i <= user.utilities.size()-1; i++) {
-                User.UtilDate temp = user.utilities.get(i);
-                utilities.add(temp.getName());
-                dates.add(temp.getDueDay());
+        if (user.utilities.size() > 0 || user.creditCards.size() > 0 || user.subscriptions.size() > 0 || user.expenses.size() > 0) {
+            if(user.utilities.size() > 0) {
+                for (int i = 0; i <= user.utilities.size() - 1; i++) {
+                    User.UtilDate temp = user.utilities.get(i);
+                    name.add(temp.getName());
+                    data.add(temp.getDueDay());
+                }
+            }
+            if(user.creditCards.size() > 0) {
+                for (int i = 0; i <= user.creditCards.size() - 1; i++) {
+                    User.UtilDate temp = user.creditCards.get(i);
+                    name.add(temp.getName());
+                    data.add(temp.getDueDay());
+                }
+            }
+            if(user.subscriptions.size() > 0) {
+                for (int i = 0; i <= user.subscriptions.size() - 1; i++) {
+                    User.UtilDate temp = user.subscriptions.get(i);
+                    name.add(temp.getName());
+                    data.add(temp.getDueDay());
+                }
+            }
+            if(user.expenses.size() > 0) {
+                for (int i = 0; i <= user.expenses.size() - 1; i++) {
+                    User.UtilDate temp = user.expenses.get(i);
+                    name.add(temp.getName());
+                    data.add(temp.getDueDay());
+                }
             }
             utilityList = (RecyclerView) findViewById(R.id.Due_List);
-            adapter = new RecyclerViewAdapter(this, utilities, dates, null);
+            adapter = new RecyclerViewAdapter(this, name, data, null);
             layoutManager = new LinearLayoutManager(this);
             utilityList.setAdapter(adapter);
             utilityList.setLayoutManager(layoutManager);
