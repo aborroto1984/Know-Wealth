@@ -1,23 +1,17 @@
 package com.example.knowwealth;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.util.Strings;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
@@ -36,7 +30,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.lists_rows, parent, false);
+
+        View view = inflater.inflate(R.layout.lists_rows_dashboard, parent, false);
+
+        //checks active activity to adjust layout of view
+        String curAct = context.getClass().getName();
+        if(curAct.equals("com.example.knowwealth.ProcessingScreens")){
+            view = inflater.inflate(R.layout.list_rows_processing, parent, false);
+        }else if (curAct.equals("com.example.knowwealth.DashBoard")){
+            view = inflater.inflate(R.layout.lists_rows_dashboard, parent, false);
+        }else if (curAct.equals("com.example.knowwealth.DueDatesCalendar")){
+            view = inflater.inflate(R.layout.list_rows_calendar, parent, false);
+        }
+
+
         return new MyViewHolder(view);
     }
 
@@ -84,15 +91,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             text2 = itemView.findViewById(R.id.amount_date);
             closeBtn = itemView.findViewById(R.id.closeButton);
 
-            //checks active activity to adjust layout of view
-            String curAct = context.getClass().getName();
-            if(curAct.equals("com.example.knowwealth.ProccessingScreens")){
-                text1.setPadding(0,0,32,0);
-                text2.setPadding(0,0,64,0);
-                closeBtn.setVisibility(View.VISIBLE);
-                closeBtn.setPadding(0,0,32,0);
 
-            }
+            //checks active activity to adjust layout of view
+//            String curAct = context.getClass().getName();
+//            if(curAct.equals("com.example.knowwealth.ProcessingScreens")){
+//                text1.layout(40, 0,0, 0);
+//                text1.setPadding(0,0,32,0);
+//                text2.setPadding(0,0,64,0);
+//                closeBtn.setVisibility(View.VISIBLE);
+//                closeBtn.setPadding(0,0,32,0);
+//
+//            }
         }
     }
 }

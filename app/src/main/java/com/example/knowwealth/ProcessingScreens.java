@@ -8,7 +8,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +43,7 @@ public class ProcessingScreens extends AppCompatActivity {
     ArrayList<String> expenses, eAmounts;
     ArrayList<String> budgets, bAmounts;
 
+    ArrayList<String> spinnerOptions = new ArrayList<>();
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager  layoutManager;
@@ -180,8 +185,14 @@ public class ProcessingScreens extends AppCompatActivity {
         addOther.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                otherDescription = description.getText().toString();
+
                 if (otherDialog.isShowing()) {
+                    otherDescription = description.getText().toString();
+                    spinnerOptions.add(spinnerOptions.size()-1, otherDescription);
+
+//                    Need to add this to change the item selected in the spinner after the other dialog closes
+//                    dialog.utilitySpinner.setSelection(spinnerOptions.size()-1);
+
                     otherDialog.dismiss();
                 }
             }
@@ -204,7 +215,6 @@ public class ProcessingScreens extends AppCompatActivity {
         FloatingActionButton addValueBtn = dialog.findViewById(R.id.addValueButton);
 
         //Creating a spinner adapter
-        ArrayList<String> spinnerOptions = new ArrayList<>();
         switch (currentActivity){
             case "utility":
                 description.setText("Utility Type");
@@ -234,6 +244,21 @@ public class ProcessingScreens extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         utilitySpinner.setAdapter(spinnerAdapter);
 
+        utilitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (utilitySpinner.getSelectedItem().toString().equals("Other")){
+                    showAddOtherDialog();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+
+
+        });
 
         addValueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
