@@ -9,9 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,6 +28,7 @@ public class ProcessingScreens extends AppCompatActivity {
     TextView skipNext;
     TextView pageTitle;
     User user = LoginActivity.user;
+    String otherDescription;
 
     String currentActivity;
     boolean processingCompleted;
@@ -135,7 +136,7 @@ public class ProcessingScreens extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                showDialog();
+                showAddValueDialog();
             }
         });
     }
@@ -165,7 +166,30 @@ public class ProcessingScreens extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
     }
 
-    private void showDialog(){
+    private void showAddOtherDialog(){
+        Dialog otherDialog = new Dialog(this);
+        otherDialog.setContentView(R.layout.add_other_dialog);
+        otherDialog.setCancelable(true);
+        otherDialog.show();
+
+        //Initializing the views of the otherDialog
+        TextView title = otherDialog.findViewById(R.id.descriptionTitle);
+        EditText description = otherDialog.findViewById(R.id.otherDescription);
+        Button addOther = otherDialog.findViewById(R.id.addOther);
+
+        addOther.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otherDescription = description.getText().toString();
+                if (otherDialog.isShowing()) {
+                    otherDialog.dismiss();
+                }
+            }
+        });
+
+    }
+
+    private void showAddValueDialog(){
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_utility_dialog);
         // This closes the dialog if the user clicks outside the dialog
@@ -173,6 +197,8 @@ public class ProcessingScreens extends AppCompatActivity {
         dialog.show();
 
         //Initializing the views of the dialog
+        TextView description = dialog.findViewById(R.id.descriptionTitle);
+        TextView dueDate = dialog.findViewById(R.id.dueDateText);
         Spinner utilitySpinner = dialog.findViewById(R.id.utilityTypeSpinner);
         Spinner dueDateSpinner = dialog.findViewById(R.id.dueDateSpinner);
         FloatingActionButton addValueBtn = dialog.findViewById(R.id.addValueButton);
@@ -181,21 +207,25 @@ public class ProcessingScreens extends AppCompatActivity {
         ArrayList<String> spinnerOptions = new ArrayList<>();
         switch (currentActivity){
             case "utility":
+                description.setText("Utility Type");
                 spinnerOptions.add("Mortgage / Rent"); spinnerOptions.add("Power"); spinnerOptions.add("Water");
                 spinnerOptions.add("Cable / Satellite"); spinnerOptions.add("Internet"); spinnerOptions.add("Cell Phone"); spinnerOptions.add("Car Payment");
                 spinnerOptions.add("Other");
                 break;
             case "subscriptions":
+                description.setText("Subscription Name");
                 spinnerOptions.add("HBO Max"); spinnerOptions.add("Hulu"); spinnerOptions.add("Netflix");
                 spinnerOptions.add("Disney+"); spinnerOptions.add("Apple TV+"); spinnerOptions.add("Prime Video"); spinnerOptions.add("Sling TV");
                 spinnerOptions.add("Other");
                 break;
             case "creditCards":
+                description.setText("Card Name");
                 spinnerOptions.add("American Express"); spinnerOptions.add("Discover"); spinnerOptions.add("Wells Fargo");
                 spinnerOptions.add("Capital One"); spinnerOptions.add("U.S Bank"); spinnerOptions.add("Citi"); spinnerOptions.add("Bank of America");
                 spinnerOptions.add("Other");
                 break;
             case "expenses":
+                description.setText("Expense Type");
                 spinnerOptions.add("Food"); spinnerOptions.add("Groceries"); spinnerOptions.add("Gas");
                 spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Other");
                 break;
@@ -208,8 +238,6 @@ public class ProcessingScreens extends AppCompatActivity {
         addValueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 String name = utilitySpinner.getSelectedItem().toString();
                 String data = dueDateSpinner.getSelectedItem().toString();
                 populateLists(name, data);
