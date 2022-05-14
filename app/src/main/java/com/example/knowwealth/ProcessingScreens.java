@@ -138,6 +138,20 @@ public class ProcessingScreens extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed(){
+        if (processingCompleted){finish();}
+        else if(currentActivity.equals("utility")){
+            finish();
+        }else if (currentActivity.equals("subscriptions")){
+            user.setCurrentActivity("utility");
+            refreshActivity();
+        }else if (currentActivity.equals("creditCards")){
+            user.setCurrentActivity("subscriptions");
+            refreshActivity();
+        }
+    }
+
     private void refreshActivity(){
         finish();
         startActivity(getIntent());
