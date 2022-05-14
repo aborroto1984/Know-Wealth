@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -175,9 +177,38 @@ public class ProcessingScreens extends AppCompatActivity {
         Spinner dueDateSpinner = dialog.findViewById(R.id.dueDateSpinner);
         FloatingActionButton addValueBtn = dialog.findViewById(R.id.addValueButton);
 
+        //Creating a spinner adapter
+        ArrayList<String> spinnerOptions = new ArrayList<>();
+        switch (currentActivity){
+            case "utility":
+                spinnerOptions.add("Mortgage / Rent"); spinnerOptions.add("Power"); spinnerOptions.add("Water");
+                spinnerOptions.add("Cable / Satellite"); spinnerOptions.add("Internet"); spinnerOptions.add("Cell Phone"); spinnerOptions.add("Car Payment");
+                spinnerOptions.add("Other");
+                break;
+            case "subscriptions":
+                spinnerOptions.add("HBO Max"); spinnerOptions.add("Hulu"); spinnerOptions.add("Netflix");
+                spinnerOptions.add("Disney+"); spinnerOptions.add("Apple TV+"); spinnerOptions.add("Prime Video"); spinnerOptions.add("Sling TV");
+                spinnerOptions.add("Other");
+                break;
+            case "creditCards":
+                spinnerOptions.add("American Express"); spinnerOptions.add("Discover"); spinnerOptions.add("Wells Fargo");
+                spinnerOptions.add("Capital One"); spinnerOptions.add("U.S Bank"); spinnerOptions.add("Citi"); spinnerOptions.add("Bank of America");
+                spinnerOptions.add("Other");
+                break;
+            case "expenses":
+                spinnerOptions.add("Food"); spinnerOptions.add("Groceries"); spinnerOptions.add("Gas");
+                spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Other");
+                break;
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        utilitySpinner.setAdapter(spinnerAdapter);
+
+
         addValueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 String name = utilitySpinner.getSelectedItem().toString();
                 String data = dueDateSpinner.getSelectedItem().toString();
