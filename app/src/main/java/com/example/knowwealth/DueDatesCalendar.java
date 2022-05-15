@@ -2,6 +2,7 @@ package com.example.knowwealth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapter.OnItemListener{
@@ -20,6 +22,12 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
+    RecyclerView itemList;
+    RecyclerView.LayoutManager  layoutManager;
+    RecyclerView.Adapter adapter;
+    User user = LoginActivity.user;
+    String dayText;
+    ArrayList<String> name, data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,10 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         setMonthView();
         TextView textView = findViewById(R.id.selectedDay);
         textView.setText(dayFromDate(selectedDate));
+
+        name = new ArrayList<>();
+        data = new ArrayList<>();
+        updateListview();
     }
 
     private void setMonthView() {
@@ -83,11 +95,70 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         setMonthView();
     }
     @Override
-    public void onItemClick(int position, String dayText) {
-        if (!dayText.equals("")) {
+    public void onItemClick(int position, String _dayText) {
+        if (!_dayText.equals("")) {
             TextView textView = findViewById(R.id.selectedDay);
-            textView.setText(dayText);
+            textView.setText(_dayText);
+            dayText = _dayText;
+            updateListview();
         }
+    }
+
+    private void addToList(User.UtilDate temp){
+        int today = 1;
+        String[] tempdayNum = temp.getDueDay().split(" ");
+        String dayNum = tempdayNum[1];
+        int dayLength = dayNum.length();
+        dayNum = dayNum.substring(0,dayLength -2);
+        dayLength = Integer.parseInt(dayNum);
+        if (dayText == null){
+            today = Integer.parseInt(dayFromDate(selectedDate));
+        }else {
+            today = Integer.parseInt(dayText);
+        }
+        if (dayLength == today) {
+            name.add(temp.getName());
+            data.add(temp.getDueDay());
+        }
+    }
+    private void updateListview(){
+        name.clear();
+        data.clear();
+
+        if(user.utilities.size() > 0) {
+            for (int i = 0; i <= user.utilities.size() - 1; i++) {
+                User.UtilDate temp = user.utilities.get(i);
+                addToList(temp);
+            }
+        }
+        if(user.creditCards.size() > 0) {
+            for (int i = 0; i <= user.creditCards.size() - 1; i++) {
+                User.UtilDate temp = user.creditCards.get(i);
+                addToList(temp);
+            }
+        }
+        if(user.subscriptions.size() > 0) {
+            for (int i = 0; i <= user.subscriptions.size() - 1; i++) {
+                User.UtilDate temp = user.subscriptions.get(i);
+                addToList(temp);
+            }
+        }
+        if(user.expenses.size() > 0) {
+            for (int i = 0; i <= user.expenses.size() - 1; i++) {
+                User.UtilDate temp = user.expenses.get(i);
+                addToList(temp);
+            }
+        }
+        if (name.size() > 0 && adapter == null) {
+            itemList = (RecyclerView) findViewById(R.id.items_List);
+            adapter = new RecyclerViewAdapter(this, name, data, null);
+            layoutManager = new LinearLayoutManager(this);
+            itemList.setAdapter(adapter);
+            itemList.setLayoutManager(layoutManager);
+        }else if(adapter != null){
+            adapter.notifyDataSetChanged();
+        }
+
     }
     public void Menu(View view) {
         startActivity(new Intent(DueDatesCalendar.this, Menu.class));
