@@ -61,8 +61,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     case "expenses":
                         User.deleteFromList(data.get(position), name.get(position), User.expenses);
                         break;
-
-
                 }
                 name.remove(position);
                 data.remove(position);
@@ -86,14 +84,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             text2 = itemView.findViewById(R.id.amount_date);
             closeBtn = itemView.findViewById(R.id.closeButton);
 
-            //checks active activity to adjust layout of view
+            //checks active activity to adjust layout of lists
             String curAct = context.getClass().getName();
-            if(curAct.equals("com.example.knowwealth.ProccessingScreens")){
+            if(curAct.equals("com.example.knowwealth.ProcessingScreens")){
                 text1.setPadding(0,0,32,0);
-                text2.setPadding(0,0,64,0);
+                text2.setPadding(0,0,32,0);
                 closeBtn.setVisibility(View.VISIBLE);
-                closeBtn.setPadding(0,0,32,0);
-
+                closeBtn.setPadding(0,0,45,0);
             }
         }
     }

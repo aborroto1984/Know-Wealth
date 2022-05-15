@@ -28,6 +28,8 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
+        TextView textView = findViewById(R.id.selectedDay);
+        textView.setText(dayFromDate(selectedDate));
     }
 
     private void setMonthView() {
