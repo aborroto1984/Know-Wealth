@@ -143,7 +143,7 @@ public class ProcessingScreens extends AppCompatActivity {
         startActivity(getIntent());
     }
     private void setRecyclerView(Context ct, ArrayList<String> names, ArrayList<String> dueDates, FloatingActionButton closeBtn){
-        adapter = new RecyclerViewAdapter(ct, names, dueDates, closeBtn);
+        adapter = new RecyclerViewAdapter(ct, names, dueDates, closeBtn, null);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);

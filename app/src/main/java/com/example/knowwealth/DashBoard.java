@@ -75,7 +75,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             }
             if (name.size() > 0) {
                 dueList = (RecyclerView) findViewById(R.id.Due_List);
-                adapter = new RecyclerViewAdapter(this, name, data, null);
+                adapter = new RecyclerViewAdapter(this, name, data, null, null);
                 layoutManager = new LinearLayoutManager(this);
                 dueList.setAdapter(adapter);
                 dueList.setLayoutManager(layoutManager);

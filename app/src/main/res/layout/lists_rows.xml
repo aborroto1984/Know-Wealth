@@ -77,7 +77,6 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:contentDescription="@string/add"
-            android:rotation="45"
             android:scrollIndicators="none"
             app:backgroundTint="@color/main_color"
             app:fabCustomSize="30dp"
