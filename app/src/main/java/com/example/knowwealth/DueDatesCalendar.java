@@ -29,29 +29,29 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     RecyclerView.Adapter adapter;
     User user = LoginActivity.user;
     String dayText;
-    ArrayList<String> name, data;
+    ArrayList<String> name, data, daysInMonth;
+    ArrayList<Integer> eventOnDay;
     MaterialCheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_due_dates_calendar);
+        name = new ArrayList<>();
+        data = new ArrayList<>();
+        eventOnDay = new ArrayList<>();
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
         TextView textView = findViewById(R.id.selectedDay);
         textView.setText(dayFromDate(selectedDate));
-
-        name = new ArrayList<>();
-        data = new ArrayList<>();
         updateListview();
     }
 
     private void setMonthView() {
         monthYearText.setText(monthYearFromDate(selectedDate));
-        ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
-
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        daysInMonth = daysInMonthArray(selectedDate);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this, eventOnDay);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
@@ -59,6 +59,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
 
     private ArrayList<String> daysInMonthArray(LocalDate date){
         ArrayList<String> daysInMonthArray = new ArrayList<>();
+        eventOnDay.clear();
         YearMonth yearMonth = YearMonth.from(date);
 
         int daysInMonth = yearMonth.lengthOfMonth();
@@ -72,6 +73,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
             }else{
                 daysInMonthArray.add(String.valueOf(i-dayOfWeek));
             }
+            eventOnDay.add(4);
         }
         return daysInMonthArray;
     }
@@ -91,11 +93,13 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     public void previousMonthAction(View view){
         selectedDate = selectedDate.minusMonths(1);
         setMonthView();
+        updateListview();
     }
 
     public void nextMonthAction(View view){
         selectedDate = selectedDate.plusMonths(1);
         setMonthView();
+        updateListview();
     }
     @Override
     public void onItemClick(int position, String _dayText) {
@@ -123,6 +127,11 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
             name.add(temp.getName());
             data.add(temp.getDueDay());
         }
+        int i = -1;
+        do {
+            i++;
+        }while (!dayNum.equals(daysInMonth.get(i)));
+        eventOnDay.set(i, 0);
     }
     private void updateListview(){
         name.clear();
