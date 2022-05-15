@@ -85,7 +85,8 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         addExp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                startActivity(new Intent(DashBoard.this, MonthlyExpenses.class));
+                user.setCurrentActivity("expenses");
+                startActivity(new Intent(DashBoard.this, ProcessingScreens.class));
             }
         });
 

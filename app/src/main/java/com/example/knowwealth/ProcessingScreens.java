@@ -8,7 +8,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,32 +18,40 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProcessingScreens extends AppCompatActivity {
 
+    // Processing screen elements
     Button addBtn;
     FloatingActionButton closeBtn;
     ImageView backArrow;
     TextView skipNext;
     TextView pageTitle;
-    User user = LoginActivity.user;
+
+    // Variable for the Other Dialog
     String otherDescription;
 
+    // User holder
+    User user;
+
+    // Global variables holders
     String currentActivity;
     boolean processingCompleted;
 
+    // User input data holders
     ArrayList<String> utilities, uDates;
     ArrayList<String> subscriptions, sDates;
     ArrayList<String> creditCards, cDates;
     ArrayList<String> expenses, eAmounts;
-    ArrayList<String> budgets, bAmounts;
+    //ArrayList<String> budgets, bAmounts;
 
+    // Options for the nameSpinner to change it dynamically
     ArrayList<String> spinnerOptions = new ArrayList<>();
 
+    // RecyclerView elements for the background list
     RecyclerView recyclerView;
     RecyclerView.LayoutManager  layoutManager;
     RecyclerView.Adapter adapter;
@@ -55,18 +62,23 @@ public class ProcessingScreens extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_utility_processing);
 
+        // Initializing user and global variables
+        user = LoginActivity.user;
+        currentActivity = user.getCurrentActivity();
+        processingCompleted = user.getProcessingCompleted();
+
+        // Initializing buttons
         backArrow = findViewById(R.id.backArrow2);
         skipNext = findViewById(R.id.skip_next);
+        if(processingCompleted){skipNext.setVisibility(View.GONE);}
         addBtn = findViewById(R.id.addButton);
         closeBtn = findViewById(R.id.closeButton);
-        User user = LoginActivity.user;
-        currentActivity = user.getCurrentActivity();
 
-
+        // Initializing recyclerView
         recyclerView = (RecyclerView) findViewById(R.id.utilityDueDatesList);
 
+        // Dynamically initializing correct storage, changing texts, and making elements visible or invisible
         if (currentActivity.equals("utility")){
-
             utilities = new ArrayList<>();
             uDates = new ArrayList<>();
             rePopulateLists(user.utilities, utilities, uDates);
@@ -106,7 +118,7 @@ public class ProcessingScreens extends AppCompatActivity {
 //            setRecyclerView(this, budgets, bAmounts, closeBtn);
 //        }
 
-
+        // Click events for the main layout buttons
         skipNext.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -117,8 +129,7 @@ public class ProcessingScreens extends AppCompatActivity {
                     user.setCurrentActivity("creditCards");
                     refreshActivity();
                 }else if (currentActivity.equals("creditCards")){
-                    processingCompleted = true;
-                    skipNext.setVisibility(View.GONE);
+                    user.setProcessingCompleted(true);
                     startActivity(new Intent(ProcessingScreens.this, DashBoard.class));
                 }
             }
@@ -146,6 +157,7 @@ public class ProcessingScreens extends AppCompatActivity {
         });
     }
 
+    // Overwriting click event for the phone back button
     @Override
     public void onBackPressed(){
         if (processingCompleted){finish();}
@@ -160,10 +172,14 @@ public class ProcessingScreens extends AppCompatActivity {
         }
     }
 
+    //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
+    // Method to reload the activity
     private void refreshActivity(){
         finish();
         startActivity(getIntent());
     }
+
+    // Method to set the recyclerView adapter
     private void setRecyclerView(Context ct, ArrayList<String> names, ArrayList<String> dueDates, FloatingActionButton closeBtn){
         adapter = new RecyclerViewAdapter(ct, names, dueDates, closeBtn);
         layoutManager = new LinearLayoutManager(this);
@@ -171,6 +187,47 @@ public class ProcessingScreens extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
     }
 
+    // Method to populate the storage lists in the user instance
+    private void populateLists(String name, String data){
+        if (currentActivity.equals("utility")){
+            user.utilities.add(new User.UtilDate(data, name));
+            utilities.add(name);
+            uDates.add(data);
+        }
+        else if (currentActivity.equals("subscriptions")){
+            user.subscriptions.add(new User.UtilDate(data, name));
+            subscriptions.add(name);
+            sDates.add(data);
+        }
+        else if (currentActivity.equals("creditCards")){
+            user.creditCards.add(new User.UtilDate(data, name));
+            creditCards.add(name);
+            cDates.add(data);
+        }
+        else if (currentActivity.equals("expenses")){
+            user.expenses.add(new User.UtilDate(data, name));
+            expenses.add(name);
+            eAmounts.add(data);
+        }
+//        else if (currentActivity.equals("budgets")){
+//            budgets.add(name);
+//            bAmounts.add(data);
+//        }
+    }
+
+    // Method to repopulate local storage lists from the user instance when the activity starts
+    private void rePopulateLists(List<User.UtilDate> userArray, ArrayList<String> name, ArrayList<String> data){
+        if( userArray.size() > 0){
+            for (int i = 0; i <= userArray.size() - 1; i++){
+                User.UtilDate temp = userArray.get(i);
+                name.add(temp.getName());
+                data.add(temp.getDueDay());
+            }
+        }
+    }
+
+    //----------------------------------------------------------------------------------------------------------------  DIALOGS
+    // Dialog that allows the user to add a custom option to the name spinner
     private void showAddOtherDialog(){
         Dialog otherDialog = new Dialog(this);
         otherDialog.setContentView(R.layout.add_other_dialog);
@@ -188,11 +245,7 @@ public class ProcessingScreens extends AppCompatActivity {
 
                 if (otherDialog.isShowing()) {
                     otherDescription = description.getText().toString();
-                    spinnerOptions.add(spinnerOptions.size()-1, otherDescription);
-
-//                    Need to add this to change the item selected in the spinner after the other dialog closes
-//                    dialog.utilitySpinner.setSelection(spinnerOptions.size()-1);
-
+                    spinnerOptions.add(0 , otherDescription);
                     otherDialog.dismiss();
                 }
             }
@@ -200,6 +253,7 @@ public class ProcessingScreens extends AppCompatActivity {
 
     }
 
+    // Dialog to enter values into the recyclerView and the user instance storage
     private void showAddValueDialog(){
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_utility_dialog);
@@ -210,7 +264,9 @@ public class ProcessingScreens extends AppCompatActivity {
         //Initializing the views of the dialog
         TextView description = dialog.findViewById(R.id.descriptionTitle);
         TextView dueDate = dialog.findViewById(R.id.dueDateText);
-        Spinner utilitySpinner = dialog.findViewById(R.id.utilityTypeSpinner);
+        TextView amountText = dialog.findViewById(R.id.amountText);
+        EditText amount = dialog.findViewById(R.id.amount);
+        Spinner utilitySpinner = dialog.findViewById(R.id.nameSpinner);
         Spinner dueDateSpinner = dialog.findViewById(R.id.dueDateSpinner);
         FloatingActionButton addValueBtn = dialog.findViewById(R.id.addValueButton);
 
@@ -236,6 +292,10 @@ public class ProcessingScreens extends AppCompatActivity {
                 break;
             case "expenses":
                 description.setText("Expense Type");
+                dueDateSpinner.setVisibility(View.GONE);
+                dueDate.setVisibility(View.GONE);
+                amountText.setVisibility(View.VISIBLE);
+                amount.setVisibility(View.VISIBLE);
                 spinnerOptions.add("Food"); spinnerOptions.add("Groceries"); spinnerOptions.add("Gas");
                 spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Other");
                 break;
@@ -244,6 +304,7 @@ public class ProcessingScreens extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         utilitySpinner.setAdapter(spinnerAdapter);
 
+        // Activating the addOtherDialog when the user selects "other" from the spinner options
         utilitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -256,15 +317,33 @@ public class ProcessingScreens extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
 
             }
-
-
         });
+
+//        amount.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                amount.setText("$ ");// + amount.getText().toString());
+//            }
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            }
+//        });
 
         addValueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = utilitySpinner.getSelectedItem().toString();
-                String data = dueDateSpinner.getSelectedItem().toString();
+                String name;
+                String data;
+                if (currentActivity.equals("expenses")){
+                    name = utilitySpinner.getSelectedItem().toString();
+                    data = amount.getText().toString();
+                }else {
+                    name = utilitySpinner.getSelectedItem().toString();
+                    data = dueDateSpinner.getSelectedItem().toString();
+                }
                 populateLists(name, data);
                 skipNext.setText("Next");
                 adapter.notifyDataSetChanged();
@@ -275,41 +354,6 @@ public class ProcessingScreens extends AppCompatActivity {
         });
     }
 
-    private void populateLists(String name, String data){
-        if (currentActivity.equals("utility")){
-            user.utilities.add(new User.UtilDate(data, name));
-            utilities.add(name);
-            uDates.add(data);
-        }
-        else if (currentActivity.equals("subscriptions")){
-            user.subscriptions.add(new User.UtilDate(data, name));
-            subscriptions.add(name);
-            sDates.add(data);
-        }
-        else if (currentActivity.equals("creditCards")){
-            user.creditCards.add(new User.UtilDate(data, name));
-            creditCards.add(name);
-            cDates.add(data);
-        }
-        else if (currentActivity.equals("expenses")){
-            user.expenses.add(new User.UtilDate(data, name));
-            expenses.add(name);
-            eAmounts.add(data);
-        }
-        else if (currentActivity.equals("budgets")){
-            budgets.add(name);
-            bAmounts.add(data);
-        }
-    }
 
-    private void rePopulateLists(List<User.UtilDate> userArray, ArrayList<String> name, ArrayList<String> data){
-        if( userArray.size() > 0){
-            for (int i = 0; i <= userArray.size() - 1; i++){
-                User.UtilDate temp = userArray.get(i);
-                name.add(temp.getName());
-                data.add(temp.getDueDay());
-            }
-        }
-    }
 
 }
