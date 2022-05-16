@@ -1,6 +1,8 @@
 package com.example.knowwealth;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,12 +69,13 @@ public class ProcessingScreens extends AppCompatActivity {
         currentActivity = user.getCurrentActivity();
         processingCompleted = user.getProcessingCompleted();
 
-        // Initializing buttons
+        // Initializing buttons and text
         backArrow = findViewById(R.id.backArrow2);
         skipNext = findViewById(R.id.skip_next);
         if(processingCompleted){skipNext.setVisibility(View.GONE);}
         addBtn = findViewById(R.id.addButton);
         closeBtn = findViewById(R.id.closeButton);
+        pageTitle = findViewById(R.id.pageTitle);
 
         // Initializing recyclerView
         recyclerView = (RecyclerView) findViewById(R.id.utilityDueDatesList);
@@ -84,6 +87,7 @@ public class ProcessingScreens extends AppCompatActivity {
             rePopulateLists(user.utilities, utilities, uDates);
             pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Utilities");
+            if (!utilities.isEmpty()){skipNext.setText("Next");}
             setRecyclerView(this, utilities, uDates, closeBtn);
         }
         else if (currentActivity.equals("subscriptions")){
@@ -118,7 +122,7 @@ public class ProcessingScreens extends AppCompatActivity {
 //            setRecyclerView(this, budgets, bAmounts, closeBtn);
 //        }
 
-        // Click events for the main layout buttons
+        //----------------------------------------------------------------------------------------------------------------  BUTTONS
         skipNext.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -173,6 +177,16 @@ public class ProcessingScreens extends AppCompatActivity {
     }
 
     //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
+    // Method to set up current page
+    private void setPage(ArrayList<String> name, ArrayList<String> data, List<User.UtilDate> userList, String title){
+        name = new ArrayList<>();
+        data = new ArrayList<>();
+        rePopulateLists(userList, name, data);
+        pageTitle.setText(title);
+        if (!data.isEmpty()){skipNext.setText("Next");}
+        setRecyclerView(this, name, data, closeBtn);
+    }
+
     // Method to reload the activity
     private void refreshActivity(){
         finish();
@@ -227,31 +241,6 @@ public class ProcessingScreens extends AppCompatActivity {
     }
 
     //----------------------------------------------------------------------------------------------------------------  DIALOGS
-    // Dialog that allows the user to add a custom option to the name spinner
-    private void showAddOtherDialog(){
-        Dialog otherDialog = new Dialog(this);
-        otherDialog.setContentView(R.layout.add_other_dialog);
-        otherDialog.setCancelable(true);
-        otherDialog.show();
-
-        //Initializing the views of the otherDialog
-        TextView title = otherDialog.findViewById(R.id.descriptionTitle);
-        EditText description = otherDialog.findViewById(R.id.otherDescription);
-        Button addOther = otherDialog.findViewById(R.id.addOther);
-
-        addOther.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (otherDialog.isShowing()) {
-                    otherDescription = description.getText().toString();
-                    spinnerOptions.add(0 , otherDescription);
-                    otherDialog.dismiss();
-                }
-            }
-        });
-
-    }
 
     // Dialog to enter values into the recyclerView and the user instance storage
     private void showAddValueDialog(){
@@ -259,13 +248,16 @@ public class ProcessingScreens extends AppCompatActivity {
         dialog.setContentView(R.layout.add_utility_dialog);
         // This closes the dialog if the user clicks outside the dialog
         dialog.setCancelable(true);
+        spinnerOptions.clear();
         dialog.show();
 
         //Initializing the views of the dialog
         TextView description = dialog.findViewById(R.id.descriptionTitle);
+        TextView otherDescription = dialog.findViewById(R.id.descriptionTitle2);
         TextView dueDate = dialog.findViewById(R.id.dueDateText);
         TextView amountText = dialog.findViewById(R.id.amountText);
         EditText amount = dialog.findViewById(R.id.amount);
+        EditText otherName = dialog.findViewById(R.id.otherName);
         Spinner utilitySpinner = dialog.findViewById(R.id.nameSpinner);
         Spinner dueDateSpinner = dialog.findViewById(R.id.dueDateSpinner);
         FloatingActionButton addValueBtn = dialog.findViewById(R.id.addValueButton);
@@ -296,8 +288,8 @@ public class ProcessingScreens extends AppCompatActivity {
                 dueDate.setVisibility(View.GONE);
                 amountText.setVisibility(View.VISIBLE);
                 amount.setVisibility(View.VISIBLE);
-                spinnerOptions.add("Food"); spinnerOptions.add("Groceries"); spinnerOptions.add("Gas");
-                spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Other");
+                spinnerOptions.add("Food / Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
+                spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Transportation"); spinnerOptions.add("Restaurant");
                 break;
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
@@ -309,7 +301,10 @@ public class ProcessingScreens extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 if (utilitySpinner.getSelectedItem().toString().equals("Other")){
-                    showAddOtherDialog();
+                    description.setVisibility(View.GONE);
+                    otherDescription.setVisibility(View.VISIBLE);
+                    utilitySpinner.setVisibility(View.GONE);
+                    otherName.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -319,19 +314,6 @@ public class ProcessingScreens extends AppCompatActivity {
             }
         });
 
-//        amount.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                amount.setText("$ ");// + amount.getText().toString());
-//            }
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//            }
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//            }
-//        });
-
         addValueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -340,7 +322,11 @@ public class ProcessingScreens extends AppCompatActivity {
                 if (currentActivity.equals("expenses")){
                     name = utilitySpinner.getSelectedItem().toString();
                     data = amount.getText().toString();
-                }else {
+                }else if( utilitySpinner.getVisibility() == View.GONE){
+                    name = otherName.getText().toString();
+                    data = dueDateSpinner.getSelectedItem().toString();
+                }
+                else {
                     name = utilitySpinner.getSelectedItem().toString();
                     data = dueDateSpinner.getSelectedItem().toString();
                 }
