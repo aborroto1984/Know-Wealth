@@ -24,7 +24,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
 
     //Recycler view fields
     ArrayList<String> name, data;
-    RecyclerView utilityList;
+    RecyclerView dueList;
     RecyclerView.LayoutManager  layoutManager;
     RecyclerView.Adapter adapter;
     Calendar calendar = Calendar.getInstance();
@@ -74,11 +74,11 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
                 }
             }
             if (name.size() > 0) {
-                utilityList = (RecyclerView) findViewById(R.id.Due_List);
-                adapter = new RecyclerViewAdapter(this, name, data, null);
+                dueList = (RecyclerView) findViewById(R.id.Due_List);
+                adapter = new RecyclerViewAdapter(this, name, data, null, null);
                 layoutManager = new LinearLayoutManager(this);
-                utilityList.setAdapter(adapter);
-                utilityList.setLayoutManager(layoutManager);
+                dueList.setAdapter(adapter);
+                dueList.setLayoutManager(layoutManager);
             }
         addExp = findViewById(R.id.add_expense_button);
 

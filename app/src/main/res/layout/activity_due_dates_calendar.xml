@@ -199,11 +199,12 @@
             android:textSize="34sp" />
 
         <TextView
+            android:id="@+id/due_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_weight="1"
-            android:text="@string/due_date"
+            android:text="@string/name"
             android:textAlignment="center"
             android:textColor="@color/main_color"
             android:textSize="16sp" />
@@ -220,5 +221,11 @@
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/items_List"
+        android:layout_width="414dp"
+        android:layout_height="144dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/due_date" />
 
 </LinearLayout>
