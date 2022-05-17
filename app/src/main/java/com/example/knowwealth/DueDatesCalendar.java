@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapter.OnItemListener, GestureDetector.OnGestureListener {
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
@@ -33,6 +35,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     ArrayList<String> name, data, daysInMonth;
     ArrayList<Integer> eventOnDay;
     MaterialCheckBox checkBox;
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         TextView textView = findViewById(R.id.selectedDay);
         textView.setText(dayFromDate(selectedDate));
         updateListview();
+        gestureDetector = new GestureDetector(getApplicationContext(),this);
     }
 
     private void setMonthView() {
@@ -177,5 +181,76 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     }
     public void Menu(View view) {
         startActivity(new Intent(DueDatesCalendar.this, Menu.class));
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent downEvent, MotionEvent motionEvent, float x, float y) {
+        boolean result = false;
+        float diffY = motionEvent.getY() - downEvent.getY();
+        float diffX = motionEvent.getX() - downEvent.getX();
+
+        if (Math.abs(diffX) > 100 && Math.abs(x) > 100){
+            if (diffX > 0){
+                onSwipeRight();
+            }else{
+                onSwipeLeft();
+            }
+            result = true;
+        }else{
+            if (Math.abs(diffY) > 100 && Math.abs(y) > 100){
+                if (diffX > 0){
+                    onSwipeBottom();
+                }else{
+                    onSwipeTop();
+                }
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
+    private void onSwipeTop() {
+    }
+
+    private void onSwipeBottom() {
+    }
+
+    private void onSwipeLeft() {
+    }
+
+    private void onSwipeRight() {
+        startActivity(new Intent(DueDatesCalendar.this, MonthlyExpenses.class));
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
 }

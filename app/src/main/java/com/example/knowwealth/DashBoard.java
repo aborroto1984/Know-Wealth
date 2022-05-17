@@ -90,7 +90,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             }
         });
 
-        gestureDetector = new GestureDetector(this);
+        gestureDetector = new GestureDetector(getApplicationContext(),this);
     }
 
     private void addToList(User.UtilDate temp){
@@ -168,7 +168,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
     }
 
     private void onSwipeLeft() {
-        startActivity(new Intent(DashBoard.this, DueDatesCalendar.class));
+        startActivity(new Intent(DashBoard.this, MonthlyExpenses.class));
     }
 
     private void onSwipeRight() {
