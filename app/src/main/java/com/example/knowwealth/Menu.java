@@ -4,30 +4,40 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 public class Menu extends AppCompatActivity {
-
+    User user = LoginActivity.user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        TextView editAccountLink = findViewById(R.id.accountInfoLink);
+        TextView homeLink = findViewById(R.id.dashBoardLink);
         TextView utilitiesLink = findViewById(R.id.utilitiesLink);
         TextView subsLInk = findViewById(R.id.subsLInk);
         TextView creditCardLink = findViewById(R.id.creditCardLink);
-        TextView homeLink = findViewById(R.id.dashBoardLink);
         TextView notifyLink = findViewById(R.id.notifyLink);
+        TextView editAccountLink = findViewById(R.id.accountInfoLink);
         TextView signOutLink = findViewById(R.id.signOutLink);
 
-        editAccountLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, AccountEdit.class)));
-        utilitiesLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, ProcessingScreens.class)));
-        subsLInk.setOnClickListener(v -> startActivity(new Intent(Menu.this, SubscriptionProcessing.class)));
-        creditCardLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, CreditDatesProcessing.class)));
         homeLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, DashBoard.class)));
+        utilitiesLink.setOnClickListener(v -> {
+            user.setCurrentActivity("utility");
+            startActivity(new Intent(Menu.this, ProcessingScreens.class));
+        });
+        subsLInk.setOnClickListener(v -> {
+            user.setCurrentActivity("subscriptions");
+            startActivity(new Intent(Menu.this, ProcessingScreens.class));
+        });
+        creditCardLink.setOnClickListener(v -> {
+            user.setCurrentActivity("creditCards");
+            startActivity(new Intent(Menu.this, ProcessingScreens.class));
+        });
         notifyLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, NotificationSettings.class)));
+        editAccountLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, AccountEdit.class)));
         signOutLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, LoginActivity.class)));
     }
 
