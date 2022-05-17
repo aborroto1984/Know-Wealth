@@ -134,6 +134,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         }while (!dayNum.equals(daysInMonth.get(i)));
         eventOnDay.set(i, 0);
     }
+
     private void updateListview(){
         name.clear();
         data.clear();

@@ -79,13 +79,12 @@ public class User {
 
     // method to remove deleted entries
     public static void deleteFromList(String removeDueDay, String removeName, List<UtilDate> array){
-        for (int i = 0; i < array.size() -1; i++){
+        for (int i = 0; i < array.size(); i++){
             UtilDate data = array.get(i);
             if (data.name.equals(removeName) && data.dueDay.equals(removeDueDay)){
                 array.remove(i);
             }
         }
-
     }
 
     // Expenses
