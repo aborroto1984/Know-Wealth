@@ -5,11 +5,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.util.Strings;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -35,17 +35,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View view = inflater.inflate(R.layout.lists_rows_dashboard, parent, false);
+        //View view = inflater.inflate(R.layout.lists_rows_dashboard, parent, false);
 
         //checks active activity to adjust layout of view
         String curAct = context.getClass().getName();
-        if(curAct.equals("com.example.knowwealth.ProcessingScreens")){
-            view = inflater.inflate(R.layout.list_rows_processing, parent, false);
-        }else if (curAct.equals("com.example.knowwealth.DashBoard")){
-            view = inflater.inflate(R.layout.lists_rows_dashboard, parent, false);
-        }else if (curAct.equals("com.example.knowwealth.DueDatesCalendar")){
-            view = inflater.inflate(R.layout.list_rows_calendar, parent, false);
-        }
+        View view = inflater.inflate(R.layout.list_rows, parent, false);
+
+
+        //        if(curAct.equals("com.example.knowwealth.ProcessingScreens")){
+//            view = inflater.inflate(R.layout.list_rows, parent, false);
+//        }else if (curAct.equals("com.example.knowwealth.DashBoard")){
+//             view = inflater.inflate(R.layout.lists_rows_dashboard, parent, false);
+//        }else if (curAct.equals("com.example.knowwealth.DueDatesCalendar")){
+//             view = inflater.inflate(R.layout.list_rows_calendar, parent, false);
+//        }
 
 
         return new MyViewHolder(view);
@@ -88,26 +91,40 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView text1, text2;
         FloatingActionButton closeBtn;
-        //MaterialCheckBox checkBox;
+        MaterialCheckBox checkBox;
 
         public MyViewHolder( View itemView) {
             super(itemView);
+//            String curAct = context.getClass().getName();
+//            if(curAct.equals("com.example.knowwealth.ProcessingScreens")){
+//                text1 = itemView.findViewById(R.id.name_type);
+//                text2 = itemView.findViewById(R.id.amount_date);
+//                closeBtn = itemView.findViewById(R.id.closeButton);
+//            }else if (curAct.equals("com.example.knowwealth.DashBoard")){
+//                text1 = itemView.findViewById(R.id.name_type);
+//                text2 = itemView.findViewById(R.id.amount_date);
+//            }else if (curAct.equals("com.example.knowwealth.DueDatesCalendar")){
+//                text1 = itemView.findViewById(R.id.name_type);
+//                text2 = itemView.findViewById(R.id.amount_date);
+//                checkBox = itemView.findViewById(R.id.checkBox);
+//            }
             text1 = itemView.findViewById(R.id.name_type);
             text2 = itemView.findViewById(R.id.amount_date);
             closeBtn = itemView.findViewById(R.id.closeButton);
-            //checkBox = itemView.findViewById(R.id.checkbox);
+            checkBox = itemView.findViewById(R.id.checkBox);
 
             //checks active activity to adjust layout of lists
-//            String curAct = context.getClass().getName();
-//            if(curAct.equals("com.example.knowwealth.ProcessingScreens")){
-//                text1.setPadding(0,0,32,0);
-//                text2.setPadding(0,0,32,0);
-//                closeBtn.setVisibility(View.VISIBLE);
-//                closeBtn.setPadding(0,0,45,0);
-//            }else if(curAct.equals("com.example.knowwealth.DueDatesCalendar")){
-//                text2.setVisibility(View.GONE);
-//                checkBox.setVisibility(View.VISIBLE);
-//            }
+            String curAct = context.getClass().getName();
+            if(curAct.equals("com.example.knowwealth.ProcessingScreens")){
+                closeBtn.setVisibility(View.VISIBLE);
+                closeBtn.setPadding(0,0,45,0);
+            }else if(curAct.equals("com.example.knowwealth.DueDatesCalendar")){
+                text1.setPadding(70,0,0,0);
+                text2.setVisibility(View.GONE);
+                checkBox.setVisibility(View.VISIBLE);
+            }else if(curAct.equals("com.example.knowwealth.DashBoard")){
+            text2.setPadding(70,0,0,0);
+        }
         }
     }
 }

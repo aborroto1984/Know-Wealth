@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -163,6 +164,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         }
         if (name.size() > 0 && adapter == null) {
             itemList = (RecyclerView) findViewById(R.id.items_List);
+            checkBox = findViewById(R.id.checkBox);
             adapter = new RecyclerViewAdapter(this, name, data, null, checkBox);
             layoutManager = new LinearLayoutManager(this);
             itemList.setAdapter(adapter);
