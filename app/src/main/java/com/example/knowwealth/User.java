@@ -17,6 +17,7 @@ public class User {
     // Global variable to know
     static String currentActivity;
     static Boolean processingCompleted = false;
+    static int notificationDays = 0;
 
     // Constructors
     public User(){
