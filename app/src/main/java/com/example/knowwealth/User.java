@@ -1,5 +1,7 @@
 package com.example.knowwealth;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,11 @@ public class User {
     // Global variable to know
     static String currentActivity;
     static Boolean processingCompleted = false;
-    static int notificationDays = 0;
+    static Drawable days1;
+    static Drawable days2;
+    static Drawable days3;
+    static Drawable days4;
+    static boolean switch1;
 
     // Constructors
     public User(){
@@ -55,6 +61,11 @@ public class User {
     // Global variables getters
     public Boolean getProcessingCompleted(){return processingCompleted;}
     public String getCurrentActivity(){ return currentActivity;}
+    public boolean getSwitch1(){return switch1;}
+    public Drawable getDays1(){return days1;}
+    public Drawable getDays2(){return days2;}
+    public Drawable getDays3(){return days3;}
+    public Drawable getDays4(){return days4;}
 
     // Global variables setters
     public void setProcessingCompleted( Boolean value){
@@ -63,6 +74,11 @@ public class User {
     public void setCurrentActivity( String value){
         currentActivity = value;
     }
+    public void setSwitch1(Boolean value){switch1 = value;}
+    public void setDays1(Drawable value){ days1 = value;}
+    public void setDays2(Drawable value){ days2 = value;}
+    public void setDays3(Drawable value){ days3 = value;}
+    public void setDays4(Drawable value){ days4 = value;}
 
     // Utilities
     public static class UtilDate{
