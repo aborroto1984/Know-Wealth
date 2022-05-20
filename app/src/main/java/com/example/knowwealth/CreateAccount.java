@@ -29,6 +29,7 @@ public class CreateAccount extends AppCompatActivity {
     final String TAG = "CreateAccount";
     String userEmail;
     String userFullName;
+    public static User userName;
 
     DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
 
@@ -62,7 +63,7 @@ public class CreateAccount extends AppCompatActivity {
                     userEmail = userIdCreateAccount.getText().toString();
                     userFullName = fullName.getText().toString();
                     User userName = new User(userFullName, userEmail);
-                    createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
+                    createAccount(userEmail, passwordCreateAccount1.getText().toString());
                     startActivity(new Intent(CreateAccount.this, LoginActivity.class));
                 }
             }
@@ -91,7 +92,6 @@ public class CreateAccount extends AppCompatActivity {
 
                             Toast.makeText(CreateAccount.this, "Authentication Success." + user.getEmail(),
                                     Toast.LENGTH_SHORT).show();
-
 
                             userDatabase.child(mAuth.getUid()).child("Email").setValue(userEmail);
                             userDatabase.child(mAuth.getUid()).child("Full Name").setValue(userFullName);
