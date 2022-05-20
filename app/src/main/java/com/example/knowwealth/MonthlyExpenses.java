@@ -1,20 +1,47 @@
 package com.example.knowwealth;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class MonthlyExpenses extends AppCompatActivity implements GestureDetector.OnGestureListener {
     private GestureDetector gestureDetector;
+
+    String monthText;
+    RecyclerView itemList;
+    RecyclerView.LayoutManager  layoutManager;
+    RecyclerView.Adapter adapter;
+    User user = LoginActivity.user;
+    ArrayList<String> expenses, eAmounts;
+
+     TextView expensesPageTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monthly_expenses);
 
+        expensesPageTitle = findViewById(R.id.expensesTitle);
         gestureDetector = new GestureDetector(getApplicationContext(),this);
+
+        pageTitleSet();
+    }
+    //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
+    public void pageTitleSet(){
+        DateFormat dateFormat = new SimpleDateFormat("MMM");
+        Date date = new Date();
+        expensesPageTitle.setText(dateFormat.format(date) + "\nExpenses");
     }
     @Override
     public boolean onDown(MotionEvent motionEvent) {
