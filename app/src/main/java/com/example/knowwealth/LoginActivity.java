@@ -18,14 +18,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
-    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
+
     private FirebaseAuth mAuth;
     final String TAG = "LoginActivity";
-    public static User user;
+    public static User user = CreateAccount.userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +67,9 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser authUser = mAuth.getCurrentUser();
 
                             user = new User();
-                            user.setFullName(userDatabase.child(authUser.getUid()).child("Full Name").getKey());
-                            user.setEmail(userDatabase.child(authUser.getUid()).child("Email").getKey());
-
 
                             if (!user.getProcessingCompleted()){
-                                user.setCurrentActivity("Utility");
+                                user.setCurrentActivity("utility");
                                 startActivity(new Intent(LoginActivity.this, ProcessingScreens.class));
                             }
                             else{
@@ -81,11 +81,11 @@ public class LoginActivity extends AppCompatActivity {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, CreateAccount.class));
                         }
 
                     }
                 });
-        //startActivity(new Intent(LoginActivity.this, DueDatesCalendar.class));
-    }
 
+    }
 }
