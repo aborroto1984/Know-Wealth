@@ -12,22 +12,82 @@
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dialogLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/utilityTypeText"
+                android:id="@+id/descriptionTitle2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:text="Utility Type"
                 android:textColor="@color/main_color"
                 android:textColorLink="@color/main_color"
                 android:textSize="20sp"
                 android:textStyle="normal"
-                app:layout_constraintBottom_toTopOf="@+id/utilityTypeSpinner"
-                app:layout_constraintStart_toStartOf="@+id/utilityTypeSpinner"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/otherName"
+                app:layout_constraintEnd_toEndOf="@+id/otherName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/otherName"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.781" />
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/otherName"
+                style="@style/textBox"
+                android:layout_width="175dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="12dp"
+                android:ems="10"
+                android:hint="Enter description"
+                android:inputType="textPersonName"
+                android:maxLength="20"
+                android:paddingStart="15dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.195"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.383" />
+
+            <TextView
+                android:id="@+id/amountText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="Amount"
+                android:textColor="@color/main_color"
+                android:textColorLink="@color/main_color"
+                android:textSize="20sp"
+                android:textStyle="normal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/amount"
+                app:layout_constraintEnd_toEndOf="@+id/amount"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/amount"
+                app:layout_constraintTop_toBottomOf="@+id/nameSpinner"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/descriptionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="Utility Type"
+                android:textColor="@color/main_color"
+                android:textColorLink="@color/main_color"
+                android:textSize="20sp"
+                android:textStyle="normal"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/nameSpinner"
+                app:layout_constraintEnd_toEndOf="@+id/nameSpinner"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/nameSpinner"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/dueDateText"
@@ -46,12 +106,13 @@
                 app:layout_constraintVertical_bias="1.0" />
 
             <Spinner
-                android:id="@+id/utilityTypeSpinner"
+                android:id="@+id/nameSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:autofillHints="@android:string/selectTextMode"
                 android:background="@drawable/spinner_background"
                 android:entries="@array/Utilities"
+                android:paddingEnd="15dp"
                 android:popupBackground="@drawable/spinner_background_without_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +125,6 @@
                 android:id="@+id/dueDateSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:layout_marginBottom="32dp"
                 android:autofillHints="@android:string/selectTextMode"
                 android:background="@drawable/spinner_background"
                 android:entries="@array/MonthDays"
@@ -73,11 +133,11 @@
                 android:translationX="0pt"
                 android:translationY="0pt"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/utilityTypeSpinner"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/utilityTypeSpinner"
-                app:layout_constraintTop_toBottomOf="@+id/utilityTypeSpinner"
-                app:layout_constraintVertical_bias="0.812" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.141"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.809" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addValueButton"
@@ -92,6 +152,24 @@
                 app:layout_constraintHorizontal_bias="0.84"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/amount"
+                style="@style/textBox"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:hint="Enter Amount"
+                android:inputType="numberDecimal"
+                android:paddingStart="15dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.246"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameSpinner"
+                app:layout_constraintVertical_bias="0.541" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

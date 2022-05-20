@@ -40,7 +40,7 @@
             android:name=".SubscriptionProcessing"
             android:exported="false" />
         <activity
-            android:name=".UtilityProcessing"
+            android:name=".ProcessingScreens"
             android:exported="false" />
         <activity
             android:name=".CreateAccount"

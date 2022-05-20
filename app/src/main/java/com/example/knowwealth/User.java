@@ -10,12 +10,21 @@ public class User {
     private static String email;
 
     // Data fields
-    List<UtilDate> utilities;
-    List<CreditDate> creditCards;
-    List<SubscriptDate> Subscriptions;
-    List<Expense> expenses;
+    static List<UtilDate> utilities;
+    static List<UtilDate> creditCards;
+    static List<UtilDate> subscriptions;
+    static List<UtilDate> expenses;
+    // Global variable to know
+    static String currentActivity;
+    static Boolean processingCompleted = false;
 
     // Constructors
+    public User(){
+        utilities = new ArrayList<>();
+        creditCards = new ArrayList<>();
+        subscriptions = new ArrayList<>();
+        expenses = new ArrayList<>();
+    }
     public User(String fullName, String email){
         this.fullName = fullName;
         String[] getName = fullName.split(" ");
@@ -23,7 +32,7 @@ public class User {
         this.email = email;
         utilities = new ArrayList<>();
         creditCards = new ArrayList<>();
-        Subscriptions = new ArrayList<>();
+        subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
     }
 
@@ -42,21 +51,41 @@ public class User {
     public String getEmail() { return email; }
     public void setEmail( String email){ this.email = email; }
 
+    // Global variables getters
+    public Boolean getProcessingCompleted(){return processingCompleted;}
+    public String getCurrentActivity(){ return currentActivity;}
+
+    // Global variables setters
+    public void setProcessingCompleted( Boolean value){
+        processingCompleted = value;
+    }
+    public void setCurrentActivity( String value){
+        currentActivity = value;
+    }
+
     // Utilities
-    public class UtilDate{
-        private int dueDay;
+    public static class UtilDate{
+        private String dueDay;
         private String name;
 
         public UtilDate(){ }
         public UtilDate(String dueDay, String name){
-            this.dueDay = Integer.parseInt(dueDay);
+            this.dueDay = dueDay;
             this.name = name;
         }
+        public String getDueDay(){return dueDay;}
+        public String getName(){return name;}
     }
 
-    // The rest of the processing screens data collected
-    public class CreditDate extends UtilDate{}
-    public class SubscriptDate extends UtilDate{}
+    // method to remove deleted entries
+    public static void deleteFromList(String removeDueDay, String removeName, List<UtilDate> array){
+        for (int i = 0; i < array.size(); i++){
+            UtilDate data = array.get(i);
+            if (data.name.equals(removeName) && data.dueDay.equals(removeDueDay)){
+                array.remove(i);
+            }
+        }
+    }
 
     // Expenses
     public class Expense {

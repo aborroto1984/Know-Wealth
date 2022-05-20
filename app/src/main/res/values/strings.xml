@@ -45,6 +45,7 @@
         <item>Internet</item>
         <item>Cell Phone</item>
         <item>Home Phone</item>
+        <item>Other</item>
     </string-array>
     <string-array name= "MonthDays">
         <item>every 1<sup>st</sup></item><item>every 2<sup>nd</sup></item><item>every 3<sup>rd</sup></item><item>every 4<sup>th</sup></item><item>every 5<sup>th</sup></item><item>every 6<sup>th</sup></item><item>every 7<sup>th</sup></item><item>every 8<sup>th</sup></item><item>every 9<sup>th</sup></item><item>every 10<sup>th</sup></item>
@@ -74,4 +75,6 @@
     <string name="menu_button">Menu_button</string>
     <string name="back_arrow_calendar"><![CDATA[<]]></string>
     <string name="next_arrow_calendar"><![CDATA[>]]></string>
+    <string name="account_info">Account Info</string>
+    <string name="Home">Home</string>
 </resources>
