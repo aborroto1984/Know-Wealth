@@ -18,10 +18,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class CreateAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
     final String TAG = "CreateAccount";
+    String userEmail;
+    String userFullName;
+
+    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +59,9 @@ public class CreateAccount extends AppCompatActivity {
                     Toast.makeText(CreateAccount.this, "Passwords do not match.",
                             Toast.LENGTH_LONG).show();
                 } else{
-                    User userName = new User(fullName.getText().toString(), userIdCreateAccount.getText().toString());
+                    userEmail = userIdCreateAccount.getText().toString();
+                    userFullName = fullName.getText().toString();
+                    User userName = new User(userFullName, userEmail);
                     createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
                 }
             }
@@ -79,6 +90,11 @@ public class CreateAccount extends AppCompatActivity {
 
                             Toast.makeText(CreateAccount.this, "Authentication Success." + user.getEmail(),
                                     Toast.LENGTH_SHORT).show();
+
+
+                            userDatabase.child(mAuth.getUid()).child("Email").setValue(userEmail);
+                            userDatabase.child(mAuth.getUid()).child("Full Name").setValue(userFullName);
+                            userDatabase.child(mAuth.getUid()).child("First Name").setValue(User.getFirstName());
 
                             finish();
 
