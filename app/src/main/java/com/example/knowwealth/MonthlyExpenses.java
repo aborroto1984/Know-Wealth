@@ -1,6 +1,7 @@
 package com.example.knowwealth;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -19,23 +21,60 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
     private GestureDetector gestureDetector;
 
     String monthText;
-    RecyclerView itemList;
-    RecyclerView.LayoutManager  layoutManager;
-    RecyclerView.Adapter adapter;
-    User user = LoginActivity.user;
+    User user;
     ArrayList<String> expenses, eAmounts;
+    ArrayList<Integer> percent;
 
      TextView expensesPageTitle;
+
+    // RecyclerView elements for the background list
+    ProgressBar expensesBar;
+    RecyclerView expensesList;
+    RecyclerView.LayoutManager  expensesLayoutManager;
+    RecyclerView.Adapter expensesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monthly_expenses);
-
-        expensesPageTitle = findViewById(R.id.expensesTitle);
+        // Gesture feature
         gestureDetector = new GestureDetector(getApplicationContext(),this);
 
+        // Getting user instance
+        user = LoginActivity.user;
+
+        // Setting up the page title
+        expensesPageTitle = findViewById(R.id.expensesTitle);
         pageTitleSet();
+
+        // Populating arrays from user instance
+        expenses = new ArrayList<>();
+        eAmounts = new ArrayList<>();
+        percent = new ArrayList<>();
+        if( user.expenses.size() > 0){
+            for (int i = 0; i <= user.expenses.size() - 1; i++){
+                User.UtilDate temp = user.expenses.get(i);
+                expenses.add(temp.getName());
+                eAmounts.add(temp.getDueDay());
+            }
+        }
+
+        // Calculating the progress bar values
+        calculateExpensePercent();
+
+        // Setting up the expenses list
+        expensesBar = findViewById(R.id.expenseProgressBar);
+        expensesList = findViewById(R.id.expensesList);
+        expensesAdapter = new ExpensesAdapter(this, expenses, eAmounts, percent, expensesBar);
+        expensesLayoutManager = new LinearLayoutManager(this);
+        expensesList.setAdapter(expensesAdapter);
+        expensesList.setLayoutManager(expensesLayoutManager);
+        expensesAdapter.notifyDataSetChanged();
+
+
+
+
+
     }
     //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
     public void pageTitleSet(){
@@ -43,6 +82,21 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         Date date = new Date();
         expensesPageTitle.setText(dateFormat.format(date) + "\nExpenses");
     }
+
+    public void calculateExpensePercent(){
+        float greater = 0;
+        for (int i = 0; i < eAmounts.size(); i++) {
+            float amount = Float.parseFloat(eAmounts.get(i));
+            if (amount > greater){
+                greater = amount;
+            }
+        }
+        for (int i = 0; i < eAmounts.size(); i++) {
+            float amount = Float.parseFloat(eAmounts.get(i));
+            percent.add((int) Math.ceil(amount*100/greater));
+        }
+    }
+    //----------------------------------------------------------------------------------------------------------------  SWIPING METHODS
     @Override
     public boolean onDown(MotionEvent motionEvent) {
         return false;

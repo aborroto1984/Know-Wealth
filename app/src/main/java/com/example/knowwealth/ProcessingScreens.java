@@ -82,7 +82,7 @@ public class ProcessingScreens extends AppCompatActivity {
             rePopulateLists(user.utilities, utilities, uDates);
             pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Utilities");
-            if (!utilities.isEmpty()){skipNext.setText("Next");}
+            if (!user.utilities.isEmpty()){skipNext.setText("Next");}
             setRecyclerView(this, utilities, uDates, closeBtn);
         }
         else if (currentActivity.equals("subscriptions")){
@@ -91,6 +91,7 @@ public class ProcessingScreens extends AppCompatActivity {
             rePopulateLists(user.subscriptions, subscriptions, sDates);
             pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Monthly Subscriptions");
+            if (!user.subscriptions.isEmpty()){skipNext.setText("Next");}
             setRecyclerView(this, subscriptions, sDates, closeBtn);
         }
         else if (currentActivity.equals("creditCards")){
@@ -99,6 +100,7 @@ public class ProcessingScreens extends AppCompatActivity {
             rePopulateLists(user.creditCards, creditCards, cDates);
             pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Credit Card Due Dates");
+            if (!user.creditCards.isEmpty()){skipNext.setText("Next");}
             setRecyclerView(this, creditCards, cDates, closeBtn);
         }
         else if (currentActivity.equals("expenses")){
@@ -107,6 +109,7 @@ public class ProcessingScreens extends AppCompatActivity {
             rePopulateLists(user.expenses, expenses, eAmounts);
             pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Enter Expense");
+            skipNext.setText("Done");
             setRecyclerView(this, expenses, eAmounts, closeBtn);
         }
 //        else if (currentActivity.equals("budgets")){
@@ -130,7 +133,7 @@ public class ProcessingScreens extends AppCompatActivity {
                 }else if (currentActivity.equals("creditCards")){
                     user.setProcessingCompleted(true);
                     startActivity(new Intent(ProcessingScreens.this, DashBoard.class));
-                }
+                }else if (currentActivity.equals("expenses")){finish();}
             }
         });
         backArrow.setOnClickListener(new View.OnClickListener() {
@@ -160,9 +163,9 @@ public class ProcessingScreens extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         if (processingCompleted){finish();}
-        else if(currentActivity.equals("utility")){
-            finish();
-        }else if (currentActivity.equals("subscriptions")){
+//        else if(currentActivity.equals("utility")){
+//            finish();}
+        else if (currentActivity.equals("subscriptions")){
             user.setCurrentActivity("utility");
             refreshActivity();
         }else if (currentActivity.equals("creditCards")){
@@ -172,16 +175,6 @@ public class ProcessingScreens extends AppCompatActivity {
     }
 
     //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
-    // Method to set up current page
-    private void setPage(ArrayList<String> name, ArrayList<String> data, List<User.UtilDate> userList, String title){
-        name = new ArrayList<>();
-        data = new ArrayList<>();
-        rePopulateLists(userList, name, data);
-        pageTitle.setText(title);
-        if (!data.isEmpty()){skipNext.setText("Next");}
-        setRecyclerView(this, name, data, closeBtn);
-    }
-
     // Method to reload the activity
     private void refreshActivity(){
         finish();
@@ -291,7 +284,7 @@ public class ProcessingScreens extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         utilitySpinner.setAdapter(spinnerAdapter);
 
-        // Activating the addOtherDialog when the user selects "other" from the spinner options
+        // Swapping the spinner for a textBox to enter other category
         utilitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -326,7 +319,7 @@ public class ProcessingScreens extends AppCompatActivity {
                     data = dueDateSpinner.getSelectedItem().toString();
                 }
                 populateLists(name, data);
-                skipNext.setText("Next");
+                //skipNext.setText("Next");
                 adapter.notifyDataSetChanged();
                 if (dialog.isShowing()) {
                     dialog.dismiss();

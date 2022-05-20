@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         user = new User();
         if (!user.getProcessingCompleted()){
             user.setCurrentActivity("utility");
-            startActivity(new Intent(LoginActivity.this, MonthlyExpenses.class));
+            startActivity(new Intent(LoginActivity.this, DashBoard.class));
         }else{
             startActivity( new Intent(LoginActivity.this, DashBoard.class));
         }
