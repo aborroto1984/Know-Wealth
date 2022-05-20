@@ -1,5 +1,15 @@
 package com.example.knowwealth;
 
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +24,10 @@ public class User {
     static List<UtilDate> creditCards;
     static List<UtilDate> subscriptions;
     static List<UtilDate> expenses;
+    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users").child(userID);
+    List<String> list;
+
     // Global variable to know
     static String currentActivity;
     static Boolean processingCompleted = false;
@@ -24,6 +38,24 @@ public class User {
         creditCards = new ArrayList<>();
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
+
+
+        userDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
+
+                    if(snapshot.exists()){
+                       email = snapshot.child("Email").getValue().toString();
+                       fullName = snapshot.child("Full Name").getValue().toString();
+                       firstName = snapshot.child("First Name").getValue().toString();
+                    }
+            }
+
+            @Override
+            public void onCancelled(@androidx.annotation.NonNull DatabaseError error) {
+
+            }
+        });
     }
     public User(String fullName, String email){
         this.fullName = fullName;
