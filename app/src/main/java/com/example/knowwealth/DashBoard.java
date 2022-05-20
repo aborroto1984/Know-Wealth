@@ -42,7 +42,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         viewDate.setText(curDate);
 
         //Added user name to display
-        String userName = User.getFirstName();
+        String userName = User.getFirstName(); // need to change to pull first name from database
         TextView userFirstName = findViewById(R.id.view_Name);
         userFirstName.setText(userName);
 

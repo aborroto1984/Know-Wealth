@@ -18,8 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
+    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
     private FirebaseAuth mAuth;
     final String TAG = "LoginActivity";
     public static User user;
@@ -51,34 +54,38 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     public void signIn(String email, String password){
-        //todo add validation for password and email
-        //mAuth.signInWithEmailAndPassword(email, password)
-                //.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                   // @Override
-                    //public void onComplete(@NonNull Task<AuthResult> task) {
-                       // if (task.isSuccessful()) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "signInWithEmail:success");
-                           // FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser authUser = mAuth.getCurrentUser();
+
+                            user = new User();
+                            user.setFullName(userDatabase.child(authUser.getUid()).child("Full Name").getKey());
+                            user.setEmail(userDatabase.child(authUser.getUid()).child("Email").getKey());
 
 
-                       // } else {
+                            if (!user.getProcessingCompleted()){
+                                user.setCurrentActivity("Utility");
+                                startActivity(new Intent(LoginActivity.this, ProcessingScreens.class));
+                            }
+                            else{
+                                startActivity(new Intent(LoginActivity.this, DashBoard.class));
+                            }
+
+                        } else {
                             // If sign in fails, display a message to the user.
-                           // Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            //Toast.makeText(LoginActivity.this, "Authentication failed.",
-                          //          Toast.LENGTH_SHORT).show();
-                       // }
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
 
-                   // }
-                //});
-        user = new User();
-        if (!user.getProcessingCompleted()){
-            user.setCurrentActivity("utility");
-            startActivity(new Intent(LoginActivity.this, ProcessingScreens.class));
-        }else{
-            startActivity( new Intent(LoginActivity.this, DashBoard.class));
-        }
-
+                    }
+                });
+        //startActivity(new Intent(LoginActivity.this, DueDatesCalendar.class));
     }
 
 }

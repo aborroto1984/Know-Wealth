@@ -63,6 +63,7 @@ public class CreateAccount extends AppCompatActivity {
                     userFullName = fullName.getText().toString();
                     User userName = new User(userFullName, userEmail);
                     createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
+                    startActivity(new Intent(CreateAccount.this, LoginActivity.class));
                 }
             }
         });
