@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +113,7 @@ public class ProcessingScreens extends AppCompatActivity {
                 for (int i = 0; i <= user.expenses.size() - 1; i++){
                     User.Expense temp = user.expenses.get(i);
                     expenses.add(temp.getName());
-                    eAmounts.add(temp.getAmount());
+                    eAmounts.add(formatCurrency(temp.getAmount()));
                 }
             }
             setSkipNext();
@@ -183,6 +185,13 @@ public class ProcessingScreens extends AppCompatActivity {
     }
 
     //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
+
+    // Currency formatter
+    private static String formatCurrency(String number){
+        DecimalFormat formatter = new DecimalFormat("$ ###,###,##0.00");
+        return formatter.format(Float.parseFloat(number));
+    }
+
     // Method to reload the activity
     private void refreshActivity(){
         finish();
@@ -348,24 +357,6 @@ public class ProcessingScreens extends AppCompatActivity {
             }
         });
 
-        // Setting up amount text box to take financial input
-        amount.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
         addValueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -373,7 +364,8 @@ public class ProcessingScreens extends AppCompatActivity {
                 String data;
                 if (currentActivity.equals("expenses") || currentActivity.equals("budgets")){
                     name = utilitySpinner.getSelectedItem().toString();
-                    data = amount.getText().toString();
+                    data = formatCurrency(amount.getText().toString());
+                    //data = amount.getText().toString();
                 }
                 else if( utilitySpinner.getVisibility() == View.GONE){
                     name = otherName.getText().toString();
@@ -383,6 +375,7 @@ public class ProcessingScreens extends AppCompatActivity {
                     name = utilitySpinner.getSelectedItem().toString();
                     data = dueDateSpinner.getSelectedItem().toString();
                 }
+
                 populateLists(name, data);
                 adapter.notifyDataSetChanged();
                 if (dialog.isShowing()) {

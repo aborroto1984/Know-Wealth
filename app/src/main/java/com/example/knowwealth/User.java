@@ -111,7 +111,8 @@ public class User {
         public Expense(){}
         public Expense(String name, String amount){
             this.name = name;
-            this.amount = Float.parseFloat(amount);
+            String amountNum = amount.replaceAll("[$,,]", "");
+            this.amount = Float.parseFloat(amountNum);
         }
 
         // Expense amount getter
@@ -120,7 +121,8 @@ public class User {
 
         // Method to add to the expense amount
         public void AddExpense(String amount) {
-            this.amount += Float.parseFloat(amount);
+            String amountNum = amount.replaceAll("[$,,]", "");
+            this.amount += Float.parseFloat(amountNum);
         }
 
         // Budget getter and setter

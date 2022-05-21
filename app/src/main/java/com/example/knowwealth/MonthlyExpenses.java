@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,12 +20,13 @@ import java.util.Date;
 public class MonthlyExpenses extends AppCompatActivity implements GestureDetector.OnGestureListener {
     private GestureDetector gestureDetector;
 
-    String monthText;
     User user;
     ArrayList<String> expenses, eAmounts;
     ArrayList<Integer> percent;
 
-     TextView expensesPageTitle;
+    TextView expensesPageTitle;
+    TextView expensesTotal;
+    float total = 0;
 
     // RecyclerView elements for the background list
     ProgressBar expensesBar;
@@ -44,6 +46,7 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
 
         // Setting up the page title
         expensesPageTitle = findViewById(R.id.expensesTitle);
+        expensesTotal = findViewById(R.id.expensesTotal);
         pageTitleSet();
 
         // Populating arrays from user instance
@@ -54,8 +57,10 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
             for (int i = 0; i <= user.expenses.size() - 1; i++){
                 User.Expense temp = user.expenses.get(i);
                 expenses.add(temp.getName());
-                eAmounts.add(String.valueOf(temp.getAmount()));
+                eAmounts.add(formatCurrency(temp.getAmount()));
+                total += Float.parseFloat(temp.getAmount());
             }
+            expensesTotal.setText(formatCurrency(String.valueOf(total)));
         }
 
         // Calculating the progress bar values
@@ -70,12 +75,15 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         expensesList.setLayoutManager(expensesLayoutManager);
         expensesAdapter.notifyDataSetChanged();
 
-
-
-
-
     }
+
     //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
+    // Currency formatter
+    private static String formatCurrency(String number){
+        DecimalFormat formatter = new DecimalFormat("-$ ###,###,##0.00");
+        return formatter.format(Float.parseFloat(number));
+    }
+
     public void pageTitleSet(){
         DateFormat dateFormat = new SimpleDateFormat("MMM");
         Date date = new Date();
@@ -85,13 +93,16 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
     public void calculateExpensePercent(){
         float greater = 0;
         for (int i = 0; i < eAmounts.size(); i++) {
-            float amount = Float.parseFloat(eAmounts.get(i));
+            String amountNum = eAmounts.get(i).replaceAll("[$,,-]", "");
+            float amount = Float.parseFloat(amountNum);
             if (amount > greater){
                 greater = amount;
             }
         }
         for (int i = 0; i < eAmounts.size(); i++) {
-            float amount = Float.parseFloat(eAmounts.get(i));
+            //float amount = Float.parseFloat(eAmounts.get(i));
+            String amountNum = eAmounts.get(i).replaceAll("[$,,-]", "");
+            float amount = Float.parseFloat(amountNum);
             percent.add((int) Math.ceil(amount*100/greater));
         }
     }
