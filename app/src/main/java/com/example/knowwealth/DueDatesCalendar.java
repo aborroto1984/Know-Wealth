@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -19,8 +18,6 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapter.OnItemListener, GestureDetector.OnGestureListener {
 
@@ -118,7 +115,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
 
     private void addToList(User.UtilDate temp){
         int today = 1;
-        String[] tempdayNum = temp.getDueDay().split(" ");
+        String[] tempdayNum = temp.getData().split(" ");
         String dayNum = tempdayNum[1];
         int dayLength = dayNum.length();
         dayNum = dayNum.substring(0,dayLength -2);
@@ -130,7 +127,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         }
         if (dayLength == today) {
             name.add(temp.getName());
-            data.add(temp.getDueDay());
+            data.add(temp.getData());
         }
         int i = -1;
         do {
@@ -161,12 +158,12 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
                 addToList(temp);
             }
         }
-        if(user.expenses.size() > 0) {
-            for (int i = 0; i <= user.expenses.size() - 1; i++) {
-                User.UtilDate temp = user.expenses.get(i);
-                addToList(temp);
-            }
-        }
+//        if(user.expenses.size() > 0) {
+//            for (int i = 0; i <= user.expenses.size() - 1; i++) {
+//                User.UtilDate temp = user.expenses.get(i);
+//                addToList(temp);
+//            }
+//        }
         if (name.size() > 0 && adapter == null) {
             itemList = (RecyclerView) findViewById(R.id.items_List);
             checkBox = findViewById(R.id.checkBox);

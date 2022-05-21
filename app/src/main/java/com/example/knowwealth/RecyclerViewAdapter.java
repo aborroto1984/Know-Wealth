@@ -58,7 +58,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         User.deleteFromList(data.get(position), name.get(position), User.creditCards);
                         break;
                     case "expenses":
-                        User.deleteFromList(data.get(position), name.get(position), User.expenses);
+                        User.deleteExpenseFromList(data.get(position), name.get(position), User.expenses);
                         break;
                 }
                 name.remove(position);

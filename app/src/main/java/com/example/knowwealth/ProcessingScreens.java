@@ -67,7 +67,6 @@ public class ProcessingScreens extends AppCompatActivity {
         // Initializing buttons and text
         backArrow = findViewById(R.id.backArrow2);
         skipNext = findViewById(R.id.skip_next);
-        if(processingCompleted){skipNext.setVisibility(View.GONE);}
         addBtn = findViewById(R.id.addButton);
         closeBtn = findViewById(R.id.closeButton);
         pageTitle = findViewById(R.id.pageTitle);
@@ -80,36 +79,42 @@ public class ProcessingScreens extends AppCompatActivity {
             utilities = new ArrayList<>();
             uDates = new ArrayList<>();
             rePopulateLists(user.utilities, utilities, uDates);
+            setSkipNext();
             pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Utilities");
-            if (!user.utilities.isEmpty()){skipNext.setText("Next");}
             setRecyclerView(this, utilities, uDates, closeBtn);
         }
         else if (currentActivity.equals("subscriptions")){
             subscriptions = new ArrayList<>();
             sDates = new ArrayList<>();
             rePopulateLists(user.subscriptions, subscriptions, sDates);
+            setSkipNext();
             pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Monthly Subscriptions");
-            if (!user.subscriptions.isEmpty()){skipNext.setText("Next");}
             setRecyclerView(this, subscriptions, sDates, closeBtn);
         }
         else if (currentActivity.equals("creditCards")){
             creditCards = new ArrayList<>();
             cDates = new ArrayList<>();
             rePopulateLists(user.creditCards, creditCards, cDates);
+            setSkipNext();
             pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Credit Card Due Dates");
-            if (!user.creditCards.isEmpty()){skipNext.setText("Next");}
             setRecyclerView(this, creditCards, cDates, closeBtn);
         }
         else if (currentActivity.equals("expenses")){
             expenses = new ArrayList<>();
             eAmounts = new ArrayList<>();
-            rePopulateLists(user.expenses, expenses, eAmounts);
+            if( user.expenses.size() > 0){
+                for (int i = 0; i <= user.expenses.size() - 1; i++){
+                    User.Expense temp = user.expenses.get(i);
+                    expenses.add(temp.getName());
+                    eAmounts.add(temp.getAmount());
+                }
+            }
+            setSkipNext();
             pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Enter Expense");
-            skipNext.setText("Done");
             setRecyclerView(this, expenses, eAmounts, closeBtn);
         }
 //        else if (currentActivity.equals("budgets")){
@@ -124,7 +129,8 @@ public class ProcessingScreens extends AppCompatActivity {
         skipNext.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                if (currentActivity.equals("utility")){
+                if(processingCompleted){finish();}
+                else if (currentActivity.equals("utility")){
                    user.setCurrentActivity("subscriptions");
                     refreshActivity();
                 }else if (currentActivity.equals("subscriptions")){
@@ -181,6 +187,31 @@ public class ProcessingScreens extends AppCompatActivity {
         startActivity(getIntent());
     }
 
+    // Method to change the text in the skipNext button
+    private void setSkipNext(){
+        switch (user.getCurrentActivity()){
+            case "utility":
+                if(processingCompleted){skipNext.setText("Done");}
+                else if(utilities.isEmpty()){skipNext.setText("Skip");}
+                else{skipNext.setText("Next");}
+                break;
+            case "subscriptions":
+                if(!subscriptions.isEmpty() && !processingCompleted){skipNext.setText("Next");}
+                else if(subscriptions.isEmpty() && !processingCompleted){skipNext.setText("Skip");}
+                else{skipNext.setText("Done");}
+                break;
+            case "creditCards":
+                if(!creditCards.isEmpty() && !processingCompleted){skipNext.setText("Next");}
+                else if(creditCards.isEmpty() && !processingCompleted){skipNext.setText("Skip");}
+                else{skipNext.setText("Done");}
+                break;
+            case "expenses":
+                if(processingCompleted){skipNext.setText("Done");}
+                break;
+        }
+
+    }
+
     // Method to set the recyclerView adapter
     private void setRecyclerView(Context ct, ArrayList<String> names, ArrayList<String> dueDates, FloatingActionButton closeBtn){
         adapter = new RecyclerViewAdapter(ct, names, dueDates, closeBtn, null);
@@ -207,7 +238,13 @@ public class ProcessingScreens extends AppCompatActivity {
             cDates.add(data);
         }
         else if (currentActivity.equals("expenses")){
-            user.expenses.add(new User.UtilDate(data, name));
+            boolean contains;
+            int index;
+            for (int i = 0; i < user.expenses.size(); i++) {
+               // if ((user.expenses.get(i)).)
+            }
+
+            user.expenses.add(new User.Expense(name, data));
             expenses.add(name);
             eAmounts.add(data);
         }
@@ -215,6 +252,7 @@ public class ProcessingScreens extends AppCompatActivity {
 //            budgets.add(name);
 //            bAmounts.add(data);
 //        }
+        setSkipNext();
     }
 
     // Method to repopulate local storage lists from the user instance when the activity starts
@@ -223,7 +261,7 @@ public class ProcessingScreens extends AppCompatActivity {
             for (int i = 0; i <= userArray.size() - 1; i++){
                 User.UtilDate temp = userArray.get(i);
                 name.add(temp.getName());
-                data.add(temp.getDueDay());
+                data.add(temp.getData());
             }
         }
     }
@@ -307,7 +345,7 @@ public class ProcessingScreens extends AppCompatActivity {
             public void onClick(View v) {
                 String name;
                 String data;
-                if (currentActivity.equals("expenses")){
+                if (currentActivity.equals("expenses") || currentActivity.equals("budgets")){
                     name = utilitySpinner.getSelectedItem().toString();
                     data = amount.getText().toString();
                 }else if( utilitySpinner.getVisibility() == View.GONE){
@@ -319,7 +357,6 @@ public class ProcessingScreens extends AppCompatActivity {
                     data = dueDateSpinner.getSelectedItem().toString();
                 }
                 populateLists(name, data);
-                //skipNext.setText("Next");
                 adapter.notifyDataSetChanged();
                 if (dialog.isShowing()) {
                     dialog.dismiss();

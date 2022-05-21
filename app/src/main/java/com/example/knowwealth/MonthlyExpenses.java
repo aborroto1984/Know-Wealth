@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ProgressBar;
@@ -53,9 +52,9 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         percent = new ArrayList<>();
         if( user.expenses.size() > 0){
             for (int i = 0; i <= user.expenses.size() - 1; i++){
-                User.UtilDate temp = user.expenses.get(i);
+                User.Expense temp = user.expenses.get(i);
                 expenses.add(temp.getName());
-                eAmounts.add(temp.getDueDay());
+                eAmounts.add(String.valueOf(temp.getAmount()));
             }
         }
 

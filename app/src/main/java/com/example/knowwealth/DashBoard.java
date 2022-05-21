@@ -67,12 +67,12 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
                     addToList(temp);
                 }
             }
-            if(user.expenses.size() > 0) {
-                for (int i = 0; i <= user.expenses.size() - 1; i++) {
-                    User.UtilDate temp = user.expenses.get(i);
-                    addToList(temp);
-                }
-            }
+//            if(user.expenses.size() > 0) {
+//                for (int i = 0; i <= user.expenses.size() - 1; i++) {
+//                    User.Expense temp = user.expenses.get(i);
+//                    addToList(temp);
+//                }
+//            }
             if (name.size() > 0) {
                 dueList = (RecyclerView) findViewById(R.id.Due_List);
                 adapter = new RecyclerViewAdapter(this, name, data, null, null);
@@ -94,7 +94,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
     }
 
     private void addToList(User.UtilDate temp){
-        String[] tempdayNum = temp.getDueDay().split(" ");
+        String[] tempdayNum = temp.getData().split(" ");
         String dayNum = tempdayNum[1];
         int dayLength = dayNum.length();
         dayNum = dayNum.substring(0,dayLength -2);
@@ -102,7 +102,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         int today = calendar.get(Calendar.DAY_OF_MONTH);
         if (dayLength >= today && dayLength < today + 7) {
             name.add(temp.getName());
-            data.add(temp.getDueDay());
+            data.add(temp.getData());
         }
     }
     public void Menu(View view) {

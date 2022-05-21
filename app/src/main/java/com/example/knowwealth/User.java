@@ -13,7 +13,7 @@ public class User {
     static List<UtilDate> utilities;
     static List<UtilDate> creditCards;
     static List<UtilDate> subscriptions;
-    static List<UtilDate> expenses;
+    static List<Expense> expenses;
     // Global variable to know
     static String currentActivity;
     static Boolean processingCompleted = false;
@@ -73,7 +73,7 @@ public class User {
             this.dueDay = dueDay;
             this.name = name;
         }
-        public String getDueDay(){return dueDay;}
+        public String getData(){return dueDay;}
         public String getName(){return name;}
     }
 
@@ -87,8 +87,18 @@ public class User {
         }
     }
 
+    // method to remove deleted entries
+    public static void deleteExpenseFromList(String removeDueDay, String removeName, List<Expense> array){
+        for (int i = 0; i < array.size(); i++){
+            Expense data = array.get(i);
+            if (data.name.equals(removeName) && data.amount == Float.parseFloat(removeDueDay)){
+                array.remove(i);
+            }
+        }
+    }
+
     // Expenses
-    public class Expense {
+    public static class Expense {
         // Fields
         private String name;
         private float amount = 0;
@@ -96,12 +106,16 @@ public class User {
 
         //Constructors
         public Expense(){}
-        public Expense(String name){
+        public Expense(String name, String amount){
             this.name = name;
+            this.amount = Float.parseFloat(amount);
         }
 
+
+
         // Expense amount getter
-        public float getAmount() { return amount; }
+        public String getAmount() { return String.valueOf(amount); }
+        public String getName() { return name; }
 
         // Method to add to the expense amount
         public void AddExpense(float amount){ this.amount += amount; }
