@@ -158,6 +158,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
                 addToList(temp);
             }
         }
+        // giving conflict when switch expenses to store Expense object instead of UtilDate
 //        if(user.expenses.size() > 0) {
 //            for (int i = 0; i <= user.expenses.size() - 1; i++) {
 //                User.UtilDate temp = user.expenses.get(i);

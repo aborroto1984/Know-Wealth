@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -206,7 +208,7 @@ public class ProcessingScreens extends AppCompatActivity {
                 else{skipNext.setText("Done");}
                 break;
             case "expenses":
-                if(processingCompleted){skipNext.setText("Done");}
+                skipNext.setText("Done");
                 break;
         }
 
@@ -238,13 +240,19 @@ public class ProcessingScreens extends AppCompatActivity {
             cDates.add(data);
         }
         else if (currentActivity.equals("expenses")){
-            boolean contains;
-            int index;
-            for (int i = 0; i < user.expenses.size(); i++) {
-               // if ((user.expenses.get(i)).)
+            boolean contains = false;
+            int index = 0;
+            for (int i = 0; i < user.expenses.size(); i++){
+                if(user.getExpenses().get(i).getName().equals(name)){
+                    contains = true;
+                    index = i;
+                }
             }
-
-            user.expenses.add(new User.Expense(name, data));
+            if(contains){
+                user.getExpenses().get(index).AddExpense(data);
+            }else{
+                user.expenses.add(new User.Expense(name, data));
+            }
             expenses.add(name);
             eAmounts.add(data);
         }
@@ -340,6 +348,24 @@ public class ProcessingScreens extends AppCompatActivity {
             }
         });
 
+        // Setting up amount text box to take financial input
+        amount.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         addValueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -348,7 +374,8 @@ public class ProcessingScreens extends AppCompatActivity {
                 if (currentActivity.equals("expenses") || currentActivity.equals("budgets")){
                     name = utilitySpinner.getSelectedItem().toString();
                     data = amount.getText().toString();
-                }else if( utilitySpinner.getVisibility() == View.GONE){
+                }
+                else if( utilitySpinner.getVisibility() == View.GONE){
                     name = otherName.getText().toString();
                     data = dueDateSpinner.getSelectedItem().toString();
                 }

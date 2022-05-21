@@ -13,7 +13,7 @@ public class User {
     static List<UtilDate> utilities;
     static List<UtilDate> creditCards;
     static List<UtilDate> subscriptions;
-    static List<Expense> expenses;
+    static ArrayList<Expense> expenses;
     // Global variable to know
     static String currentActivity;
     static Boolean processingCompleted = false;
@@ -63,6 +63,9 @@ public class User {
         currentActivity = value;
     }
 
+    // Expenses list getter
+    public ArrayList<Expense> getExpenses(){ return expenses; }
+
     // Utilities
     public static class UtilDate{
         private String dueDay;
@@ -111,14 +114,14 @@ public class User {
             this.amount = Float.parseFloat(amount);
         }
 
-
-
         // Expense amount getter
         public String getAmount() { return String.valueOf(amount); }
         public String getName() { return name; }
 
         // Method to add to the expense amount
-        public void AddExpense(float amount){ this.amount += amount; }
+        public void AddExpense(String amount) {
+            this.amount += Float.parseFloat(amount);
+        }
 
         // Budget getter and setter
         public float getBudget() { return budget; }
