@@ -8,8 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -21,9 +24,10 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
     private GestureDetector gestureDetector;
 
     User user;
-    ArrayList<String> expenses, eAmounts;
+    ArrayList<String> expenses, eAmounts, budgets;
     ArrayList<Integer> percent;
 
+    Button addBudget;
     TextView expensesPageTitle;
     TextView expensesTotal;
     float total = 0;
@@ -47,17 +51,23 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         // Setting up the page title
         expensesPageTitle = findViewById(R.id.expensesTitle);
         expensesTotal = findViewById(R.id.expensesTotal);
+        addBudget = findViewById(R.id.addBudget);
         pageTitleSet();
 
         // Populating arrays from user instance
         expenses = new ArrayList<>();
         eAmounts = new ArrayList<>();
+        budgets = new ArrayList<>();
         percent = new ArrayList<>();
         if( user.expenses.size() > 0){
             for (int i = 0; i <= user.expenses.size() - 1; i++){
                 User.Expense temp = user.expenses.get(i);
                 expenses.add(temp.getName());
                 eAmounts.add(formatCurrency(temp.getAmount()));
+                String text = formatCurrency(temp.getBudget());
+                if (Float.parseFloat(temp.getBudget()) > 0){
+                    budgets.add("BUDGET: " + text.replaceAll("[-]", ""));
+                }
                 total += Float.parseFloat(temp.getAmount());
             }
             expensesTotal.setText(formatCurrency(String.valueOf(total)));
@@ -69,12 +79,20 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         // Setting up the expenses list
         expensesBar = findViewById(R.id.expenseProgressBar);
         expensesList = findViewById(R.id.expensesList);
-        expensesAdapter = new ExpensesAdapter(this, expenses, eAmounts, percent, expensesBar);
+        expensesAdapter = new ExpensesAdapter(this, expenses, eAmounts, percent, budgets, expensesBar);
         expensesLayoutManager = new LinearLayoutManager(this);
         expensesList.setAdapter(expensesAdapter);
         expensesList.setLayoutManager(expensesLayoutManager);
         expensesAdapter.notifyDataSetChanged();
 
+        addBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.setCurrentActivity("budgets");
+                startActivity(new Intent(MonthlyExpenses.this, ProcessingScreens.class));
+                finish();
+            }
+        });
     }
 
     //----------------------------------------------------------------------------------------------------------------  HELPER METHODS

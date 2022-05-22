@@ -14,13 +14,15 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.MyView
 
     ArrayList<String> name;
     ArrayList<String> data;
+    ArrayList<String> budget;
     ArrayList<Integer> percent;
     ProgressBar expenseBar;
     Context context;
 
-    public ExpensesAdapter (Context ct, ArrayList<String> expense, ArrayList<String> amount, ArrayList<Integer> percentVal, ProgressBar bar){
+    public ExpensesAdapter (Context ct, ArrayList<String> expense, ArrayList<String> amount, ArrayList<Integer> percentVal, ArrayList<String> budget, ProgressBar bar){
         this.name = expense;
         this.data = amount;
+        this.budget = budget;
         this.percent = percentVal;
         this.expenseBar = bar;
         this.context = ct;
@@ -39,6 +41,10 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.MyView
         holder.category.setText(name.get(position));
         holder.amount.setText(data.get(position));
         holder.bar.setProgress(percent.get(position));
+        if (!budget.isEmpty()){
+            holder.budgetText.setText(budget.get(position));
+        }
+
     }
 
     @Override
@@ -47,14 +53,21 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView category, amount;
+        TextView category, amount, budgetText;
         ProgressBar bar;
 
         public MyViewHolder( View itemView) {
             super(itemView);
             category = itemView.findViewById(R.id.expenseCategory);
             amount = itemView.findViewById(R.id.expenseAmount);
+            budgetText = itemView.findViewById(R.id.budgetText);
             bar = itemView.findViewById(R.id.expenseProgressBar);
+
+            if (!budget.isEmpty()){
+                budgetText.setVisibility(View.VISIBLE);
+            }else{
+                budgetText.setVisibility(View.GONE);
+            }
         }
     }
 

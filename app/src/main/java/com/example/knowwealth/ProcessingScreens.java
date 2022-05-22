@@ -47,7 +47,7 @@ public class ProcessingScreens extends AppCompatActivity {
     ArrayList<String> subscriptions, sDates;
     ArrayList<String> creditCards, cDates;
     ArrayList<String> expenses, eAmounts;
-    //ArrayList<String> budgets, bAmounts;
+    ArrayList<String> budgets, bAmounts;
 
     // Options for the nameSpinner to change it dynamically
     ArrayList<String> spinnerOptions = new ArrayList<>();
@@ -121,13 +121,23 @@ public class ProcessingScreens extends AppCompatActivity {
             pageTitle.setText("Enter Expense");
             setRecyclerView(this, expenses, eAmounts, closeBtn);
         }
-//        else if (currentActivity.equals("budgets")){
-//            budgets = new ArrayList<>();
-//            bAmounts = new ArrayList<>();
-//            pageTitle = findViewById(R.id.pageTitle);
-//            pageTitle.setText("Add Budget");
-//            setRecyclerView(this, budgets, bAmounts, closeBtn);
-//        }
+        else if (currentActivity.equals("budgets")){
+            budgets = new ArrayList<>();
+            bAmounts = new ArrayList<>();
+            if( user.expenses.size() > 0){
+                for (int i = 0; i <= user.expenses.size() - 1; i++){
+                    User.Expense temp = user.expenses.get(i);
+                    if (Float.parseFloat(temp.getBudget()) > 0){
+                        budgets.add(temp.getName());
+                        bAmounts.add(formatCurrency(temp.getBudget()));
+                    }
+                }
+            }
+            setSkipNext();
+            pageTitle = findViewById(R.id.pageTitle);
+            pageTitle.setText("Add Budget");
+            setRecyclerView(this, budgets, bAmounts, closeBtn);
+        }
 
         //----------------------------------------------------------------------------------------------------------------  BUTTONS
         skipNext.setOnClickListener(new View.OnClickListener(){
@@ -143,9 +153,19 @@ public class ProcessingScreens extends AppCompatActivity {
                 }else if (currentActivity.equals("creditCards")){
                     user.setProcessingCompleted(true);
                     startActivity(new Intent(ProcessingScreens.this, DashBoard.class));
-                }else if (currentActivity.equals("expenses")){finish();}
+                }else if (currentActivity.equals("expenses")){
+                    finish();
+                }else if (currentActivity.equals("budgets")){
+                    finish();
+                    startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
+                }
             }
         });
+
+        ///// There is a bug when you add multiple expenses to the monthly expenses
+
+
+
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -217,6 +237,7 @@ public class ProcessingScreens extends AppCompatActivity {
                 else{skipNext.setText("Done");}
                 break;
             case "expenses":
+            case "budgets":
                 skipNext.setText("Done");
                 break;
         }
@@ -265,10 +286,23 @@ public class ProcessingScreens extends AppCompatActivity {
             expenses.add(name);
             eAmounts.add(data);
         }
-//        else if (currentActivity.equals("budgets")){
-//            budgets.add(name);
-//            bAmounts.add(data);
-//        }
+        else if (currentActivity.equals("budgets")){
+            if (user.getExpenses().isEmpty()){
+                User.Expense expense = new User.Expense(name, "0");
+                expense.setBudget(data);
+                user.expenses.add(expense);
+
+            }else{
+                for (int i = 0; i < user.expenses.size(); i++){
+                    if(user.getExpenses().get(i).getName().equals(name)){
+
+                        user.getExpenses().get(i).setBudget(data);
+                    }
+                }
+            }
+            budgets.add(name);
+            bAmounts.add(data);
+        }
         setSkipNext();
     }
 
@@ -334,6 +368,15 @@ public class ProcessingScreens extends AppCompatActivity {
                 spinnerOptions.add("Food / Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
                 spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Transportation"); spinnerOptions.add("Restaurant");
                 break;
+            case "budgets":
+                description.setText("Expense to Budget");
+                dueDateSpinner.setVisibility(View.GONE);
+                dueDate.setVisibility(View.GONE);
+                amountText.setVisibility(View.VISIBLE);
+                amount.setVisibility(View.VISIBLE);
+                spinnerOptions.add("Food / Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
+                spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Transportation"); spinnerOptions.add("Restaurant");
+                break;
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -365,7 +408,6 @@ public class ProcessingScreens extends AppCompatActivity {
                 if (currentActivity.equals("expenses") || currentActivity.equals("budgets")){
                     name = utilitySpinner.getSelectedItem().toString();
                     data = formatCurrency(amount.getText().toString());
-                    //data = amount.getText().toString();
                 }
                 else if( utilitySpinner.getVisibility() == View.GONE){
                     name = otherName.getText().toString();

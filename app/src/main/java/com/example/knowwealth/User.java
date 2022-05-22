@@ -90,7 +90,7 @@ public class User {
         }
     }
 
-    // method to remove deleted entries
+    // method to remove deleted expenses
     public static void deleteExpenseFromList(String removeDueDay, String removeName, List<Expense> array){
         for (int i = 0; i < array.size(); i++){
             Expense data = array.get(i);
@@ -100,12 +100,25 @@ public class User {
         }
     }
 
+    // method to remove deleted budgets
+    public static void deleteBudget(String removeName, List<Expense> array){
+        for (int i = 0; i < array.size(); i++){
+            Expense data = array.get(i);
+            if (data.name.equals(removeName) && data.budget != 0){
+                data.budget = 0;
+                if (data.amount == 0){
+                    array.remove(i);
+                }
+            }
+        }
+    }
+
     // Expenses
     public static class Expense {
         // Fields
         private String name;
         private float amount = 0;
-        private float budget;
+        private float budget = 0;
 
         //Constructors
         public Expense(){}
@@ -126,7 +139,10 @@ public class User {
         }
 
         // Budget getter and setter
-        public float getBudget() { return budget; }
-        public void setBudget(float budget) { this.budget = budget; }
+        public String getBudget() { return String.valueOf(budget); }
+        public void setBudget(String budget) {
+            String amountNum = budget.replaceAll("[$,,]", "");
+            this.budget = Float.parseFloat(amountNum);
+        }
     }
 }

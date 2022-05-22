@@ -63,13 +63,13 @@
         android:id="@+id/expensesList"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/addBudget"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expensesTitle" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/addBudget"
         android:layout_width="261dp"
         android:layout_height="50dp"
         android:layout_marginBottom="85dp"

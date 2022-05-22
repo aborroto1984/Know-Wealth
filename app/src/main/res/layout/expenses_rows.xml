@@ -9,38 +9,52 @@
         android:id="@+id/expenseProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="170dp"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:indeterminate="false"
         android:progress="0"
         android:progressDrawable="@drawable/main_progress_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/budgetText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BUDGET: $1000000000"
+        android:textAlignment="textEnd"
+        android:textColor="@color/main_color"
+        android:textSize="9sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/expenseProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/expenseProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/expenseProgressBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/expenseCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginEnd="300dp"
-        android:text="Name"
+        android:text="Food / Drink"
         android:textColor="@color/main_color"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/expenseAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="280dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:text="-$ 1000000.56"
         android:textAlignment="textEnd"
         android:textColor="@color/main_color"
@@ -49,6 +63,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
