@@ -14,20 +14,17 @@
         android:progress="0"
         android:progressDrawable="@drawable/main_progress_bar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/expenseCategory"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/budgetText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BUDGET: $1000000000"
         android:textAlignment="textEnd"
         android:textColor="@color/main_color"
         android:textSize="9sp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/expenseProgressBar"
         app:layout_constraintEnd_toEndOf="@+id/expenseProgressBar"
         app:layout_constraintStart_toStartOf="@+id/expenseProgressBar"
@@ -38,14 +35,14 @@
         android:id="@+id/expenseCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginEnd="300dp"
         android:text="Food / Drink"
+        android:textAlignment="viewEnd"
         android:textColor="@color/main_color"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +50,7 @@
         android:id="@+id/expenseAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="280dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="24dp"
         android:text="-$ 1000000.56"
         android:textAlignment="textEnd"
@@ -61,7 +58,6 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/expenseProgressBar"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

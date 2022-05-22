@@ -67,6 +67,8 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
                 String text = formatCurrency(temp.getBudget());
                 if (Float.parseFloat(temp.getBudget()) > 0){
                     budgets.add("BUDGET: " + text.replaceAll("[-]", ""));
+                }else{
+                    budgets.add("");
                 }
                 total += Float.parseFloat(temp.getAmount());
             }

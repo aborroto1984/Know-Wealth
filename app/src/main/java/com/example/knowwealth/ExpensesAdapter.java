@@ -2,6 +2,7 @@ package com.example.knowwealth;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.MyView
     ArrayList<Integer> percent;
     ProgressBar expenseBar;
     Context context;
+
+    // Getting user instance
+    User user = LoginActivity.user;
 
     public ExpensesAdapter (Context ct, ArrayList<String> expense, ArrayList<String> amount, ArrayList<Integer> percentVal, ArrayList<String> budget, ProgressBar bar){
         this.name = expense;
@@ -41,10 +45,12 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.MyView
         holder.category.setText(name.get(position));
         holder.amount.setText(data.get(position));
         holder.bar.setProgress(percent.get(position));
-        if (!budget.isEmpty()){
-            holder.budgetText.setText(budget.get(position));
+        holder.budgetText.setText(budget.get(position));
+        float amount = Float.parseFloat(holder.amount.getText().toString().replaceAll("[^0-9, .]", ""));
+        float budget = Float.parseFloat(holder.budgetText.getText().toString().replaceAll("[^0-9, .]", ""));
+        if (budget < amount){
+            holder.budgetText.setTextColor(Color.parseColor("red"));
         }
-
     }
 
     @Override
@@ -62,12 +68,6 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.MyView
             amount = itemView.findViewById(R.id.expenseAmount);
             budgetText = itemView.findViewById(R.id.budgetText);
             bar = itemView.findViewById(R.id.expenseProgressBar);
-
-            if (!budget.isEmpty()){
-                budgetText.setVisibility(View.VISIBLE);
-            }else{
-                budgetText.setVisibility(View.GONE);
-            }
         }
     }
 

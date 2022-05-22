@@ -162,7 +162,6 @@ public class ProcessingScreens extends AppCompatActivity {
             }
         });
 
-        ///// There is a bug when you add multiple expenses to the monthly expenses
 
 
 
@@ -404,10 +403,13 @@ public class ProcessingScreens extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name;
-                String data;
+                String data = null;
                 if (currentActivity.equals("expenses") || currentActivity.equals("budgets")){
                     name = utilitySpinner.getSelectedItem().toString();
-                    data = formatCurrency(amount.getText().toString());
+
+                    String test = amount.getText().toString();
+                    if (!test.isEmpty()) {
+                    data = formatCurrency(amount.getText().toString());}
                 }
                 else if( utilitySpinner.getVisibility() == View.GONE){
                     name = otherName.getText().toString();
@@ -418,10 +420,14 @@ public class ProcessingScreens extends AppCompatActivity {
                     data = dueDateSpinner.getSelectedItem().toString();
                 }
 
-                populateLists(name, data);
-                adapter.notifyDataSetChanged();
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
+                if (data != null) {
+                    populateLists(name, data);
+                    adapter.notifyDataSetChanged();
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                }else{
+                    Toast.makeText(ProcessingScreens.this,"Please enter amount.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
