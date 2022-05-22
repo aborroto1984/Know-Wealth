@@ -144,7 +144,7 @@ public class ProcessingScreens extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 if(processingCompleted){finish();}
-                else if (currentActivity.equals("utility")){
+                if (currentActivity.equals("utility")){
                    user.setCurrentActivity("subscriptions");
                     refreshActivity();
                 }else if (currentActivity.equals("subscriptions")){
@@ -163,13 +163,11 @@ public class ProcessingScreens extends AppCompatActivity {
         });
 
 
-
-
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (processingCompleted){finish();}
-                else if(currentActivity.equals("utility")){
+                if(currentActivity.equals("utility")){
                     finish();
                 }else if (currentActivity.equals("subscriptions")){
                     user.setCurrentActivity("utility");
@@ -177,6 +175,11 @@ public class ProcessingScreens extends AppCompatActivity {
                 }else if (currentActivity.equals("creditCards")){
                     user.setCurrentActivity("subscriptions");
                     refreshActivity();
+                }else if (currentActivity.equals("expenses")){
+                    finish();
+                }else if (currentActivity.equals("budgets")){
+                    finish();
+                    startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
                 }
             }
         });
