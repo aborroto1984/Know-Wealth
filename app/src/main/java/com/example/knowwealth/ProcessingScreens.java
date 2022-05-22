@@ -286,7 +286,13 @@ public class ProcessingScreens extends AppCompatActivity {
             eAmounts.add(data);
         }
         else if (currentActivity.equals("budgets")){
-            if (user.getExpenses().isEmpty()){
+            boolean contains = false;
+            for (int i = 0; i < user.getExpenses().size(); i++) {
+                if (user.getExpenses().get(i).getName().equals(name)){
+                    contains = true;
+                }
+            }
+            if (!contains){
                 User.Expense expense = new User.Expense(name, "0");
                 expense.setBudget(data);
                 user.expenses.add(expense);
