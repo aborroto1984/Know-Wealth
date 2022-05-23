@@ -98,6 +98,10 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
     }
 
     //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
+    // Menu
+    public void Menu(View view) {
+        startActivity(new Intent(MonthlyExpenses.this, Menu.class));
+    }
     // Currency formatter
     private static String formatCurrency(String number){
         DecimalFormat formatter = new DecimalFormat("-$ ###,###,##0.00");
