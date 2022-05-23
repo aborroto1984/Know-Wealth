@@ -50,7 +50,7 @@ public class CreateAccount extends AppCompatActivity {
 //                    Toast.makeText(CreateAccount.this, "Passwords do not match.",
 //                            Toast.LENGTH_LONG).show();
 //                } else{
-//                    User userName = new User(fullName.getText().toString(), userIdCreateAccount.getText().toString());
+//                    userName = new User(fullName.getText().toString(), userIdCreateAccount.getText().toString());
 //                    createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
 //                }
 

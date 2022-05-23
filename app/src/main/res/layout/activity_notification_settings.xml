@@ -113,67 +113,21 @@
 
             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_marginVertical="20dp"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/days_1"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="6dp"
-                    android:layout_height="10dp"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/main_button_white"
-                    android:contextClickable="false"
-                    android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
-                    android:textColor="#FFFFFF"
-                    android:enabled="false"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <Button
-                    android:id="@+id/days_2"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="6dp"
-                    android:layout_height="10dp"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/main_button_white"
-                    android:contextClickable="false"
-                    android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
-                    android:textColor="#FFFFFF"
-                    android:enabled="false"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <Button
-                    android:id="@+id/days_3"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="6dp"
-                    android:layout_height="10dp"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/main_button_white"
-                    android:contextClickable="false"
-                    android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
-                    android:textColor="#FFFFFF"
-                    android:enabled="false"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <Button
-                    android:id="@+id/days_4"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="6dp"
-                    android:layout_height="10dp"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/main_button_white"
-                    android:contextClickable="false"
-                    android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
-                    android:textColor="#FFFFFF"
-                    android:enabled="false"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </TableRow>
-
         </TableLayout>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/days"
+            android:layout_width="228dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_horizontal"
+            android:enabled="false"
+            android:valueFrom="1"
+            android:valueTo="4"
+            android:stepSize="1"
+            app:trackColorActive="@color/main_color"
+            app:trackColorInactive="@color/teal_700"
+            app:thumbColor="@color/common_google_signin_btn_text_dark_disabled"
+            android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator" />
 
         <TextView
             android:id="@+id/num_days"
@@ -188,8 +142,6 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     </LinearLayout>
-
-
 
     <Button
         android:id="@+id/apply_button"
