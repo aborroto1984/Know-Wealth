@@ -155,6 +155,7 @@ public class ProcessingScreens extends AppCompatActivity {
                     startActivity(new Intent(ProcessingScreens.this, DashBoard.class));
                 }else if (currentActivity.equals("expenses")){
                     finish();
+                    startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
                 }else if (currentActivity.equals("budgets")){
                     finish();
                     startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));

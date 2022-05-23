@@ -46,7 +46,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.text1.setText(name.get(position));
-        holder.text2.setText(data.get(position));
+
+        String curAct = context.getClass().getName();
+        if(curAct.equals("com.example.knowwealth.DashBoard")){
+            holder.text2.setVisibility(View.GONE);
+            holder.dashExpenseText.setText(data.get(position));
+            holder.dashExpenseText.setVisibility(View.VISIBLE);
+        }else{
+            holder.text2.setText(data.get(position));
+        }
 
         holder.closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView text1, text2;
+        TextView text1, text2, dashExpenseText;
         FloatingActionButton closeBtn;
         MaterialCheckBox checkBox;
 
@@ -91,6 +99,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             text1 = itemView.findViewById(R.id.name_type);
             text2 = itemView.findViewById(R.id.amount_date);
+            dashExpenseText = itemView.findViewById(R.id.dashExpenseText);
+
             closeBtn = itemView.findViewById(R.id.closeButton);
             checkBox = itemView.findViewById(R.id.checkBox);
 

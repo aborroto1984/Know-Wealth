@@ -27,7 +27,7 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
     ArrayList<String> expenses, eAmounts, budgets;
     ArrayList<Integer> percent;
 
-    Button addBudget;
+    Button addBudget, addExpense2;
     TextView expensesPageTitle;
     TextView expensesTotal;
     float total = 0;
@@ -52,6 +52,7 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         expensesPageTitle = findViewById(R.id.expensesTitle);
         expensesTotal = findViewById(R.id.expensesTotal);
         addBudget = findViewById(R.id.addBudget);
+        addExpense2 = findViewById(R.id.addExpense2);
         pageTitleSet();
 
         // Populating arrays from user instance
@@ -91,6 +92,15 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
             @Override
             public void onClick(View view) {
                 user.setCurrentActivity("budgets");
+                startActivity(new Intent(MonthlyExpenses.this, ProcessingScreens.class));
+                finish();
+            }
+        });
+
+        addExpense2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.setCurrentActivity("expenses");
                 startActivity(new Intent(MonthlyExpenses.this, ProcessingScreens.class));
                 finish();
             }
