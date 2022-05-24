@@ -18,10 +18,20 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class CreateAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
     final String TAG = "CreateAccount";
+    String userEmail;
+    String userFullName;
+    public static User userName;
+
+    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +50,22 @@ public class CreateAccount extends AppCompatActivity {
         createAccountButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-//                if(userIdCreateAccount.getText().toString().isEmpty()){
-//                    Toast.makeText(CreateAccount.this, "Email cannot be blank.",
-//                            Toast.LENGTH_SHORT).show();
-//                }else if(passwordCreateAccount1.getText().toString().isEmpty()) {
-//                    Toast.makeText(CreateAccount.this, "Password cannot be blank.",
-//                            Toast.LENGTH_SHORT).show();
-//                }else if(!passwordCreateAccount1.getText().toString().equals(passwordVerify.getText().toString())){
-//                    Toast.makeText(CreateAccount.this, "Passwords do not match.",
-//                            Toast.LENGTH_LONG).show();
-//                } else{
-//                    userName = new User(fullName.getText().toString(), userIdCreateAccount.getText().toString());
-//                    createAccount(userIdCreateAccount.getText().toString(), passwordCreateAccount1.getText().toString());
-//                }
-
-                startActivity(new Intent(CreateAccount.this, ProcessingScreens.class));
+                if(userIdCreateAccount.getText().toString().isEmpty()){
+                    Toast.makeText(CreateAccount.this, "Email cannot be blank.",
+                            Toast.LENGTH_SHORT).show();
+                }else if(passwordCreateAccount1.getText().toString().isEmpty()) {
+                    Toast.makeText(CreateAccount.this, "Password cannot be blank.",
+                            Toast.LENGTH_SHORT).show();
+                }else if(!passwordCreateAccount1.getText().toString().equals(passwordVerify.getText().toString())){
+                    Toast.makeText(CreateAccount.this, "Passwords do not match.",
+                            Toast.LENGTH_LONG).show();
+                } else{
+                    userEmail = userIdCreateAccount.getText().toString();
+                    userFullName = fullName.getText().toString();
+                    User userName = new User(userFullName, userEmail);
+                    createAccount(userEmail, passwordCreateAccount1.getText().toString());
+                    startActivity(new Intent(CreateAccount.this, LoginActivity.class));
+                }
             }
         });
 
@@ -81,6 +92,10 @@ public class CreateAccount extends AppCompatActivity {
 
                             Toast.makeText(CreateAccount.this, "Authentication Success." + user.getEmail(),
                                     Toast.LENGTH_SHORT).show();
+
+                            userDatabase.child(mAuth.getUid()).child("Email").setValue(userEmail);
+                            userDatabase.child(mAuth.getUid()).child("Full Name").setValue(userFullName);
+                            userDatabase.child(mAuth.getUid()).child("First Name").setValue(User.getFirstName());
 
                             finish();
 
