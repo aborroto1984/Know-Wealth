@@ -1,5 +1,7 @@
 package com.example.knowwealth;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,8 @@ public class User {
     // Global variable to know
     static String currentActivity;
     static Boolean processingCompleted = false;
+    static boolean switch1;
+    static float sliderPosition;
 
     // Constructors
     public User(){
@@ -54,6 +58,8 @@ public class User {
     // Global variables getters
     public Boolean getProcessingCompleted(){return processingCompleted;}
     public String getCurrentActivity(){ return currentActivity;}
+    public boolean getSwitch1(){return switch1;}
+    public float getSliderPosition() { return sliderPosition;}
 
     // Global variables setters
     public void setProcessingCompleted( Boolean value){
@@ -62,6 +68,8 @@ public class User {
     public void setCurrentActivity( String value){
         currentActivity = value;
     }
+    public void setSwitch1(Boolean value){switch1 = value;}
+    public void setSliderPosition(float sliderPosition) { User.sliderPosition = sliderPosition; }
 
     // Expenses list getter
     public ArrayList<Expense> getExpenses(){ return expenses; }
