@@ -13,16 +13,22 @@ import java.text.BreakIterator;
 
 public class AccountEdit extends AppCompatActivity {
     User user = LoginActivity.user;
-    Button appbtn = findViewById(R.id.apply_button);
-    EditText fullNameField = findViewById(R.id.fullName);
-    EditText userIdField = findViewById(R.id.userIdCreateAccount);
-    EditText password = findViewById(R.id.passwordCreateAccount1);
-    EditText passwordConfirm = findViewById(R.id.passwordCreateAccount2);
+    Button appbtn;
+    EditText fullNameField;
+    EditText userIdField;
+    EditText password;
+    EditText passwordConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_edit);
+
+         appbtn = findViewById(R.id.apply_button);
+         fullNameField = findViewById(R.id.fullName);
+         userIdField = findViewById(R.id.userIdCreateAccount);
+         password = findViewById(R.id.passwordCreateAccount1);
+         passwordConfirm = findViewById(R.id.passwordCreateAccount2);
 
         appbtn.setOnClickListener(new View.OnClickListener() {
             @Override
