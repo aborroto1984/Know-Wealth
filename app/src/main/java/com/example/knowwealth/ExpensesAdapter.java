@@ -49,8 +49,8 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.MyView
 
         String test = holder.budgetText.getText().toString();
         if (!test.isEmpty()){
-            float amount = Float.parseFloat(holder.amount.getText().toString().replaceAll("[^0-9, .]", ""));
-            float budget = Float.parseFloat(test.replaceAll("[^0-9, .]", ""));
+            float amount = Float.parseFloat(holder.amount.getText().toString().replaceAll("[^\\d|.]", ""));
+            float budget = Float.parseFloat(test.replaceAll("[^\\d|.]", ""));
             if (budget < amount){
                 holder.budgetText.setTextColor(Color.parseColor("red"));
             }
