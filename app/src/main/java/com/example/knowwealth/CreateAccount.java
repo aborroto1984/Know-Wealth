@@ -30,8 +30,9 @@ public class CreateAccount extends AppCompatActivity {
     String userEmail;
     String userFullName;
     public static User userName;
+    Button createAccountButton;
 
-    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
+    DatabaseReference userDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class CreateAccount extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        Button createAccountButton = findViewById(R.id.createAccountButton);
+        createAccountButton = findViewById(R.id.createAccountButton);
         final EditText userIdCreateAccount = findViewById(R.id.userIdCreateAccount);
         final EditText passwordCreateAccount1 = findViewById(R.id.passwordCreateAccount1);
         final EditText passwordVerify = findViewById(R.id.passwordCreateAccount2);
@@ -62,9 +63,9 @@ public class CreateAccount extends AppCompatActivity {
                 } else{
                     userEmail = userIdCreateAccount.getText().toString();
                     userFullName = fullName.getText().toString();
-                    User userName = new User(userFullName, userEmail);
+                    userName = new User(userFullName, userEmail);
                     createAccount(userEmail, passwordCreateAccount1.getText().toString());
-                    startActivity(new Intent(CreateAccount.this, LoginActivity.class));
+
                 }
             }
         });
@@ -93,11 +94,13 @@ public class CreateAccount extends AppCompatActivity {
                             Toast.makeText(CreateAccount.this, "Authentication Success." + user.getEmail(),
                                     Toast.LENGTH_SHORT).show();
 
+                            userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
+
                             userDatabase.child(mAuth.getUid()).child("Email").setValue(userEmail);
                             userDatabase.child(mAuth.getUid()).child("Full Name").setValue(userFullName);
                             userDatabase.child(mAuth.getUid()).child("First Name").setValue(User.getFirstName());
-
-                            finish();
+                            startActivity(new Intent(CreateAccount.this, LoginActivity.class));
+                            //finish();
 
                         } else {
                             // If sign in fails, display a message to the user.

@@ -27,8 +27,8 @@ public class User {
     static List<UtilDate> subscriptions;
     static ArrayList<Expense> expenses;
 
-    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users").child(userID);
+    //String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");//.child(userID);
     List<String> list;
 
     // Global variable to know
