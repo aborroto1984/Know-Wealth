@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -261,16 +263,19 @@ public class ProcessingScreens extends AppCompatActivity {
             user.utilities.add(new User.UtilDate(data, name));
             utilities.add(name);
             uDates.add(data);
+            addToFirebase("Utilities", name, data);
         }
         else if (currentActivity.equals("subscriptions")){
             user.subscriptions.add(new User.UtilDate(data, name));
             subscriptions.add(name);
             sDates.add(data);
+            addToFirebase("Subscriptions", name, data);
         }
         else if (currentActivity.equals("creditCards")){
             user.creditCards.add(new User.UtilDate(data, name));
             creditCards.add(name);
             cDates.add(data);
+            addToFirebase("Credit Cards", name, data);
         }
         else if (currentActivity.equals("expenses")){
             boolean contains = false;
@@ -324,6 +329,12 @@ public class ProcessingScreens extends AppCompatActivity {
                 data.add(temp.getData());
             }
         }
+    }
+
+    //Method to add new data to firebase database
+    private void addToFirebase(String arrList, String name, String data){
+        DatabaseReference userDatabase= user.userDatabase.child(User.getuID()).child(arrList);
+        userDatabase.child(name).child("Due Date").setValue(data);
     }
 
     //----------------------------------------------------------------------------------------------------------------  DIALOGS

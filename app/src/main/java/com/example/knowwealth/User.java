@@ -30,6 +30,7 @@ public class User {
     static ArrayList<Expense> expenses;
 
     DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
+    private static String uID;
     List<String> list;
 
     // Global variable to know
@@ -41,10 +42,11 @@ public class User {
     // Constructors
     public User(String uid) {
 
-        //utilities = new ArrayList<>();
+        utilities = new ArrayList<>();
         creditCards = new ArrayList<>();
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
+        uID = uid;
 
         userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -53,11 +55,14 @@ public class User {
                 fullName = snapshot.child("Full Name").getValue().toString();
                 firstName = snapshot.child("First Name").getValue().toString();
                 for(DataSnapshot i : snapshot.child("Utilities").getChildren()){
-                    utilities.add(new UtilDate(i.child(i.getKey().toString()).child("Due Date").getValue().toString(),i.child("Name").getValue().toString()));
+                    utilities.add(new UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
+                }
+                for(DataSnapshot i : snapshot.child("Credit Cards").getChildren()){
+                    creditCards.add(new UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
+                }for(DataSnapshot i : snapshot.child("Subscriptions").getChildren()){
+                    subscriptions.add(new UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
                 }
 
-//                creditCards = new ArrayList<>();
-//                subscriptions = new ArrayList<>();
 //                expenses = new ArrayList<>();
             }
 
@@ -78,6 +83,10 @@ public class User {
         creditCards = new ArrayList<>();
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
+    }
+
+    public static String getuID() {
+        return uID;
     }
 
     // firstName and fullName setters
