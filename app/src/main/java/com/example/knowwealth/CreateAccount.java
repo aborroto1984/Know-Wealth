@@ -100,7 +100,6 @@ public class CreateAccount extends AppCompatActivity {
                             userDatabase.child(mAuth.getUid()).child("Full Name").setValue(userFullName);
                             userDatabase.child(mAuth.getUid()).child("First Name").setValue(User.getFirstName());
                             startActivity(new Intent(CreateAccount.this, LoginActivity.class));
-                            //finish();
 
                         } else {
                             // If sign in fails, display a message to the user.

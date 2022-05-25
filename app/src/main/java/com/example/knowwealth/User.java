@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable;
 
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,8 +29,7 @@ public class User {
     static List<UtilDate> subscriptions;
     static ArrayList<Expense> expenses;
 
-    //String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");//.child(userID);
+    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
     List<String> list;
 
     // Global variable to know
@@ -38,30 +39,36 @@ public class User {
     static float sliderPosition;
 
     // Constructors
-    public User(){
-        utilities = new ArrayList<>();
+    public User(String uid) {
+
+        //utilities = new ArrayList<>();
         creditCards = new ArrayList<>();
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
 
-
-        userDatabase.addValueEventListener(new ValueEventListener() {
+        userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                email = snapshot.child("Email").getValue().toString();
+                fullName = snapshot.child("Full Name").getValue().toString();
+                firstName = snapshot.child("First Name").getValue().toString();
+                for(DataSnapshot i : snapshot.child("Utilities").getChildren()){
+                    utilities.add(new UtilDate(i.child(i.getKey().toString()).child("Due Date").getValue().toString(),i.child("Name").getValue().toString()));
+                }
 
-                    if(snapshot.exists()){
-                       email = snapshot.child("Email").getValue().toString();
-                       fullName = snapshot.child("Full Name").getValue().toString();
-                       firstName = snapshot.child("First Name").getValue().toString();
-                    }
+//                creditCards = new ArrayList<>();
+//                subscriptions = new ArrayList<>();
+//                expenses = new ArrayList<>();
             }
 
-            @Override
-            public void onCancelled(@androidx.annotation.NonNull DatabaseError error) {
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //add toast for error message
             }
         });
     }
+
     public User(String fullName, String email){
         this.fullName = fullName;
         String[] getName = fullName.split(" ");

@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     final String TAG = "LoginActivity";
-    public static User user = CreateAccount.userName;
+    public static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser authUser = mAuth.getCurrentUser();
 
-                            user = new User();
+                            user = new User(authUser.getUid());
 
                             if (!user.getProcessingCompleted()){
                                 user.setCurrentActivity("utility");
