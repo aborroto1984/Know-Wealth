@@ -77,6 +77,13 @@ public class CreateAccount extends AppCompatActivity {
                 startActivity(new Intent(CreateAccount.this, LoginActivity.class));
             }
         });
+        ImageView backArrow = findViewById(R.id.backArrow);
+        backArrow.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(CreateAccount.this, LoginActivity.class));
+            }
+        });
     }
 
     public void createAccount(String email, String password){
