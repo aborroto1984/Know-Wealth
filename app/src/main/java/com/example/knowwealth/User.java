@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 
 import android.widget.Toast;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,9 +36,10 @@ public class User {
 
     // Global variable to know
     static String currentActivity;
-    static Boolean processingCompleted = false;
+    static Boolean processingCompleted;
     static boolean switch1;
     static float sliderPosition;
+    String processing;
 
     // Constructors
     public User(String uid) {
@@ -46,32 +48,9 @@ public class User {
         creditCards = new ArrayList<>();
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
+
         uID = uid;
 
-        userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                email = snapshot.child("Email").getValue().toString();
-                fullName = snapshot.child("Full Name").getValue().toString();
-                firstName = snapshot.child("First Name").getValue().toString();
-                for(DataSnapshot i : snapshot.child("Utilities").getChildren()){
-                    utilities.add(new UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
-                }
-                for(DataSnapshot i : snapshot.child("Credit Cards").getChildren()){
-                    creditCards.add(new UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
-                }for(DataSnapshot i : snapshot.child("Subscriptions").getChildren()){
-                    subscriptions.add(new UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
-                }
-
-//                expenses = new ArrayList<>();
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //add toast for error message
-            }
-        });
     }
 
     public User(String fullName, String email){
@@ -111,12 +90,8 @@ public class User {
     public float getSliderPosition() { return sliderPosition;}
 
     // Global variables setters
-    public void setProcessingCompleted( Boolean value){
-        processingCompleted = value;
-    }
-    public void setCurrentActivity( String value){
-        currentActivity = value;
-    }
+    public void setProcessingCompleted( Boolean value){processingCompleted = value;}
+    public void setCurrentActivity( String value){currentActivity = value;}
     public void setSwitch1(Boolean value){switch1 = value;}
     public void setSliderPosition(float sliderPosition) { User.sliderPosition = sliderPosition; }
 

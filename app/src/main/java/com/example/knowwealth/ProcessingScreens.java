@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -86,7 +88,6 @@ public class ProcessingScreens extends AppCompatActivity {
             uDates = new ArrayList<>();
             rePopulateLists(user.utilities, utilities, uDates);
             setSkipNext();
-            pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Utilities");
             setRecyclerView(this, utilities, uDates, closeBtn);
         }
@@ -95,7 +96,6 @@ public class ProcessingScreens extends AppCompatActivity {
             sDates = new ArrayList<>();
             rePopulateLists(user.subscriptions, subscriptions, sDates);
             setSkipNext();
-            pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Monthly Subscriptions");
             setRecyclerView(this, subscriptions, sDates, closeBtn);
         }
@@ -104,7 +104,6 @@ public class ProcessingScreens extends AppCompatActivity {
             cDates = new ArrayList<>();
             rePopulateLists(user.creditCards, creditCards, cDates);
             setSkipNext();
-            pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Credit Card Due Dates");
             setRecyclerView(this, creditCards, cDates, closeBtn);
         }
@@ -119,7 +118,6 @@ public class ProcessingScreens extends AppCompatActivity {
                 }
             }
             setSkipNext();
-            pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Enter Expense");
             setRecyclerView(this, expenses, eAmounts, closeBtn);
         }
@@ -154,6 +152,7 @@ public class ProcessingScreens extends AppCompatActivity {
                     refreshActivity();
                 }else if (currentActivity.equals("creditCards")){
                     user.setProcessingCompleted(true);
+                    user.userDatabase.child(User.getuID()).child("ProcessingCompleted").setValue("true");
                     startActivity(new Intent(ProcessingScreens.this, DashBoard.class));
                 }else if (currentActivity.equals("expenses")){
                     finish();
