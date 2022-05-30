@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
     DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
 
-    String processing;
+    String processing = "";
 
 
     @Override
@@ -81,22 +81,26 @@ public class LoginActivity extends AppCompatActivity {
                             userDatabase.child(authUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
-                                    processing = snapshot.child("ProcessingCompleted").getValue().toString();
-                                    if (processing.equals("true")){
-                                        user.setProcessingCompleted(true);
+                                    if(snapshot.child("Processing Completed").exists()) {
+                                        processing = snapshot.child("Processing Completed").getValue().toString();
                                     }else{
-                                        user.setProcessingCompleted(false);
-                                        user.setCurrentActivity("utility");
+                                        processing = "false";
+                                    }
+                                    if (processing.equals("true")) {
+                                        user.setProcessingCompleted(true);
+                                    } else {
+                                            user.setProcessingCompleted(false);
+                                            user.setCurrentActivity("utility");
                                     }
                                     user.setEmail(snapshot.child("Email").getValue().toString());
                                     user.setFullName(snapshot.child("Full Name").getValue().toString());
                                     for(DataSnapshot i : snapshot.child("Utilities").getChildren()){
-                                        user.utilities.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
+                                        user.utilities.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
                                     }
                                     for(DataSnapshot i : snapshot.child("Credit Cards").getChildren()){
-                                        user.creditCards.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
+                                        user.creditCards.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
                                     }for(DataSnapshot i : snapshot.child("Subscriptions").getChildren()){
-                                        user.subscriptions.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
+                                        user.subscriptions.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
                                     }
                                     if (processing.equals("false")) {
                                         startActivity(new Intent(LoginActivity.this, ProcessingScreens.class));
