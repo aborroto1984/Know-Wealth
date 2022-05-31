@@ -1,20 +1,7 @@
 package com.example.knowwealth;
 
-import android.graphics.drawable.Drawable;
-
-import android.widget.Toast;
-
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,17 +16,18 @@ public class User {
     static List<UtilDate> creditCards;
     static List<UtilDate> subscriptions;
     static ArrayList<Expense> expenses;
+    static ArrayList<Boolean> paid;
 
-    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
+    static DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
     private static String uID;
     List<String> list;
 
     // Global variable to know
     static String currentActivity;
-    static Boolean processingCompleted;
+    static boolean processingCompleted;
     static boolean switch1;
     static float sliderPosition;
-    String processing;
+
 
     // Constructors
     public User(String uid) {
@@ -48,7 +36,7 @@ public class User {
         creditCards = new ArrayList<>();
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
-
+        paid = new ArrayList<>();
         uID = uid;
 
     }
@@ -62,6 +50,7 @@ public class User {
         creditCards = new ArrayList<>();
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
+        paid = new ArrayList<>();
     }
 
     public static String getuID() {
@@ -102,16 +91,29 @@ public class User {
     public static class UtilDate{
         private String dueDay;
         private String name;
+        private String paid;
 
         public UtilDate(){ }
-        public UtilDate(String dueDay, String name){
+        public UtilDate(String dueDay, String name, String paid){
             this.dueDay = dueDay;
             this.name = name;
+            this.paid = paid;
         }
         public String getData(){return dueDay;}
         public String getName(){return name;}
+        public String getPaid(){return paid;}
     }
+    public static void updatedPaid(String _dueDay, String _name, String value, String arrayName, List<UtilDate> array) {
 
+        for (int i = 0; i < array.size(); i++) {
+            UtilDate data = array.get(i);
+            if(data.name.equals(_name) && data.dueDay.equals(_dueDay)){
+                array.set(i,new UtilDate(_dueDay,_name,value));
+
+                userDatabase.child(uID).child(arrayName).child(_name).child("Paid").setValue(value);
+            }
+        }
+    }
     // method to remove deleted entries
     public static void deleteFromList(String removeDueDay, String removeName, List<UtilDate> array){
         for (int i = 0; i < array.size(); i++){

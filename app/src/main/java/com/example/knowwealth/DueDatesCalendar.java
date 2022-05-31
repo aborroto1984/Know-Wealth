@@ -29,7 +29,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     RecyclerView.Adapter adapter;
     User user = LoginActivity.user;
     String dayText;
-    ArrayList<String> name, data, daysInMonth;
+    ArrayList<String> name, data, daysInMonth, paid;
     ArrayList<Integer> eventOnDay;
     MaterialCheckBox checkBox;
     private GestureDetector gestureDetector;
@@ -40,6 +40,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         setContentView(R.layout.activity_due_dates_calendar);
         name = new ArrayList<>();
         data = new ArrayList<>();
+        paid = new ArrayList<>();
         eventOnDay = new ArrayList<>();
         initWidgets();
         selectedDate = LocalDate.now();
@@ -48,6 +49,12 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         textView.setText(dayFromDate(selectedDate));
         updateListview();
         gestureDetector = new GestureDetector(getApplicationContext(),this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initWidgets();
     }
 
     private void setMonthView() {
@@ -128,6 +135,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         if (dayLength == today) {
             name.add(temp.getName());
             data.add(temp.getData());
+            paid.add(temp.getPaid());
         }
         int i = -1;
         do {
@@ -139,6 +147,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     private void updateListview(){
         name.clear();
         data.clear();
+        paid.clear();
 
         if(user.utilities.size() > 0) {
             for (int i = 0; i <= user.utilities.size() - 1; i++) {
@@ -168,7 +177,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         if (name.size() > 0 && adapter == null) {
             itemList = (RecyclerView) findViewById(R.id.items_List);
             checkBox = findViewById(R.id.checkBox);
-            adapter = new RecyclerViewAdapter(this, name, data, null, checkBox);
+            adapter = new RecyclerViewAdapter(this, name, data, paid, null, checkBox);
             layoutManager = new LinearLayoutManager(this);
             itemList.setAdapter(adapter);
             itemList.setLayoutManager(layoutManager);
@@ -177,6 +186,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         }
 
     }
+
     public void Menu(View view) {
         startActivity(new Intent(DueDatesCalendar.this, Menu.class));
     }

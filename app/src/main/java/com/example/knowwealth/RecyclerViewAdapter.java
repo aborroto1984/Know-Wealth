@@ -14,22 +14,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     ArrayList<String> name;
     ArrayList<String> data;
+    ArrayList<String> paid;
     FloatingActionButton closeBtn;
     MaterialCheckBox checkBox;
     Context context;
 
-    // Getting user instance
-    User user = LoginActivity.user;
-
-    public RecyclerViewAdapter (Context ct, ArrayList<String> utilities, ArrayList<String> uDates, FloatingActionButton closeBtn, MaterialCheckBox checkBox){
+    public RecyclerViewAdapter (Context ct, ArrayList<String> utilities, ArrayList<String> uDates, ArrayList<String> paid, FloatingActionButton closeBtn, MaterialCheckBox checkBox){
         this.name = utilities;
         this.data = uDates;
+        this.paid = paid;
         this.closeBtn = closeBtn;
         this.checkBox = checkBox;
         this.context = ct;
@@ -52,9 +53,80 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.text2.setVisibility(View.GONE);
             holder.dashExpenseText.setText(data.get(position));
             holder.dashExpenseText.setVisibility(View.VISIBLE);
+        }else if(curAct.equals("com.example.knowwealth.DueDatesCalendar")){
+            Boolean checkPaid;
+            if(paid.get(position).equals("true")){
+                checkPaid = true;
+            }else{
+                checkPaid = false;
+            }
+            holder.checkBox.setChecked(checkPaid);
         }else{
             holder.text2.setText(data.get(position));
         }
+
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tempName;
+                String tempData;
+                String localName;
+                String localData;
+                String udpatePaid;
+
+                if(paid.get(position).equals("true")){
+                    udpatePaid = "false";
+                    paid.set(position, "false");
+                }else{
+                    udpatePaid = "true";
+                    paid.set(position, "true");
+                }
+                localData = data.get(position);
+                localName = name.get(position);
+                if(User.utilities.size() > 0) {
+                    for (int i = 0; i < User.utilities.size(); i++) {
+                        User.UtilDate temp = User.utilities.get(i);
+                        tempName = temp.getName();
+                        tempData = temp.getData();
+                        if (tempName.equals(localName)){
+                            if(tempData.equals(localData)){
+                                User.updatedPaid(localData,localName,udpatePaid, "Utilities",User.utilities);
+                                onBindViewHolder(holder,position);
+                                return;
+                            }
+                        }
+                    }
+                }
+                if(User.subscriptions.size() > 0) {
+                    for (int i = 0; i < User.subscriptions.size(); i++) {
+                        User.UtilDate temp = User.subscriptions.get(i);
+                        tempName = temp.getName();
+                        tempData = temp.getData();
+                        if (tempName.equals(localName)){
+                            if(tempData.equals(localData)){
+                                User.updatedPaid(localData,localName,udpatePaid, "Subscriptions", User.subscriptions);
+                                onBindViewHolder(holder,position);
+                                return;
+                            }
+                        }
+                    }
+                }
+                if(User.creditCards.size() > 0) {
+                    for (int i = 0; i < User.creditCards.size(); i++) {
+                        User.UtilDate temp = User.creditCards.get(i);
+                        tempName = temp.getName();
+                        tempData = temp.getData();
+                        if (tempName.equals(localName)){
+                            if(tempData.equals(localData)){
+                                User.updatedPaid(localData,localName,udpatePaid, "Credit Cards", User.creditCards);
+                                onBindViewHolder(holder,position);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
         holder.closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

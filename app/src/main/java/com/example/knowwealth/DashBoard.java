@@ -88,14 +88,14 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             }
             if (name.size() > 0) {
                 dueList = (RecyclerView) findViewById(R.id.Due_List);
-                adapter = new RecyclerViewAdapter(this, name, data, null, null);
+                adapter = new RecyclerViewAdapter(this, name, data, null, null, null);
                 layoutManager = new LinearLayoutManager(this);
                 dueList.setAdapter(adapter);
                 dueList.setLayoutManager(layoutManager);
             }
             if (budgetCategory.size() > 0){
                 overBudgetList = findViewById(R.id.budget_List);
-                budgetAdapter = new RecyclerViewAdapter(this, budgetCategory, budgetData, null, null);
+                budgetAdapter = new RecyclerViewAdapter(this, budgetCategory, budgetData, null, null, null);
                 layoutManager = new LinearLayoutManager(this);
                 overBudgetList.setAdapter(budgetAdapter);
                 overBudgetList.setLayoutManager(layoutManager);
@@ -137,6 +137,11 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             data.add(temp.getData());
         }
     }
+    // Overwriting click event for the phone back button
+    @Override
+    public void onBackPressed(){
+
+        }
 
     public void Menu(View view) {
         startActivity(new Intent(DashBoard.this, Menu.class));
