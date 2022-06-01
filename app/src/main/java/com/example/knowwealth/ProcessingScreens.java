@@ -363,7 +363,7 @@ public class ProcessingScreens extends AppCompatActivity {
         switch (currentActivity){
             case "utility":
                 description.setText("Utility Type");
-                spinnerOptions.add("Mortgage / Rent"); spinnerOptions.add("Power"); spinnerOptions.add("Water");
+                spinnerOptions.add("Mortgage - Rent"); spinnerOptions.add("Power"); spinnerOptions.add("Water");
                 spinnerOptions.add("Cable / Satellite"); spinnerOptions.add("Internet"); spinnerOptions.add("Cell Phone"); spinnerOptions.add("Car Payment");
                 spinnerOptions.add("Other");
                 break;
@@ -385,7 +385,7 @@ public class ProcessingScreens extends AppCompatActivity {
                 dueDate.setVisibility(View.GONE);
                 amountText.setVisibility(View.VISIBLE);
                 amount.setVisibility(View.VISIBLE);
-                spinnerOptions.add("Food / Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
+                spinnerOptions.add("Food - Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
                 spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Transportation"); spinnerOptions.add("Restaurant");
                 break;
             case "budgets":
@@ -394,7 +394,7 @@ public class ProcessingScreens extends AppCompatActivity {
                 dueDate.setVisibility(View.GONE);
                 amountText.setVisibility(View.VISIBLE);
                 amount.setVisibility(View.VISIBLE);
-                spinnerOptions.add("Food / Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
+                spinnerOptions.add("Food - Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
                 spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Transportation"); spinnerOptions.add("Restaurant");
                 break;
         }
