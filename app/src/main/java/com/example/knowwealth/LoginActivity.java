@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Button loginButton = findViewById(R.id.button);
         final EditText passwordInput = findViewById(R.id.password);
-        userNameInput = findViewById(R.id.UserName);;
+        userNameInput = findViewById(R.id.UserName);
 
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
