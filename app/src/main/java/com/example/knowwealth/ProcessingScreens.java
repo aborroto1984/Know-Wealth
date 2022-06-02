@@ -156,7 +156,7 @@ public class ProcessingScreens extends AppCompatActivity {
                         refreshActivity();
                     } else if (currentActivity.equals("creditCards")) {
                         user.setProcessingCompleted(true);
-                        user.userDatabase.child(User.getuID()).child("ProcessingCompleted").setValue("true");
+                        user.userDatabase.child(User.getuID()).child("Processing Completed").setValue("true");
                         startActivity(new Intent(ProcessingScreens.this, DashBoard.class));
                     } else if (currentActivity.equals("expenses")) {
                         finish();

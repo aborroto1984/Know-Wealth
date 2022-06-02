@@ -1,5 +1,6 @@
 package com.example.knowwealth;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -38,7 +39,13 @@ public class Menu extends AppCompatActivity {
         });
         notifyLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, NotificationSettings.class)));
         editAccountLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, AccountEdit.class)));
-        signOutLink.setOnClickListener(v -> startActivity(new Intent(Menu.this, LoginActivity.class)));
+        signOutLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user = null;
+                startActivity(new Intent(Menu.this, LoginActivity.class));
+            }
+        });
     }
 
     public void backToPrevious(View view) {

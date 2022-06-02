@@ -87,6 +87,15 @@ public class LoginActivity extends AppCompatActivity {
                                     }else{
                                         processing = "false";
                                     }
+                                    if(snapshot.child("Notification").exists()){
+                                        String tempSwitch = snapshot.child("Notification").getValue().toString();
+                                        if(tempSwitch.equals("true")){
+                                            user.setSwitch1(true);
+                                            user.setSliderPosition(Float.parseFloat(snapshot.child("NotifyTime").getValue().toString()));
+                                        }else{
+                                            user.setSwitch1(false);
+                                        }
+                                    }
                                     if (processing.equals("true")) {
                                         user.setProcessingCompleted(true);
                                     } else {
