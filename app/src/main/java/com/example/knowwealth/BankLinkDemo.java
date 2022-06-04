@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +32,8 @@ public class BankLinkDemo extends AppCompatActivity {
     TextView instructions;
     CheckBox selected;
 
+    // Initializing spence category array
+    ArrayList<String> expenseCategory;
 
     // Initializing local storage
     ArrayList<BankAccount> accounts;
@@ -40,6 +41,7 @@ public class BankLinkDemo extends AppCompatActivity {
 
     // RecyclerView elements for the accounts list
     RecyclerView accountsList;
+    RecyclerView transactionsList;
     RecyclerView.LayoutManager  layoutManager;
     RecyclerView.Adapter adapter;
 
@@ -62,11 +64,16 @@ public class BankLinkDemo extends AppCompatActivity {
         //user = LoginActivity.user;
         user = new User("Alfredo Borroto", "aborroto1984@gmail.com");
 
+        // Populating spence category array
+        expenseCategory = new ArrayList<>();
+
+
         // Connecting screen elements
         link = findViewById(R.id.linkBtn);
         if(!readyToLink){ link.setText("Fetch Accounts");}
 
         accountsList = findViewById(R.id.bankAccountsList);
+        transactionsList = findViewById(R.id.accountTrasactions);
         skipNext = findViewById(R.id.skipNextBankLink);
         selected = findViewById(R.id.accountSelect);
         pageTitle = findViewById(R.id.bankLinkTitle);
@@ -77,7 +84,7 @@ public class BankLinkDemo extends AppCompatActivity {
         instructions = findViewById(R.id.instructions);
 
         // Setting up the accounts list recyclerView
-        adapter = new BankLinkAdapter(this, accounts, selected);
+        adapter = new BankLinkAdapter(this, accounts, transactionsList, selected, false);
         layoutManager = new LinearLayoutManager(this);
         accountsList.setAdapter(adapter);
         accountsList.setLayoutManager(layoutManager);
@@ -89,16 +96,52 @@ public class BankLinkDemo extends AppCompatActivity {
             for (int i = 0; i < accountsInfo.length(); i++) {
 
                 JSONObject accountData = accountsInfo.getJSONObject(i);
+                String id = accountData.getString("account_id");
                 String name = accountData.getString("name");
                 String str = accountData.getString("subtype");
                 String type = str.substring(0, 1).toUpperCase() + str.substring(1);
                 JSONObject balances = accountData.getJSONObject("balances");
                 String balance = balances.getString("current");
                 if (type.equals("Checking") || type.equals("Credit card")) {
-                    BankAccount account = new BankAccount(name, type, formatCurrency(balance));
+                    BankAccount account = new BankAccount(name, type, formatCurrency(balance), id);
                     accounts.add(account);
                 }
 
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONObject bankInfo = new JSONObject(getDataFromAsset());
+            JSONArray transactions = bankInfo.getJSONArray("transactions");
+
+            for (int i = 0; i < transactions.length(); i++) {
+
+                JSONObject transactionData = transactions.getJSONObject(i);
+                String id = transactionData.getString("account_id");
+                String name = transactionData.getString("name");
+                String amount = transactionData.getString("amount");
+                String date = transactionData.getString("date");
+                JSONArray categories = transactionData.getJSONArray("category");
+
+
+                ArrayList<String> transactionCategories = new ArrayList<>();
+
+
+
+                for (int j = 0; j < categories.length(); j++) {
+                    transactionCategories.add(categories.getString(j));
+                }
+
+
+
+                Transaction transaction = new Transaction(id, name, amount, date, transactionCategories);
+                for (int k = 0; k < accounts.size(); k++) {
+                    if (accounts.get(k).getId().equals(transaction.getId())){
+                        accounts.get(k).transactions.add(transaction);
+                    }
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

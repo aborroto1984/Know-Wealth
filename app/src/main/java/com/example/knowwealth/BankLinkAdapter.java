@@ -1,15 +1,17 @@
 package com.example.knowwealth;
 
+import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -19,15 +21,19 @@ public class BankLinkAdapter  extends RecyclerView.Adapter<BankLinkAdapter.MyVie
     ArrayList<BankAccount> accounts;
     Context context;
     CheckBox selected;
+    Boolean isTransaction;
+    RecyclerView transactionsList;
 
     // Getting user instance
     User user = LoginActivity.user;
 
-    public BankLinkAdapter (Context ct, ArrayList<BankAccount> accounts, CheckBox selected){
+    public BankLinkAdapter (Context ct, ArrayList<BankAccount> accounts, RecyclerView transactionsList, CheckBox selected, Boolean isTransaction){
 
         this.accounts = accounts;
         this.context = ct;
         this.selected = selected;
+        this.isTransaction = isTransaction;
+        this.transactionsList = transactionsList;
     }
 
     @NonNull
@@ -40,12 +46,17 @@ public class BankLinkAdapter  extends RecyclerView.Adapter<BankLinkAdapter.MyVie
 
     @Override
     public void onBindViewHolder(@NonNull BankLinkAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+
+        TransactionAdapter transAdapter = new TransactionAdapter(context, accounts.get(position).transactions, true);
+        LinearLayoutManager transactionLayoutManager = new LinearLayoutManager(context);
+        holder.transactionList.setAdapter(transAdapter);
+        holder.transactionList.setLayoutManager(transactionLayoutManager);
+
+
         holder.name.setText(accounts.get(position).getName());
         holder.type.setText(accounts.get(position).getType());
         holder.balance.setText(accounts.get(position).getBalance());
-//         if (holder.selected.isChecked()){
-//             accounts.get(position).setSelected(true);
-//         }
+        holder.selected.setChecked(accounts.get(position).getSelected());
         holder.selected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +64,15 @@ public class BankLinkAdapter  extends RecyclerView.Adapter<BankLinkAdapter.MyVie
             }
         });
 
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accounts.get(position).setExpanded(!accounts.get(position).getExpanded());
+                notifyItemChanged(position);
+            }
+        });
+        boolean isExpanded = accounts.get(position).getExpanded();
+        holder.transactionList.setVisibility( isExpanded ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -65,13 +85,19 @@ public class BankLinkAdapter  extends RecyclerView.Adapter<BankLinkAdapter.MyVie
         TextView type;
         TextView balance;
         CheckBox selected;
+        RecyclerView transactionList;
+        CardView title;
 
         public MyViewHolder( View itemView) {
             super(itemView);
+
+            transactionList = itemView.findViewById(R.id.accountTrasactions);
             name = itemView.findViewById(R.id.accountName);
             type = itemView.findViewById(R.id.accountDescript);
             balance = itemView.findViewById(R.id.accountBalance);
             selected = itemView.findViewById(R.id.accountSelect);
+            title = itemView.findViewById(R.id.accountTitle);
+
         }
     }
 }
