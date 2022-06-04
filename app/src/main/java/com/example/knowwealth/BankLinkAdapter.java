@@ -43,10 +43,13 @@ public class BankLinkAdapter  extends RecyclerView.Adapter<BankLinkAdapter.MyVie
         holder.name.setText(accounts.get(position).getName());
         holder.type.setText(accounts.get(position).getType());
         holder.balance.setText(accounts.get(position).getBalance());
+//         if (holder.selected.isChecked()){
+//             accounts.get(position).setSelected(true);
+//         }
         holder.selected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                accounts.get(position).setSelected(holder.selected.isSelected());
+                accounts.get(position).setSelected(holder.selected.isChecked());
             }
         });
 

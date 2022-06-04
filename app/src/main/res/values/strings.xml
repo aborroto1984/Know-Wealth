@@ -104,4 +104,14 @@
     <string name="next_arrow_calendar"><![CDATA[>]]></string>
     <string name="account_info">Account Info</string>
     <string name="Home">Home</string>
+    <string name="bankLinkInstructions">
+        "   Let's link your bank accounts to add your expenses automatically.\n
+            Here are some instructions:\n
+        1- Click the button below to fetch
+           your accounts.\n
+        2- Select the accounts you want to
+           link to the app.\n
+        3- Click the Link button to connect
+           your accounts.\n
+    See, easy as 1, 2, and 3..."</string>
 </resources>
