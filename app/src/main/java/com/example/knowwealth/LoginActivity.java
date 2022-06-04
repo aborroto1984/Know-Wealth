@@ -105,12 +105,25 @@ public class LoginActivity extends AppCompatActivity {
                                     user.setEmail(snapshot.child("Email").getValue().toString());
                                     user.setFullName(snapshot.child("Full Name").getValue().toString());
                                     for(DataSnapshot i : snapshot.child("Utilities").getChildren()){
-                                        user.utilities.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
+                                        if(i.child("Due dante").exists() && i.child("Paid").exists()){
+                                            user.utilities.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
+                                        }else{
+                                            user.utilities.add(new User.UtilDate(i.child("Due Date").getValue().toString(), i.getKey(), "false"));
+                                        }
                                     }
                                     for(DataSnapshot i : snapshot.child("Credit Cards").getChildren()){
-                                        user.creditCards.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
-                                    }for(DataSnapshot i : snapshot.child("Subscriptions").getChildren()){
-                                        user.subscriptions.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
+                                        if(i.child("Due dante").exists() && i.child("Paid").exists()){
+                                            user.creditCards.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
+                                        }else{
+                                            user.creditCards.add(new User.UtilDate(i.child("Due Date").getValue().toString(), i.getKey(), "false"));
+                                        }
+                                    }
+                                    for(DataSnapshot i : snapshot.child("Subscriptions").getChildren()){
+                                        if(i.child("Due dante").exists() && i.child("Paid").exists()){
+                                            user.subscriptions.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
+                                        }else{
+                                            user.subscriptions.add(new User.UtilDate(i.child("Due Date").getValue().toString(), i.getKey(), "false"));
+                                        }
                                     }
                                     if (processing.equals("false")) {
                                         startActivity(new Intent(LoginActivity.this, ProcessingScreens.class));
