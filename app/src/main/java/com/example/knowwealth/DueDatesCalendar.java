@@ -33,6 +33,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     ArrayList<Integer> eventOnDay;
     MaterialCheckBox checkBox;
     private GestureDetector gestureDetector;
+    static String monthName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
 
     private void setMonthView() {
         monthYearText.setText(monthYearFromDate(selectedDate));
+        monthName = selectedDate.getMonth().toString().toUpperCase();
         daysInMonth = daysInMonthArray(selectedDate);
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this, eventOnDay);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
@@ -101,12 +103,14 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
 
     public void previousMonthAction(View view){
         selectedDate = selectedDate.minusMonths(1);
+        monthName = selectedDate.getMonth().toString().toUpperCase();
         setMonthView();
         updateListview();
     }
 
     public void nextMonthAction(View view){
         selectedDate = selectedDate.plusMonths(1);
+        monthName = selectedDate.getMonth().toString().toUpperCase();
         setMonthView();
         updateListview();
     }
@@ -152,19 +156,25 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         if(user.utilities.size() > 0) {
             for (int i = 0; i <= user.utilities.size() - 1; i++) {
                 User.UtilDate temp = user.utilities.get(i);
-                addToList(temp);
+                if(temp.getMonth().equals(monthName)) {
+                    addToList(temp);
+                }
             }
         }
         if(user.creditCards.size() > 0) {
             for (int i = 0; i <= user.creditCards.size() - 1; i++) {
                 User.UtilDate temp = user.creditCards.get(i);
-                addToList(temp);
+                if(temp.getMonth().equals(monthName)) {
+                    addToList(temp);
+                }
             }
         }
         if(user.subscriptions.size() > 0) {
             for (int i = 0; i <= user.subscriptions.size() - 1; i++) {
                 User.UtilDate temp = user.subscriptions.get(i);
-                addToList(temp);
+                if(temp.getMonth().equals(monthName)) {
+                    addToList(temp);
+                }
             }
         }
         // giving conflict when switch expenses to store Expense object instead of UtilDate
@@ -186,6 +196,8 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         }
 
     }
+
+    public static String getMonthName() {return monthName;}
 
     public void Menu(View view) {
         startActivity(new Intent(DueDatesCalendar.this, Menu.class));

@@ -27,6 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.Calendar;
+
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -35,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText userNameInput;
 
     DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
-
     String processing = "";
 
 
@@ -82,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                             userDatabase.child(authUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
+                                    User.snapshot = snapshot;
                                     if(snapshot.child("Processing Completed").exists()) {
                                         processing = snapshot.child("Processing Completed").getValue().toString();
                                     }else{
@@ -104,26 +108,28 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                     user.setEmail(snapshot.child("Email").getValue().toString());
                                     user.setFullName(snapshot.child("Full Name").getValue().toString());
-                                    for(DataSnapshot i : snapshot.child("Utilities").getChildren()){
-                                        if(i.child("Due dante").exists() && i.child("Paid").exists()){
-                                            user.utilities.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
-                                        }else{
-                                            user.utilities.add(new User.UtilDate(i.child("Due Date").getValue().toString(), i.getKey(), "false"));
+                                    Month month = Month.JANUARY;
+                                    String monthStr = month.name();
+                                    for (int i = 0; i < 12; i++) {
+                                        for (DataSnapshot j : snapshot.child(monthStr).getChildren()) {
+                                            if(j.getKey().equals("Credit Cards")){
+                                                for(DataSnapshot k : snapshot.child(monthStr + "/Credit Cards").getChildren()){
+                                                    user.creditCards.add(new User.UtilDate(monthStr, k.getKey(),k.child("Due Date").getValue().toString(),k.child("Paid").getValue().toString()));
+                                                };
+                                            }
+                                            if(j.getKey().equals("Subscriptions")){
+                                                for(DataSnapshot k : snapshot.child(monthStr + "/Subscriptions").getChildren()){
+                                                    user.subscriptions.add(new User.UtilDate(monthStr, k.getKey(),k.child("Due Date").getValue().toString(),k.child("Paid").getValue().toString()));
+                                                };
+                                            }
+                                            if(j.getKey().equals("Utilities")){
+                                                for(DataSnapshot k : snapshot.child(monthStr + "/Utilities").getChildren()){
+                                                    user.utilities.add(new User.UtilDate(monthStr, k.getKey(),k.child("Due Date").getValue().toString(),k.child("Paid").getValue().toString()));
+                                                };
+                                            }
                                         }
-                                    }
-                                    for(DataSnapshot i : snapshot.child("Credit Cards").getChildren()){
-                                        if(i.child("Due dante").exists() && i.child("Paid").exists()){
-                                            user.creditCards.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
-                                        }else{
-                                            user.creditCards.add(new User.UtilDate(i.child("Due Date").getValue().toString(), i.getKey(), "false"));
-                                        }
-                                    }
-                                    for(DataSnapshot i : snapshot.child("Subscriptions").getChildren()){
-                                        if(i.child("Due dante").exists() && i.child("Paid").exists()){
-                                            user.subscriptions.add(new User.UtilDate(i.child("Due Date").getValue().toString(),i.getKey(),i.child("Paid").getValue().toString()));
-                                        }else{
-                                            user.subscriptions.add(new User.UtilDate(i.child("Due Date").getValue().toString(), i.getKey(), "false"));
-                                        }
+                                        month = month.plus(1);
+                                        monthStr = month.name();
                                     }
                                     if (processing.equals("false")) {
                                         startActivity(new Intent(LoginActivity.this, ProcessingScreens.class));

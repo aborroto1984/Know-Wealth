@@ -16,6 +16,7 @@ import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.reflect.Array;
+import java.time.Month;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
@@ -72,13 +73,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 String tempData;
                 String localName;
                 String localData;
-                String udpatePaid;
+                String updatePaid;
+                String month;
+
+               month = DueDatesCalendar.getMonthName();
 
                 if(paid.get(position).equals("true")){
-                    udpatePaid = "false";
+                    updatePaid = "false";
                     paid.set(position, "false");
                 }else{
-                    udpatePaid = "true";
+                    updatePaid = "true";
                     paid.set(position, "true");
                 }
                 localData = data.get(position);
@@ -90,7 +94,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         tempData = temp.getData();
                         if (tempName.equals(localName)){
                             if(tempData.equals(localData)){
-                                User.updatedPaid(localData,localName,udpatePaid, "Utilities",User.utilities);
+                                User.updatedPaid(month, localName, localData, updatePaid, "Utilities",User.utilities);
                                 onBindViewHolder(holder,position);
                                 return;
                             }
@@ -104,7 +108,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         tempData = temp.getData();
                         if (tempName.equals(localName)){
                             if(tempData.equals(localData)){
-                                User.updatedPaid(localData,localName,udpatePaid, "Subscriptions", User.subscriptions);
+                              User.updatedPaid(month, localName, localData, updatePaid, "Subscriptions", User.subscriptions);
                                 onBindViewHolder(holder,position);
                                 return;
                             }
@@ -118,7 +122,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         tempData = temp.getData();
                         if (tempName.equals(localName)){
                             if(tempData.equals(localData)){
-                                User.updatedPaid(localData,localName,udpatePaid, "Credit Cards", User.creditCards);
+                                User.updatedPaid(month, localName, localData, updatePaid, "Credit Cards", User.creditCards);
                                 onBindViewHolder(holder,position);
                                 return;
                             }

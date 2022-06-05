@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import android.view.View;
@@ -60,8 +61,6 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
                     }
                 });
 
-        //used to add current date to display
-
         String curDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         TextView viewDate = findViewById(R.id.view_date);
         viewDate.setText(curDate);
@@ -79,19 +78,25 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             if(user.utilities.size() > 0) {
                 for (int i = 0; i <= user.utilities.size() - 1; i++) {
                     User.UtilDate temp = user.utilities.get(i);
-                    addToList(temp);
+                    if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                        addToList(temp);
+                    }
                 }
             }
             if(user.creditCards.size() > 0) {
                 for (int i = 0; i <= user.creditCards.size() - 1; i++) {
                     User.UtilDate temp = user.creditCards.get(i);
-                    addToList(temp);
+                    if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                        addToList(temp);
+                    }
                 }
             }
             if(user.subscriptions.size() > 0) {
                 for (int i = 0; i <= user.subscriptions.size() - 1; i++) {
                     User.UtilDate temp = user.subscriptions.get(i);
-                    addToList(temp);
+                    if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                        addToList(temp);
+                    }
                 }
             }
             if(user.expenses.size() > 0) {

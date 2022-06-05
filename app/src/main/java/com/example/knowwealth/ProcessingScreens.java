@@ -23,12 +23,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.reflect.Array;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ProcessingScreens extends AppCompatActivity {
@@ -62,6 +67,8 @@ public class ProcessingScreens extends AppCompatActivity {
     RecyclerView.LayoutManager  layoutManager;
     RecyclerView.Adapter adapter;
 
+    // Calendar instance
+    Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +178,6 @@ public class ProcessingScreens extends AppCompatActivity {
 
         });
 
-
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,6 +198,7 @@ public class ProcessingScreens extends AppCompatActivity {
                 }
             }
         });
+
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -266,21 +273,22 @@ public class ProcessingScreens extends AppCompatActivity {
     // Method to populate the storage lists in the user instance
     private void populateLists(String name, String data, String paid){
         if (currentActivity.equals("utility")){
-            user.utilities.add(new User.UtilDate(data, name, paid));
+
+            user.utilities.add(new User.UtilDate(LocalDate.now().getMonth().toString(), name, data, paid));
             utilities.add(name);
             uDates.add(data);
             uPaid.add(paid);
             addToFirebase("Utilities", name, data, paid);
         }
         else if (currentActivity.equals("subscriptions")){
-            user.subscriptions.add(new User.UtilDate(data, name, paid));
+           // user.subscriptions.add(new User.UtilDate(data, name, paid));
             subscriptions.add(name);
             sDates.add(data);
             sPaid.add(paid);
             addToFirebase("Subscriptions", name, data, paid);
         }
         else if (currentActivity.equals("creditCards")){
-            user.creditCards.add(new User.UtilDate(data, name, paid));
+           // user.creditCards.add(new User.UtilDate(data, name, paid));
             creditCards.add(name);
             cDates.add(data);
             cPaid.add(paid);
@@ -330,22 +338,32 @@ public class ProcessingScreens extends AppCompatActivity {
     }
 
     // Method to repopulate local storage lists from the user instance when the activity starts
-    private void rePopulateLists(List<User.UtilDate> userArray, ArrayList<String> name, ArrayList<String> data, ArrayList<String> paid){
-        if( userArray.size() > 0){
-            for (int i = 0; i <= userArray.size() - 1; i++){
-                User.UtilDate temp = userArray.get(i);
-                name.add(temp.getName());
-                data.add(temp.getData());
-                paid.add(temp.getPaid());
+    private void rePopulateLists(List<User.UtilDate> arrName, ArrayList<String> name, ArrayList<String> data, ArrayList<String> paid) {
+        if (arrName.size() > 0) {
+            for (int i = 0; i < arrName.size(); i++) {
+                User.UtilDate temp = arrName.get(i);
+                if (temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                    name.add(temp.getName());
+                    data.add(temp.getData());
+                    paid.add(temp.getPaid());
+                }
             }
         }
     }
 
     //Method to add new data to firebase database
     private void addToFirebase(String arrList, String name, String data, String paid){
-        DatabaseReference userDatabase= user.userDatabase.child(User.getuID()).child(arrList);
-        userDatabase.child(name).child("Due Date").setValue(data);
-        userDatabase.child(name).child("Paid").setValue(paid);
+
+        Month month1 = Month.JANUARY;
+        String month = month1.toString();
+        DatabaseReference userDatabase= user.userDatabase.child(User.getuID());
+        for (int i = 0; i < 12; i++) {
+            userDatabase.child(month + "/" + arrList + "/" + name).child("Due Date").setValue(data);
+            userDatabase.child(month + "/" + arrList + "/" + name).child("Paid").setValue(paid);
+            month1 = month1.plus(1);
+            month = month1.toString();
+        }
+
     }
 
     //----------------------------------------------------------------------------------------------------------------  DIALOGS
@@ -374,8 +392,8 @@ public class ProcessingScreens extends AppCompatActivity {
         switch (currentActivity){
             case "utility":
                 description.setText("Utility Type");
-                spinnerOptions.add("Mortgage / Rent"); spinnerOptions.add("Power"); spinnerOptions.add("Water");
-                spinnerOptions.add("Cable / Satellite"); spinnerOptions.add("Internet"); spinnerOptions.add("Cell Phone"); spinnerOptions.add("Car Payment");
+                spinnerOptions.add("Mortgage - Rent"); spinnerOptions.add("Power"); spinnerOptions.add("Water");
+                spinnerOptions.add("Cable - Satellite"); spinnerOptions.add("Internet"); spinnerOptions.add("Cell Phone"); spinnerOptions.add("Car Payment");
                 spinnerOptions.add("Other");
                 break;
             case "subscriptions":
@@ -396,7 +414,7 @@ public class ProcessingScreens extends AppCompatActivity {
                 dueDate.setVisibility(View.GONE);
                 amountText.setVisibility(View.VISIBLE);
                 amount.setVisibility(View.VISIBLE);
-                spinnerOptions.add("Food / Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
+                spinnerOptions.add("Food - Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
                 spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Transportation"); spinnerOptions.add("Restaurant");
                 break;
             case "budgets":
@@ -405,7 +423,7 @@ public class ProcessingScreens extends AppCompatActivity {
                 dueDate.setVisibility(View.GONE);
                 amountText.setVisibility(View.VISIBLE);
                 amount.setVisibility(View.VISIBLE);
-                spinnerOptions.add("Food / Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
+                spinnerOptions.add("Food - Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
                 spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Transportation"); spinnerOptions.add("Restaurant");
                 break;
         }

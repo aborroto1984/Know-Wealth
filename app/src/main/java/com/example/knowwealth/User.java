@@ -1,5 +1,6 @@
 package com.example.knowwealth;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class User {
 
     static DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
     private static String uID;
-    List<String> list;
+    static DataSnapshot snapshot;
 
     // Global variable to know
     static String currentActivity;
@@ -38,7 +39,6 @@ public class User {
         expenses = new ArrayList<>();
         paid = new ArrayList<>();
         uID = uid;
-
     }
 
     public User(String fullName, String email){
@@ -92,25 +92,29 @@ public class User {
         private String dueDay;
         private String name;
         private String paid;
+        private String month;
 
         public UtilDate(){ }
-        public UtilDate(String dueDay, String name, String paid){
+        public UtilDate( String month, String name, String dueDay, String paid ){
             this.dueDay = dueDay;
             this.name = name;
             this.paid = paid;
+            this.month = month;
+
         }
         public String getData(){return dueDay;}
         public String getName(){return name;}
         public String getPaid(){return paid;}
+        public String getMonth(){return month;}
+
     }
-    public static void updatedPaid(String _dueDay, String _name, String value, String arrayName, List<UtilDate> array) {
+    public static void updatedPaid(String _month, String _name, String _dueDay, String _paid, String arrayName, List<UtilDate> array ) {
 
         for (int i = 0; i < array.size(); i++) {
             UtilDate data = array.get(i);
-            if(data.name.equals(_name) && data.dueDay.equals(_dueDay)){
-                array.set(i,new UtilDate(_dueDay,_name,value));
-
-                userDatabase.child(uID).child(arrayName).child(_name).child("Paid").setValue(value);
+            if(data.month.equals(_month) && data.name.equals(_name) && data.dueDay.equals(_dueDay)){
+                array.set(i,new UtilDate(_month,_name,_dueDay,_paid));
+                userDatabase.child(uID + "/" + _month + "/" + arrayName + "/" + _name).child("Paid").setValue(_paid);
             }
         }
     }
