@@ -11,6 +11,7 @@ public class BankAccount {
     private String balance;
     private Boolean selected;
     private Boolean expanded;
+    private Boolean show;
     ArrayList<Transaction> transactions;
 
     // Constructor
@@ -22,6 +23,7 @@ public class BankAccount {
         this.transactions = new ArrayList<>();
         this.expanded = false;
         this.selected = false;
+        this.show = false;
     }
 
     // Accessors
@@ -38,21 +40,13 @@ public class BankAccount {
         return balance;
     }
     public Boolean getSelected() {return selected;}
-
+    public Boolean getShow() { return show; }
     // Mutators
-    public void setBalance(String balance) {
-        this.balance = balance;
-    }
-
+    public void setBalance(String balance) { this.balance = balance; }
     public void setSelected(Boolean selected) {
         this.selected = selected;
     }
-
-    public Boolean getExpanded() {
-        return expanded;
-    }
-
-    public void setExpanded(Boolean expanded) {
-        this.expanded = expanded;
-    }
+    public Boolean getExpanded() { return expanded; }
+    public void setExpanded(Boolean expanded) { this.expanded = expanded; }
+    public void setShow(Boolean canAdd) { this.show = canAdd; }
 }

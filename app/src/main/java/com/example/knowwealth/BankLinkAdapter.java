@@ -52,6 +52,12 @@ public class BankLinkAdapter  extends RecyclerView.Adapter<BankLinkAdapter.MyVie
         holder.transactionList.setAdapter(transAdapter);
         holder.transactionList.setLayoutManager(transactionLayoutManager);
 
+        String checkBoxShow = accounts.get(position).getType();
+        if (checkBoxShow.equals("Checking") || checkBoxShow.equals("Credit card")){ holder.selected.setVisibility(View.VISIBLE); }
+        else{ holder.selected.setVisibility(View.GONE);}
+
+        Boolean show = accounts.get(position).getShow();
+        holder.title.setVisibility( show ? View.VISIBLE: View.GONE);
 
         holder.name.setText(accounts.get(position).getName());
         holder.type.setText(accounts.get(position).getType());
@@ -73,6 +79,7 @@ public class BankLinkAdapter  extends RecyclerView.Adapter<BankLinkAdapter.MyVie
         });
         boolean isExpanded = accounts.get(position).getExpanded();
         holder.transactionList.setVisibility( isExpanded ? View.VISIBLE : View.GONE);
+
     }
 
     @Override
@@ -87,6 +94,7 @@ public class BankLinkAdapter  extends RecyclerView.Adapter<BankLinkAdapter.MyVie
         CheckBox selected;
         RecyclerView transactionList;
         CardView title;
+        TextView showAllAccounts;
 
         public MyViewHolder( View itemView) {
             super(itemView);
