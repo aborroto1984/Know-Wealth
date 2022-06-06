@@ -214,7 +214,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": 5.4,
+      "amount": 25.36,
       "authorized_date": "2021-12-05",
       "authorized_datetime": null,
       "category": [
@@ -398,53 +398,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": -500,
-      "authorized_date": "2021-12-04",
-      "authorized_datetime": null,
-      "category": [
-        "Travel",
-        "Airlines and Aviation Services"
-      ],
-      "category_id": "22001000",
-      "check_number": null,
-      "date": "2021-12-04",
-      "datetime": null,
-      "iso_currency_code": "USD",
-      "location": {
-        "address": null,
-        "city": null,
-        "country": null,
-        "lat": null,
-        "lon": null,
-        "postal_code": null,
-        "region": null,
-        "store_number": null
-      },
-      "merchant_name": "United Airlines",
-      "name": "United Airlines",
-      "payment_channel": "other",
-      "payment_meta": {
-        "by_order_of": null,
-        "payee": null,
-        "payer": null,
-        "payment_method": null,
-        "payment_processor": null,
-        "ppd_id": null,
-        "reason": null,
-        "reference_number": null
-      },
-      "pending": false,
-      "pending_transaction_id": null,
-      "personal_finance_category": null,
-      "transaction_code": null,
-      "transaction_id": "NdXDxDvAarUx5vbQn7ZnCkzyoj8vp3Tnjk3Ky",
-      "transaction_type": "special",
-      "unofficial_currency_code": null
-    },
-    {
-      "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
-      "account_owner": null,
-      "amount": 12,
+      "amount": 15.6,
       "authorized_date": "2021-12-03",
       "authorized_datetime": null,
       "category": [
@@ -628,52 +582,6 @@
       "unofficial_currency_code": null
     },
     {
-      "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
-      "account_owner": null,
-      "amount": 500,
-      "authorized_date": null,
-      "authorized_datetime": null,
-      "category": [
-        "Travel",
-        "Airlines and Aviation Services"
-      ],
-      "category_id": "22001000",
-      "check_number": null,
-      "date": "2021-11-21",
-      "datetime": null,
-      "iso_currency_code": "USD",
-      "location": {
-        "address": null,
-        "city": null,
-        "country": null,
-        "lat": null,
-        "lon": null,
-        "postal_code": null,
-        "region": null,
-        "store_number": null
-      },
-      "merchant_name": "United Airlines",
-      "name": "United Airlines",
-      "payment_channel": "in store",
-      "payment_meta": {
-        "by_order_of": null,
-        "payee": null,
-        "payer": null,
-        "payment_method": null,
-        "payment_processor": null,
-        "ppd_id": null,
-        "reason": null,
-        "reference_number": null
-      },
-      "pending": false,
-      "pending_transaction_id": null,
-      "personal_finance_category": null,
-      "transaction_code": null,
-      "transaction_id": "L3XDBDvgxquB53GJZVEZFamNx7nrq8ilQd7je",
-      "transaction_type": "special",
-      "unofficial_currency_code": null
-    },
-    {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
       "amount": 6.33,
@@ -722,7 +630,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 352.3,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -813,7 +721,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 45.68,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -860,7 +768,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 147.25,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -952,7 +860,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": 5.4,
+      "amount": 53.4,
       "authorized_date": "2021-11-05",
       "authorized_datetime": null,
       "category": [
@@ -1136,53 +1044,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": -500,
-      "authorized_date": "2021-11-04",
-      "authorized_datetime": null,
-      "category": [
-        "Travel",
-        "Airlines and Aviation Services"
-      ],
-      "category_id": "22001000",
-      "check_number": null,
-      "date": "2021-11-04",
-      "datetime": null,
-      "iso_currency_code": "USD",
-      "location": {
-        "address": null,
-        "city": null,
-        "country": null,
-        "lat": null,
-        "lon": null,
-        "postal_code": null,
-        "region": null,
-        "store_number": null
-      },
-      "merchant_name": "United Airlines",
-      "name": "United Airlines",
-      "payment_channel": "other",
-      "payment_meta": {
-        "by_order_of": null,
-        "payee": null,
-        "payer": null,
-        "payment_method": null,
-        "payment_processor": null,
-        "ppd_id": null,
-        "reason": null,
-        "reference_number": null
-      },
-      "pending": false,
-      "pending_transaction_id": null,
-      "personal_finance_category": null,
-      "transaction_code": null,
-      "transaction_id": "ZLRW1WXdzmTvK5V8ELwEtdEKV74vzaurR93lx",
-      "transaction_type": "special",
-      "unofficial_currency_code": null
-    },
-    {
-      "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
-      "account_owner": null,
-      "amount": 12,
+      "amount": 16.58,
       "authorized_date": "2021-11-03",
       "authorized_datetime": null,
       "category": [
@@ -1229,7 +1091,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": 4.33,
+      "amount": 43.33,
       "authorized_date": "2021-11-03",
       "authorized_datetime": null,
       "category": [
@@ -1366,52 +1228,6 @@
       "unofficial_currency_code": null
     },
     {
-      "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
-      "account_owner": null,
-      "amount": 500,
-      "authorized_date": null,
-      "authorized_datetime": null,
-      "category": [
-        "Travel",
-        "Airlines and Aviation Services"
-      ],
-      "category_id": "22001000",
-      "check_number": null,
-      "date": "2021-10-22",
-      "datetime": null,
-      "iso_currency_code": "USD",
-      "location": {
-        "address": null,
-        "city": null,
-        "country": null,
-        "lat": null,
-        "lon": null,
-        "postal_code": null,
-        "region": null,
-        "store_number": null
-      },
-      "merchant_name": "United Airlines",
-      "name": "United Airlines",
-      "payment_channel": "in store",
-      "payment_meta": {
-        "by_order_of": null,
-        "payee": null,
-        "payer": null,
-        "payment_method": null,
-        "payment_processor": null,
-        "ppd_id": null,
-        "reason": null,
-        "reference_number": null
-      },
-      "pending": false,
-      "pending_transaction_id": null,
-      "personal_finance_category": null,
-      "transaction_code": null,
-      "transaction_id": "WZnDQDvKqPsQ5lXgJPWJhKQwbnvEkAiw9qRZx",
-      "transaction_type": "special",
-      "unofficial_currency_code": null
-    },
-    {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
       "amount": 6.33,
@@ -1460,7 +1276,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 43.23,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -1551,7 +1367,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 65.36,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -1598,7 +1414,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 145.3,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -1874,53 +1690,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": -500,
-      "authorized_date": "2021-10-05",
-      "authorized_datetime": null,
-      "category": [
-        "Travel",
-        "Airlines and Aviation Services"
-      ],
-      "category_id": "22001000",
-      "check_number": null,
-      "date": "2021-10-05",
-      "datetime": null,
-      "iso_currency_code": "USD",
-      "location": {
-        "address": null,
-        "city": null,
-        "country": null,
-        "lat": null,
-        "lon": null,
-        "postal_code": null,
-        "region": null,
-        "store_number": null
-      },
-      "merchant_name": "United Airlines",
-      "name": "United Airlines",
-      "payment_channel": "other",
-      "payment_meta": {
-        "by_order_of": null,
-        "payee": null,
-        "payer": null,
-        "payment_method": null,
-        "payment_processor": null,
-        "ppd_id": null,
-        "reason": null,
-        "reference_number": null
-      },
-      "pending": false,
-      "pending_transaction_id": null,
-      "personal_finance_category": null,
-      "transaction_code": null,
-      "transaction_id": "gBqWyWKvlmSAelV3GWKGTGKZyxaNnPF4Vdo1v",
-      "transaction_type": "special",
-      "unofficial_currency_code": null
-    },
-    {
-      "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
-      "account_owner": null,
-      "amount": 12,
+      "amount": 25.36,
       "authorized_date": "2021-10-04",
       "authorized_datetime": null,
       "category": [
@@ -1967,7 +1737,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": 4.33,
+      "amount": 43.33,
       "authorized_date": "2021-10-04",
       "authorized_datetime": null,
       "category": [
@@ -2104,52 +1874,6 @@
       "unofficial_currency_code": null
     },
     {
-      "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
-      "account_owner": null,
-      "amount": 500,
-      "authorized_date": null,
-      "authorized_datetime": null,
-      "category": [
-        "Travel",
-        "Airlines and Aviation Services"
-      ],
-      "category_id": "22001000",
-      "check_number": null,
-      "date": "2021-09-22",
-      "datetime": null,
-      "iso_currency_code": "USD",
-      "location": {
-        "address": null,
-        "city": null,
-        "country": null,
-        "lat": null,
-        "lon": null,
-        "postal_code": null,
-        "region": null,
-        "store_number": null
-      },
-      "merchant_name": "United Airlines",
-      "name": "United Airlines",
-      "payment_channel": "in store",
-      "payment_meta": {
-        "by_order_of": null,
-        "payee": null,
-        "payer": null,
-        "payment_method": null,
-        "payment_processor": null,
-        "ppd_id": null,
-        "reason": null,
-        "reference_number": null
-      },
-      "pending": false,
-      "pending_transaction_id": null,
-      "personal_finance_category": null,
-      "transaction_code": null,
-      "transaction_id": "yg1nQnLAJ8HnjVwaWJmWSV9pxZelDztW3pG6V",
-      "transaction_type": "special",
-      "unofficial_currency_code": null
-    },
-    {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
       "amount": 6.33,
@@ -2198,7 +1922,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 86.36,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -2289,7 +2013,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 36.23,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -2336,7 +2060,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 185.36,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -2382,7 +2106,7 @@
     {
       "account_id": "EAXDyDGalkiA5dalJX8JTadKpeQdNqhgpaKk3",
       "account_owner": null,
-      "amount": 25,
+      "amount": 25.36,
       "authorized_date": "2021-09-06",
       "authorized_datetime": null,
       "category": [
@@ -2607,52 +2331,6 @@
       "transaction_code": null,
       "transaction_id": "XMJWZWvzKjIZleGzV5xVtvaAXebBEgiP68QA3",
       "transaction_type": "place",
-      "unofficial_currency_code": null
-    },
-    {
-      "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
-      "account_owner": null,
-      "amount": -500,
-      "authorized_date": "2021-09-05",
-      "authorized_datetime": null,
-      "category": [
-        "Travel",
-        "Airlines and Aviation Services"
-      ],
-      "category_id": "22001000",
-      "check_number": null,
-      "date": "2021-09-05",
-      "datetime": null,
-      "iso_currency_code": "USD",
-      "location": {
-        "address": null,
-        "city": null,
-        "country": null,
-        "lat": null,
-        "lon": null,
-        "postal_code": null,
-        "region": null,
-        "store_number": null
-      },
-      "merchant_name": "United Airlines",
-      "name": "United Airlines",
-      "payment_channel": "other",
-      "payment_meta": {
-        "by_order_of": null,
-        "payee": null,
-        "payer": null,
-        "payment_method": null,
-        "payment_processor": null,
-        "ppd_id": null,
-        "reason": null,
-        "reference_number": null
-      },
-      "pending": false,
-      "pending_transaction_id": null,
-      "personal_finance_category": null,
-      "transaction_code": null,
-      "transaction_id": "nPdnknaBx8T4KNvoWMqWIPr7dq536EFKegoQn",
-      "transaction_type": "special",
       "unofficial_currency_code": null
     },
     {
@@ -2936,7 +2614,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 356.20,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -3027,7 +2705,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 100.23,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -3074,7 +2752,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 36.23,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -3350,52 +3028,6 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": -500,
-      "authorized_date": "2021-08-06",
-      "authorized_datetime": null,
-      "category": [
-        "Travel",
-        "Airlines and Aviation Services"
-      ],
-      "category_id": "22001000",
-      "check_number": null,
-      "date": "2021-08-06",
-      "datetime": null,
-      "iso_currency_code": "USD",
-      "location": {
-        "address": null,
-        "city": null,
-        "country": null,
-        "lat": null,
-        "lon": null,
-        "postal_code": null,
-        "region": null,
-        "store_number": null
-      },
-      "merchant_name": "United Airlines",
-      "name": "United Airlines",
-      "payment_channel": "other",
-      "payment_meta": {
-        "by_order_of": null,
-        "payee": null,
-        "payer": null,
-        "payment_method": null,
-        "payment_processor": null,
-        "ppd_id": null,
-        "reason": null,
-        "reference_number": null
-      },
-      "pending": false,
-      "pending_transaction_id": null,
-      "personal_finance_category": null,
-      "transaction_code": null,
-      "transaction_id": "RPnDNDvRjxTN5Wov8yq8H4BkQlKxRNCXl59Ao",
-      "transaction_type": "special",
-      "unofficial_currency_code": null
-    },
-    {
-      "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
-      "account_owner": null,
       "amount": 12,
       "authorized_date": "2021-08-05",
       "authorized_datetime": null,
@@ -3443,7 +3075,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": 4.33,
+      "amount": 34.33,
       "authorized_date": "2021-08-05",
       "authorized_datetime": null,
       "category": [
@@ -3628,7 +3260,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": 6.33,
+      "amount": 16.33,
       "authorized_date": "2021-07-21",
       "authorized_datetime": null,
       "category": [
@@ -3674,7 +3306,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 45.32,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -3765,7 +3397,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 52.12,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -3812,7 +3444,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 142.01,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -3904,7 +3536,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": 5.4,
+      "amount": 25.4,
       "authorized_date": "2021-07-08",
       "authorized_datetime": null,
       "category": [
@@ -4088,53 +3720,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": -500,
-      "authorized_date": "2021-07-07",
-      "authorized_datetime": null,
-      "category": [
-        "Travel",
-        "Airlines and Aviation Services"
-      ],
-      "category_id": "22001000",
-      "check_number": null,
-      "date": "2021-07-07",
-      "datetime": null,
-      "iso_currency_code": "USD",
-      "location": {
-        "address": null,
-        "city": null,
-        "country": null,
-        "lat": null,
-        "lon": null,
-        "postal_code": null,
-        "region": null,
-        "store_number": null
-      },
-      "merchant_name": "United Airlines",
-      "name": "United Airlines",
-      "payment_channel": "other",
-      "payment_meta": {
-        "by_order_of": null,
-        "payee": null,
-        "payer": null,
-        "payment_method": null,
-        "payment_processor": null,
-        "ppd_id": null,
-        "reason": null,
-        "reference_number": null
-      },
-      "pending": false,
-      "pending_transaction_id": null,
-      "personal_finance_category": null,
-      "transaction_code": null,
-      "transaction_id": "5N8mQmPLy9TnEodzJjpJSA8W9knvGoF3wjv8D",
-      "transaction_type": "special",
-      "unofficial_currency_code": null
-    },
-    {
-      "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
-      "account_owner": null,
-      "amount": 12,
+      "amount": 42.10,
       "authorized_date": "2021-07-06",
       "authorized_datetime": null,
       "category": [
@@ -4228,7 +3814,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": 89.4,
+      "amount": 59.4,
       "authorized_date": "2021-07-04",
       "authorized_datetime": null,
       "category": [
@@ -4318,55 +3904,9 @@
       "unofficial_currency_code": null
     },
     {
-      "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
-      "account_owner": null,
-      "amount": 500,
-      "authorized_date": null,
-      "authorized_datetime": null,
-      "category": [
-        "Travel",
-        "Airlines and Aviation Services"
-      ],
-      "category_id": "22001000",
-      "check_number": null,
-      "date": "2021-06-24",
-      "datetime": null,
-      "iso_currency_code": "USD",
-      "location": {
-        "address": null,
-        "city": null,
-        "country": null,
-        "lat": null,
-        "lon": null,
-        "postal_code": null,
-        "region": null,
-        "store_number": null
-      },
-      "merchant_name": "United Airlines",
-      "name": "United Airlines",
-      "payment_channel": "in store",
-      "payment_meta": {
-        "by_order_of": null,
-        "payee": null,
-        "payer": null,
-        "payment_method": null,
-        "payment_processor": null,
-        "ppd_id": null,
-        "reason": null,
-        "reference_number": null
-      },
-      "pending": false,
-      "pending_transaction_id": null,
-      "personal_finance_category": null,
-      "transaction_code": null,
-      "transaction_id": "3a5A7A4Qk9TXRl3gGpBGHJbnaBq794cMr5Ay1",
-      "transaction_type": "special",
-      "unofficial_currency_code": null
-    },
-    {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": 6.33,
+      "amount": 36.33,
       "authorized_date": "2021-06-21",
       "authorized_datetime": null,
       "category": [
@@ -4412,7 +3952,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 123.02,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -4503,7 +4043,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 45.23,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -4550,7 +4090,7 @@
     {
       "account_id": "AgXEGE8qyBHJZLlVEGeETQz1G6dzmyf4nbXAK",
       "account_owner": null,
-      "amount": 500,
+      "amount": 300.75,
       "authorized_date": null,
       "authorized_datetime": null,
       "category": [
@@ -4642,7 +4182,7 @@
     {
       "account_id": "87XE1EeWy9S9djNpZgAZSbDRmWNDBvfZkPlL5",
       "account_owner": null,
-      "amount": 5.4,
+      "amount": 25.4,
       "authorized_date": "2021-06-08",
       "authorized_datetime": null,
       "category": [
