@@ -119,7 +119,7 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
     }
 
     public void pageTitleSet(){
-        DateFormat dateFormat = new SimpleDateFormat("MMM");
+        DateFormat dateFormat = new SimpleDateFormat("MMMM");
         Date date = new Date();
         expensesPageTitle.setText(dateFormat.format(date) + "\nExpenses");
     }
