@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BankLinkDemo">
+
+    <TextView
+        android:id="@+id/bankLinkTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="Text"
+        android:textColor="@color/main_color"
+        android:textSize="34sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@+id/linkBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bankLinkHeader"
+        app:layout_constraintVertical_bias="0.13" />
+
+    <Button
+        android:id="@+id/linkBtn"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="261dp"
+        android:layout_height="50dp"
+        android:background="@drawable/main_button"
+        android:clipToOutline="false"
+        android:contextClickable="false"
+        android:paddingStart="20dp"
+        android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
+        android:text="Link Bank Account"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/bankLinkChin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bankLinkHeader"
+        app:layout_constraintVertical_bias="0.93" />
+
+    <ImageView
+        android:id="@+id/bankLinkChin"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:contentDescription="@string/top_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/main_header" />
+
+    <TextView
+        android:id="@+id/skipNextBankLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skip"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bankLinkChin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bankLinkChin" />
+
+    <ImageView
+        android:id="@+id/bankLinkHeader"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:contentDescription="@string/top_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/main_header" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Know Wealth top"
+        app:layout_constraintBottom_toBottomOf="@+id/bankLinkHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bankLinkHeader"
+        app:srcCompat="@drawable/group_1"
+        tools:ignore="UnknownIdInLayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bankAccountsList"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/linkBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bankLinkTitle" />
+
+    <TextView
+        android:id="@+id/typeRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginBottom="8dp"
+        android:text="Account Type"
+        android:textColor="@color/main_color"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bankAccountsList"
+        app:layout_constraintEnd_toStartOf="@+id/balanceRow"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/nameRow"
+        app:layout_constraintTop_toBottomOf="@+id/bankLinkTitle"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/balanceRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Current Balance"
+        android:textColor="@color/main_color"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bankAccountsList"
+        app:layout_constraintEnd_toEndOf="@+id/bankAccountsList"
+        app:layout_constraintTop_toBottomOf="@+id/bankLinkTitle"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/nameRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Account Name"
+        android:textColor="@color/main_color"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bankAccountsList"
+        app:layout_constraintStart_toStartOf="@+id/bankAccountsList"
+        app:layout_constraintTop_toBottomOf="@+id/bankLinkTitle"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/instructions"
+        android:layout_width="370dp"
+        android:layout_height="390dp"
+        android:text="@string/bankLinkInstructions"
+        android:textAlignment="viewStart"
+        android:textColor="@color/main_color"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/linkBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bankLinkTitle" />
+
+    <TextView
+        android:id="@+id/showAccounts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show all accounts"
+        android:textColor="@color/main_color"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/linkBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bankAccountsList" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
