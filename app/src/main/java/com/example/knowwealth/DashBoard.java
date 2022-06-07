@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -13,9 +15,15 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DashBoard extends AppCompatActivity implements GestureDetector.OnGestureListener{
 
@@ -39,7 +47,19 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
 
-        //used to add current date to display
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            System.out.println("Fetching FCM registration token failed");
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                    }
+                });
 
         String curDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         TextView viewDate = findViewById(R.id.view_date);
@@ -58,19 +78,25 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             if(user.utilities.size() > 0) {
                 for (int i = 0; i <= user.utilities.size() - 1; i++) {
                     User.UtilDate temp = user.utilities.get(i);
-                    addToList(temp);
+                    if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                        addToList(temp);
+                    }
                 }
             }
             if(user.creditCards.size() > 0) {
                 for (int i = 0; i <= user.creditCards.size() - 1; i++) {
                     User.UtilDate temp = user.creditCards.get(i);
-                    addToList(temp);
+                    if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                        addToList(temp);
+                    }
                 }
             }
             if(user.subscriptions.size() > 0) {
                 for (int i = 0; i <= user.subscriptions.size() - 1; i++) {
                     User.UtilDate temp = user.subscriptions.get(i);
-                    addToList(temp);
+                    if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                        addToList(temp);
+                    }
                 }
             }
             if(user.expenses.size() > 0) {
@@ -88,14 +114,14 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             }
             if (name.size() > 0) {
                 dueList = (RecyclerView) findViewById(R.id.Due_List);
-                adapter = new RecyclerViewAdapter(this, name, data, null, null);
+                adapter = new RecyclerViewAdapter(this, name, data, null, null, null);
                 layoutManager = new LinearLayoutManager(this);
                 dueList.setAdapter(adapter);
                 dueList.setLayoutManager(layoutManager);
             }
             if (budgetCategory.size() > 0){
                 overBudgetList = findViewById(R.id.budget_List);
-                budgetAdapter = new RecyclerViewAdapter(this, budgetCategory, budgetData, null, null);
+                budgetAdapter = new RecyclerViewAdapter(this, budgetCategory, budgetData, null, null, null);
                 layoutManager = new LinearLayoutManager(this);
                 overBudgetList.setAdapter(budgetAdapter);
                 overBudgetList.setLayoutManager(layoutManager);
@@ -137,6 +163,11 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             data.add(temp.getData());
         }
     }
+    // Overwriting click event for the phone back button
+    @Override
+    public void onBackPressed(){
+
+        }
 
     public void Menu(View view) {
         startActivity(new Intent(DashBoard.this, Menu.class));

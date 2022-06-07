@@ -2,8 +2,10 @@ package com.example.knowwealth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -23,12 +25,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.Calendar;
 
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     final String TAG = "LoginActivity";
     public static User user;
+    EditText userNameInput;
+
+    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
+    String processing = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +50,13 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Button loginButton = findViewById(R.id.button);
-        final EditText usernameInput = findViewById(R.id.UserName);
         final EditText passwordInput = findViewById(R.id.password);
+        userNameInput = findViewById(R.id.UserName);
 
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                signIn(usernameInput.getText().toString(),passwordInput.getText().toString());
+                signIn(userNameInput.getText().toString(),passwordInput.getText().toString());
             }
         });
 
@@ -56,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     public void signIn(String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -67,15 +80,71 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser authUser = mAuth.getCurrentUser();
 
                             user = new User(authUser.getUid());
+                            userDatabase.child(authUser.getUid()).child("Email").setValue(userNameInput.getText().toString());
 
-                            if (!user.getProcessingCompleted()){
-                                user.setCurrentActivity("utility");
-                                startActivity(new Intent(LoginActivity.this, ProcessingScreens.class));
-                            }
-                            else{
-                                startActivity(new Intent(LoginActivity.this, DashBoard.class));
-                            }
+                            userDatabase.child(authUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
+                                    User.snapshot = snapshot;
+                                    if(snapshot.child("Processing Completed").exists()) {
+                                        processing = snapshot.child("Processing Completed").getValue().toString();
+                                    }else{
+                                        processing = "false";
+                                    }
+                                    if(snapshot.child("Notification").exists()){
+                                        String tempSwitch = snapshot.child("Notification").getValue().toString();
+                                        if(tempSwitch.equals("true")){
+                                            user.setSwitch1(true);
+                                            user.setSliderPosition(Float.parseFloat(snapshot.child("NotifyTime").getValue().toString()));
+                                        }else{
+                                            user.setSwitch1(false);
+                                        }
+                                    }
+                                    if (processing.equals("true")) {
+                                        user.setProcessingCompleted(true);
+                                    } else {
+                                            user.setProcessingCompleted(false);
+                                            user.setCurrentActivity("utility");
+                                    }
+                                    user.setEmail(snapshot.child("Email").getValue().toString());
+                                    user.setFullName(snapshot.child("Full Name").getValue().toString());
+                                    Month month = Month.JANUARY;
+                                    String monthStr = month.name();
+                                    for (int i = 0; i < 12; i++) {
+                                        for (DataSnapshot j : snapshot.child(monthStr).getChildren()) {
+                                            if(j.getKey().equals("Credit Cards")){
+                                                for(DataSnapshot k : snapshot.child(monthStr + "/Credit Cards").getChildren()){
+                                                    user.creditCards.add(new User.UtilDate(monthStr, k.getKey(),k.child("Due Date").getValue().toString(),k.child("Paid").getValue().toString()));
+                                                };
+                                            }
+                                            if(j.getKey().equals("Subscriptions")){
+                                                for(DataSnapshot k : snapshot.child(monthStr + "/Subscriptions").getChildren()){
+                                                    user.subscriptions.add(new User.UtilDate(monthStr, k.getKey(),k.child("Due Date").getValue().toString(),k.child("Paid").getValue().toString()));
+                                                };
+                                            }
+                                            if(j.getKey().equals("Utilities")){
+                                                for(DataSnapshot k : snapshot.child(monthStr + "/Utilities").getChildren()){
+                                                    user.utilities.add(new User.UtilDate(monthStr, k.getKey(),k.child("Due Date").getValue().toString(),k.child("Paid").getValue().toString()));
+                                                };
+                                            }
+                                        }
+                                        month = month.plus(1);
+                                        monthStr = month.name();
+                                    }
+                                    if (processing.equals("false")) {
+                                        startActivity(new Intent(LoginActivity.this, ProcessingScreens.class));
+                                    }else{
+                                        startActivity(new Intent(LoginActivity.this, DashBoard.class));
+                                    }
+                    //                expenses = new ArrayList<>();
+                                }
 
+
+                                @Override
+                                public void onCancelled(@androidx.annotation.NonNull DatabaseError error) {
+                                    //add toast for error message
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -86,6 +155,5 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
-
-    }
+        }
 }

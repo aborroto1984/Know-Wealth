@@ -24,6 +24,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class CreateAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
     final String TAG = "CreateAccount";
@@ -33,6 +40,8 @@ public class CreateAccount extends AppCompatActivity {
     Button createAccountButton;
 
     DatabaseReference userDatabase;
+
+    Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +86,13 @@ public class CreateAccount extends AppCompatActivity {
                 startActivity(new Intent(CreateAccount.this, LoginActivity.class));
             }
         });
+        ImageView backArrow = findViewById(R.id.backArrow);
+        backArrow.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(CreateAccount.this, LoginActivity.class));
+            }
+        });
     }
 
     public void createAccount(String email, String password){
@@ -87,6 +103,9 @@ public class CreateAccount extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // Setup calander information to fill out json tree
+                            String month;
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -96,9 +115,16 @@ public class CreateAccount extends AppCompatActivity {
 
                             userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
 
-                            userDatabase.child(mAuth.getUid()).child("Email").setValue(userEmail);
-                            userDatabase.child(mAuth.getUid()).child("Full Name").setValue(userFullName);
-                            userDatabase.child(mAuth.getUid()).child("First Name").setValue(User.getFirstName());
+                            userDatabase.child(mAuth.getUid() + "/Email").setValue(userEmail);
+                            userDatabase.child(mAuth.getUid() + "/Full Name").setValue(userFullName);
+                            userDatabase.child(mAuth.getUid() + "/First Name").setValue(User.getFirstName());
+                            Month month1 = Month.JANUARY;
+                            for (int i = 0; i < 12; i++) {
+                                month = month1.toString();
+                                fillInFirebase(month);
+                                month1 = month1.plus(1);
+                            }
+
                             startActivity(new Intent(CreateAccount.this, LoginActivity.class));
 
                         } else {
@@ -107,9 +133,14 @@ public class CreateAccount extends AppCompatActivity {
                             Toast.makeText(CreateAccount.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
+        }
+        private void fillInFirebase(String month){
+            userDatabase.child(mAuth.getUid() + "/" + month + "/Credit Cards").setValue("0");
+            userDatabase.child(mAuth.getUid() + "/" + month + "/Subscriptions").setValue("0");
+            userDatabase.child(mAuth.getUid() + "/" + month + "/Utilities").setValue("0");
+
         }
 
     }

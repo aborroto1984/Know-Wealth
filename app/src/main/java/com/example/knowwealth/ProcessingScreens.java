@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -16,16 +17,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ProcessingScreens extends AppCompatActivity {
@@ -45,9 +53,9 @@ public class ProcessingScreens extends AppCompatActivity {
     boolean processingCompleted;
 
     // User input data holders
-    ArrayList<String> utilities, uDates;
-    ArrayList<String> subscriptions, sDates;
-    ArrayList<String> creditCards, cDates;
+    ArrayList<String> utilities, uDates, uPaid;
+    ArrayList<String> subscriptions, sDates, sPaid;
+    ArrayList<String> creditCards, cDates, cPaid;
     ArrayList<String> expenses, eAmounts;
     ArrayList<String> budgets, bAmounts;
 
@@ -59,6 +67,8 @@ public class ProcessingScreens extends AppCompatActivity {
     RecyclerView.LayoutManager  layoutManager;
     RecyclerView.Adapter adapter;
 
+    // Calendar instance
+    Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,27 +94,27 @@ public class ProcessingScreens extends AppCompatActivity {
         if (currentActivity.equals("utility")){
             utilities = new ArrayList<>();
             uDates = new ArrayList<>();
-            rePopulateLists(user.utilities, utilities, uDates);
+            uPaid = new ArrayList<>();
+            rePopulateLists(user.utilities, utilities, uDates, uPaid);
             setSkipNext();
-            pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Utilities");
             setRecyclerView(this, utilities, uDates, closeBtn);
         }
         else if (currentActivity.equals("subscriptions")){
             subscriptions = new ArrayList<>();
             sDates = new ArrayList<>();
-            rePopulateLists(user.subscriptions, subscriptions, sDates);
+            sPaid = new ArrayList<>();
+            rePopulateLists(user.subscriptions, subscriptions, sDates, sPaid);
             setSkipNext();
-            pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Monthly Subscriptions");
             setRecyclerView(this, subscriptions, sDates, closeBtn);
         }
         else if (currentActivity.equals("creditCards")){
             creditCards = new ArrayList<>();
             cDates = new ArrayList<>();
-            rePopulateLists(user.creditCards, creditCards, cDates);
+            cPaid = new ArrayList<>();
+            rePopulateLists(user.creditCards, creditCards, cDates, cPaid);
             setSkipNext();
-            pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Credit Card Due Dates");
             setRecyclerView(this, creditCards, cDates, closeBtn);
         }
@@ -119,7 +129,6 @@ public class ProcessingScreens extends AppCompatActivity {
                 }
             }
             setSkipNext();
-            pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Enter Expense");
             setRecyclerView(this, expenses, eAmounts, closeBtn);
         }
@@ -144,24 +153,27 @@ public class ProcessingScreens extends AppCompatActivity {
         //----------------------------------------------------------------------------------------------------------------  BUTTONS
         skipNext.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v){
-                if(processingCompleted){finish();}
-                if (currentActivity.equals("utility")){
-                   user.setCurrentActivity("subscriptions");
-                    refreshActivity();
-                }else if (currentActivity.equals("subscriptions")){
-                    user.setCurrentActivity("creditCards");
-                    refreshActivity();
-                }else if (currentActivity.equals("creditCards")){
-                    //user.setProcessingCompleted(true);
-                    startActivity(new Intent(ProcessingScreens.this, BankLinkDemo.class));
-                }else if (currentActivity.equals("expenses")){
-                    finish();
-                    startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
-                }else if (currentActivity.equals("budgets")){
-                    finish();
-                    startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
+            public void onClick(View v) {
+                if (!processingCompleted) {
+                    if (currentActivity.equals("utility")) {
+                        user.setCurrentActivity("subscriptions");
+                        refreshActivity();
+                    } else if (currentActivity.equals("subscriptions")) {
+                        user.setCurrentActivity("creditCards");
+                        refreshActivity();
+                    } else if (currentActivity.equals("creditCards")) {
+                        user.setProcessingCompleted(true);
+                        user.userDatabase.child(User.getuID()).child("Processing Completed").setValue("true");
+                        startActivity(new Intent(ProcessingScreens.this, DashBoard.class));
+                    } else if (currentActivity.equals("expenses")) {
+                        finish();
+                        startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
+                    } else if (currentActivity.equals("budgets")) {
+                        finish();
+                        startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
+                    }
                 }
+                finish();
             }
         });
 
@@ -186,6 +198,7 @@ public class ProcessingScreens extends AppCompatActivity {
                 }
             }
         });
+
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -251,31 +264,35 @@ public class ProcessingScreens extends AppCompatActivity {
 
     // Method to set the recyclerView adapter
     private void setRecyclerView(Context ct, ArrayList<String> names, ArrayList<String> dueDates, FloatingActionButton closeBtn){
-        adapter = new RecyclerViewAdapter(ct, names, dueDates, closeBtn, null);
+        adapter = new RecyclerViewAdapter(ct, names, dueDates, null, closeBtn, null);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
     }
 
     // Method to populate the storage lists in the user instance
-    private void populateLists(String name, String data){
+    private void populateLists(String name, String data, String paid){
         if (currentActivity.equals("utility")){
-            user.utilities.add(new User.UtilDate(data, name));
+
+            user.utilities.add(new User.UtilDate(LocalDate.now().getMonth().toString(), name, data, paid));
             utilities.add(name);
             uDates.add(data);
-            addToFirebase("Utilities", name, data);
+            uPaid.add(paid);
+            addToFirebase("Utilities", name, data, paid);
         }
         else if (currentActivity.equals("subscriptions")){
-            user.subscriptions.add(new User.UtilDate(data, name));
+           // user.subscriptions.add(new User.UtilDate(data, name, paid));
             subscriptions.add(name);
             sDates.add(data);
-            addToFirebase("Subscriptions", name, data);
+            sPaid.add(paid);
+            addToFirebase("Subscriptions", name, data, paid);
         }
         else if (currentActivity.equals("creditCards")){
-            user.creditCards.add(new User.UtilDate(data, name));
+           // user.creditCards.add(new User.UtilDate(data, name, paid));
             creditCards.add(name);
             cDates.add(data);
-            addToFirebase("Credit Cards", name, data);
+            cPaid.add(paid);
+            addToFirebase("Credit Cards", name, data, paid);
         }
         else if (currentActivity.equals("expenses")){
             boolean contains = false;
@@ -321,20 +338,32 @@ public class ProcessingScreens extends AppCompatActivity {
     }
 
     // Method to repopulate local storage lists from the user instance when the activity starts
-    private void rePopulateLists(List<User.UtilDate> userArray, ArrayList<String> name, ArrayList<String> data){
-        if( userArray.size() > 0){
-            for (int i = 0; i <= userArray.size() - 1; i++){
-                User.UtilDate temp = userArray.get(i);
-                name.add(temp.getName());
-                data.add(temp.getData());
+    private void rePopulateLists(List<User.UtilDate> arrName, ArrayList<String> name, ArrayList<String> data, ArrayList<String> paid) {
+        if (arrName.size() > 0) {
+            for (int i = 0; i < arrName.size(); i++) {
+                User.UtilDate temp = arrName.get(i);
+                if (temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                    name.add(temp.getName());
+                    data.add(temp.getData());
+                    paid.add(temp.getPaid());
+                }
             }
         }
     }
 
     //Method to add new data to firebase database
-    private void addToFirebase(String arrList, String name, String data){
-        DatabaseReference userDatabase= user.userDatabase.child(User.getuID()).child(arrList);
-        userDatabase.child(name).child("Due Date").setValue(data);
+    private void addToFirebase(String arrList, String name, String data, String paid){
+
+        Month month1 = Month.JANUARY;
+        String month = month1.toString();
+        DatabaseReference userDatabase= user.userDatabase.child(User.getuID());
+        for (int i = 0; i < 12; i++) {
+            userDatabase.child(month + "/" + arrList + "/" + name).child("Due Date").setValue(data);
+            userDatabase.child(month + "/" + arrList + "/" + name).child("Paid").setValue(paid);
+            month1 = month1.plus(1);
+            month = month1.toString();
+        }
+
     }
 
     //----------------------------------------------------------------------------------------------------------------  DIALOGS
@@ -364,7 +393,7 @@ public class ProcessingScreens extends AppCompatActivity {
             case "utility":
                 description.setText("Utility Type");
                 spinnerOptions.add("Mortgage - Rent"); spinnerOptions.add("Power"); spinnerOptions.add("Water");
-                spinnerOptions.add("Cable / Satellite"); spinnerOptions.add("Internet"); spinnerOptions.add("Cell Phone"); spinnerOptions.add("Car Payment");
+                spinnerOptions.add("Cable - Satellite"); spinnerOptions.add("Internet"); spinnerOptions.add("Cell Phone"); spinnerOptions.add("Car Payment");
                 spinnerOptions.add("Other");
                 break;
             case "subscriptions":
@@ -425,6 +454,7 @@ public class ProcessingScreens extends AppCompatActivity {
             public void onClick(View v) {
                 String name;
                 String data = null;
+                String paid = null;
                 if (currentActivity.equals("expenses") || currentActivity.equals("budgets")){
                     name = utilitySpinner.getSelectedItem().toString();
 
@@ -435,14 +465,16 @@ public class ProcessingScreens extends AppCompatActivity {
                 else if( utilitySpinner.getVisibility() == View.GONE){
                     name = otherName.getText().toString();
                     data = dueDateSpinner.getSelectedItem().toString();
+                    paid = "false";
                 }
                 else {
                     name = utilitySpinner.getSelectedItem().toString();
                     data = dueDateSpinner.getSelectedItem().toString();
+                    paid = "false";
                 }
 
                 if (data != null) {
-                    populateLists(name, data);
+                    populateLists(name, data, paid);
                     adapter.notifyDataSetChanged();
                     if (dialog.isShowing()) {
                         dialog.dismiss();

@@ -1,19 +1,8 @@
 package com.example.knowwealth;
 
-import android.graphics.drawable.Drawable;
-
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,16 +17,18 @@ public class User {
     static List<UtilDate> creditCards;
     static List<UtilDate> subscriptions;
     static ArrayList<Expense> expenses;
+    static ArrayList<Boolean> paid;
 
-    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
+    static DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
     private static String uID;
-    List<String> list;
+    static DataSnapshot snapshot;
 
     // Global variable to know
     static String currentActivity;
-    static Boolean processingCompleted = false;
+    static boolean processingCompleted;
     static boolean switch1;
     static float sliderPosition;
+
 
     // Constructors
     public User(String uid) {
@@ -46,32 +37,8 @@ public class User {
         creditCards = new ArrayList<>();
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
+        paid = new ArrayList<>();
         uID = uid;
-
-        userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                email = snapshot.child("Email").getValue().toString();
-                fullName = snapshot.child("Full Name").getValue().toString();
-                firstName = snapshot.child("First Name").getValue().toString();
-                for(DataSnapshot i : snapshot.child("Utilities").getChildren()){
-                    utilities.add(new UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
-                }
-                for(DataSnapshot i : snapshot.child("Credit Cards").getChildren()){
-                    creditCards.add(new UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
-                }for(DataSnapshot i : snapshot.child("Subscriptions").getChildren()){
-                    subscriptions.add(new UtilDate(i.child("Due Date").getValue().toString(),i.getKey()));
-                }
-
-//                expenses = new ArrayList<>();
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //add toast for error message
-            }
-        });
     }
 
     public User(String fullName, String email){
@@ -83,6 +50,7 @@ public class User {
         creditCards = new ArrayList<>();
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
+        paid = new ArrayList<>();
     }
 
     public static String getuID() {
@@ -111,12 +79,8 @@ public class User {
     public float getSliderPosition() { return sliderPosition;}
 
     // Global variables setters
-    public void setProcessingCompleted( Boolean value){
-        processingCompleted = value;
-    }
-    public void setCurrentActivity( String value){
-        currentActivity = value;
-    }
+    public void setProcessingCompleted( Boolean value){processingCompleted = value;}
+    public void setCurrentActivity( String value){currentActivity = value;}
     public void setSwitch1(Boolean value){switch1 = value;}
     public void setSliderPosition(float sliderPosition) { User.sliderPosition = sliderPosition; }
 
@@ -127,16 +91,33 @@ public class User {
     public static class UtilDate{
         private String dueDay;
         private String name;
+        private String paid;
+        private String month;
 
         public UtilDate(){ }
-        public UtilDate(String dueDay, String name){
+        public UtilDate( String month, String name, String dueDay, String paid ){
             this.dueDay = dueDay;
             this.name = name;
+            this.paid = paid;
+            this.month = month;
+
         }
         public String getData(){return dueDay;}
         public String getName(){return name;}
-    }
+        public String getPaid(){return paid;}
+        public String getMonth(){return month;}
 
+    }
+    public static void updatedPaid(String _month, String _name, String _dueDay, String _paid, String arrayName, List<UtilDate> array ) {
+
+        for (int i = 0; i < array.size(); i++) {
+            UtilDate data = array.get(i);
+            if(data.month.equals(_month) && data.name.equals(_name) && data.dueDay.equals(_dueDay)){
+                array.set(i,new UtilDate(_month,_name,_dueDay,_paid));
+                userDatabase.child(uID + "/" + _month + "/" + arrayName + "/" + _name).child("Paid").setValue(_paid);
+            }
+        }
+    }
     // method to remove deleted entries
     public static void deleteFromList(String removeDueDay, String removeName, List<UtilDate> array){
         for (int i = 0; i < array.size(); i++){

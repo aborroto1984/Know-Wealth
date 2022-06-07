@@ -16,6 +16,8 @@ import android.widget.ImageView;
 
 import com.google.android.material.slider.Slider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class NotificationSettings extends AppCompatActivity {
 
@@ -24,6 +26,7 @@ public class NotificationSettings extends AppCompatActivity {
     Button apply;
     ImageView backArrow;
     User user = LoginActivity.user;
+    DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +63,20 @@ public class NotificationSettings extends AppCompatActivity {
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String notify;
                 user.setSwitch1(notifyOnOff.isChecked());
+                if (notifyOnOff.isChecked()){
+                    notify = "true";
+                }else{
+                    notify = "false";
+                }
+                userDatabase.child(user.getuID() + "/Notification").setValue(notify);
+                String sliderValue;
+                sliderValue = Float.toString(slider.getValue()) ;
+                userDatabase.child(user.getuID() + "/NotifyTime").setValue(sliderValue);
                 user.setSliderPosition(slider.getValue());
+
+
             }
         });
         backArrow.setOnClickListener(new View.OnClickListener() {
