@@ -5,8 +5,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
-
-public class User {
+enum Budgets{
+    Entertainment,
+    Food,
+    Fuel,
+    Groceries,
+    Restaurant,
+    Shopping,
+    Transportation
+}public class User {
     // User's first name to be used in DashBoard
     private static String firstName;
     private static String fullName;
@@ -18,6 +25,7 @@ public class User {
     static List<UtilDate> subscriptions;
     static ArrayList<Expense> expenses;
     static ArrayList<Boolean> paid;
+    static ArrayList<String> budgets;
 
     static DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
     private static String uID;
@@ -38,6 +46,7 @@ public class User {
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
         paid = new ArrayList<>();
+        budgets = new ArrayList<>();
         uID = uid;
     }
 
@@ -51,6 +60,7 @@ public class User {
         subscriptions = new ArrayList<>();
         expenses = new ArrayList<>();
         paid = new ArrayList<>();
+        budgets = new ArrayList<>();
     }
 
     public static String getuID() {
@@ -129,41 +139,41 @@ public class User {
     }
 
     // method to remove deleted expenses
-    public static void deleteExpenseFromList(String removeDueDay, String removeName, List<Expense> array){
-        for (int i = 0; i < array.size(); i++){
-            Expense data = array.get(i);
-            if (data.name.equals(removeName) && data.amount == Float.parseFloat(removeDueDay)){
-                array.remove(i);
-            }
-        }
-    }
+    //public static void deleteExpenseFromList(String removeDueDay, String removeName, List<Expense> array){
+    //    for (int i = 0; i < array.size(); i++){
+    //        Expense data = array.get(i);
+    //        if (data.name.equals(removeName) && data.amount == Float.parseFloat(removeDueDay)){
+    //            array.remove(i);
+    //        }
+    //    }
+    //}
 
     // method to remove deleted budgets
-    public static void deleteBudget(String removeName, List<Expense> array){
-        for (int i = 0; i < array.size(); i++){
-            Expense data = array.get(i);
-            if (data.name.equals(removeName) && data.budget != 0){
-                data.budget = 0;
-                if (data.amount == 0){
-                    array.remove(i);
-                }
-            }
-        }
-    }
+    //public static void deleteBudget(String removeName, List<Expense> array){
+    //    for (int i = 0; i < array.size(); i++){
+    //        Expense data = array.get(i);
+    //        if (data.name.equals(removeName) && data.budget != 0){
+    //            data.budget = 0;
+    //            if (data.amount == 0){
+    //                array.remove(i);
+    //            }
+    //        }
+    //    }
+    //}
 
     // Expenses
     public static class Expense {
         // Fields
         private String name;
-        private float amount = 0;
-        private float budget = 0;
+        private String amount;
+        private String budget;
 
         //Constructors
         public Expense(){}
         public Expense(String name, String amount){
             this.name = name;
             String amountNum = amount.replaceAll("[$,,]", "");
-            this.amount = Float.parseFloat(amountNum);
+            this.amount = amountNum;
         }
 
         // Expense amount getter
@@ -180,7 +190,7 @@ public class User {
         public String getBudget() { return String.valueOf(budget); }
         public void setBudget(String budget) {
             String amountNum = budget.replaceAll("[$,,]", "");
-            this.budget = Float.parseFloat(amountNum);
+            this.budget = amountNum;
         }
     }
 }
