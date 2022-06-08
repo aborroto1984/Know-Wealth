@@ -25,7 +25,7 @@ enum Budgets{
     static List<UtilDate> subscriptions;
     static ArrayList<Expense> expenses;
     static ArrayList<Boolean> paid;
-    static ArrayList<String> budgets;
+    static ArrayList<Budget> budgets;
 
     static DatabaseReference userDatabase= FirebaseDatabase.getInstance().getReferenceFromUrl("https://know-wealth-default-rtdb.firebaseio.com/").child("users");
     private static String uID;
@@ -191,6 +191,28 @@ enum Budgets{
         public void setBudget(String budget) {
             String amountNum = budget.replaceAll("[$,,]", "");
             this.budget = amountNum;
+        }
+    }
+
+    public static class Budget {
+        private String name;
+        private String amount;
+
+        public Budget(String name, String amount){
+            this.name = name;
+            this.amount = amount;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getAmount() {
+            return amount;
+        }
+
+        public void setAmount(String amount) {
+            this.amount = amount;
         }
     }
 }

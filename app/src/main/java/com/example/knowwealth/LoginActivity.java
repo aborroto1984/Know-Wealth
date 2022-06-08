@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                                     user.setFullName(snapshot.child("Full Name").getValue().toString());
                                     //budgets
                                     for (DataSnapshot b : snapshot.child("Budgets").getChildren()) {
-                                        user.budgets.add(b.getValue().toString());
+                                        user.budgets.add(new User.Budget(b.getKey(), b.getValue().toString()));
                                     }
                                     Month month = Month.JANUARY;
                                     String monthStr = month.name();

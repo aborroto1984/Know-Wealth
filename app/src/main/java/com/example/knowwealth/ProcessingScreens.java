@@ -139,13 +139,11 @@ public class ProcessingScreens extends AppCompatActivity {
         else if (currentActivity.equals("budgets")){
             budgets = new ArrayList<>();
             bAmounts = new ArrayList<>();
-            if( user.expenses.size() > 0){
-                for (int i = 0; i <= user.expenses.size() - 1; i++){
-                    User.Expense temp = user.expenses.get(i);
-                    if (Float.parseFloat(temp.getBudget()) > 0){
+            if( user.budgets.size() > 0){
+                for (int i = 0; i < user.budgets.size(); i++){
+                    User.Budget temp = user.budgets.get(i);
                         budgets.add(temp.getName());
-                        bAmounts.add(formatCurrency(temp.getBudget()));
-                    }
+                        bAmounts.add(temp.getAmount());
                 }
             }
             setSkipNext();
@@ -318,11 +316,26 @@ public class ProcessingScreens extends AppCompatActivity {
         else if (currentActivity.equals("budgets")){
             DatabaseReference userDatabase= user.userDatabase.child(User.getuID());
             userDatabase.child("Budgets/" + name).setValue(data);
-            budgets.add(name);
-            bAmounts.add(data);
+            if (budgets.size() > 0) { //if any budgets exist
+                boolean exists = false;
+                for (int i = 0; i < budgets.size(); i++) { // update existing budget
+                    if (budgets.get(i).equals(name)) {
+                        bAmounts.set(i, data);
+                        exists = true;
+                    }
+                }
+                if (!exists){ // or create a new one
+                    budgets.add(name);
+                    bAmounts.add(data);
+                }
+            }
+            else{
+                budgets.add(name);
+                bAmounts.add(data);
+            }
             for(int temp = 0; temp <= 6; ++temp) {
                 if (Budgets.values()[temp].toString() == name){
-                    user.budgets.set(temp, data);
+                    user.budgets.set(temp, new User.Budget(name, data));
                 }
             }
         }
