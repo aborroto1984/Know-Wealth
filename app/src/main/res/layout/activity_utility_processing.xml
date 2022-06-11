@@ -9,41 +9,33 @@
     tools:ignore="RtlSymmetry"
 
     <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/processingHeader"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:contentDescription="@string/top_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/primary" />
+        app:srcCompat="@drawable/main_header" />
 
     <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/todo"
+        android:id="@+id/processingChin"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:contentDescription="@string/top_header"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/primary" />
+        app:srcCompat="@drawable/main_header" />
 
     <ImageView
         android:id="@+id/imageView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="16dp"
         android:contentDescription="Know Wealth top"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/processingHeader"
+        app:layout_constraintEnd_toEndOf="@+id/processingHeader"
+        app:layout_constraintStart_toStartOf="@+id/processingHeader"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/group_1"
         tools:ignore="UnknownIdInLayout" />
@@ -56,23 +48,23 @@
         android:textColor="@color/main_color"
         android:textSize="34sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/imageView12"
+        app:layout_constraintBottom_toTopOf="@+id/utilityDueDatesList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView11"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintTop_toBottomOf="@+id/processingHeader" />
 
     <ImageView
         android:id="@+id/backArrow2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:contentDescription="@string/back_arrow"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-        app:layout_constraintEnd_toEndOf="@+id/imageView11"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toTopOf="@+id/imageView11"
+        app:layout_constraintBottom_toBottomOf="@+id/processingHeader"
+        app:layout_constraintEnd_toEndOf="@+id/processingHeader"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/processingHeader"
+        app:layout_constraintTop_toTopOf="@+id/processingHeader"
         app:srcCompat="@drawable/arrow" />
 
     <Button
@@ -80,7 +72,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="261dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/main_button"
         android:clipToOutline="false"
         android:contextClickable="false"
@@ -88,11 +80,9 @@
         android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
         android:text="@string/add"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/imageView12"
+        app:layout_constraintBottom_toTopOf="@+id/processingChin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView11"
-        app:layout_constraintVertical_bias="0.93" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView13"
@@ -114,18 +104,18 @@
         android:text="@string/skip"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-        app:layout_constraintEnd_toEndOf="@+id/imageView12"
-        app:layout_constraintStart_toStartOf="@+id/imageView12"
-        app:layout_constraintTop_toTopOf="@+id/imageView12" />
+        app:layout_constraintBottom_toBottomOf="@+id/processingChin"
+        app:layout_constraintEnd_toEndOf="@+id/processingChin"
+        app:layout_constraintStart_toStartOf="@+id/processingChin"
+        app:layout_constraintTop_toTopOf="@+id/processingChin" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/utilityDueDatesList"
         android:layout_width="match_parent"
         android:layout_height="444dp"
-        app:layout_constraintBottom_toTopOf="@+id/addButton"
+        app:layout_constraintBottom_toTopOf="@+id/processingChin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pageTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/processingHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

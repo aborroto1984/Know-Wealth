@@ -15,6 +15,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/close_button"
+        android:foreground="@android:drawable/ic_menu_close_clear_cancel"
+        android:foregroundTint="@color/white"
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:onClick="backToPrevious"
@@ -26,66 +28,61 @@
         android:id="@+id/appLogoWhite"
         android:layout_width="81dp"
         android:layout_height="94dp"
-        android:layout_marginTop="88dp"
         android:contentDescription="@string/main_logo"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/app_logo_white" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/app_name"
         android:textColor="#F6F1F1"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/dashBoardLink"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appLogoWhite" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/dashBoardLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/Home"
         android:textColor="#F6F1F1"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/utilitiesLink"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/utilitiesLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="183dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="183dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/utilities"
         android:textColor="#F6F1F1"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/subsLInk"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashBoardLink" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/subsLInk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="@string/subscriptions"
         android:textColor="#F6F1F1"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/utilitiesLink" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/creditCardLink"
@@ -115,9 +112,7 @@
         android:id="@+id/accountInfoLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="150dp"
         android:text="@string/account_info"
         android:textColor="#F6F1F1"
         android:textSize="16sp"

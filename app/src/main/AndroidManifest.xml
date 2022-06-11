@@ -33,18 +33,6 @@
             android:name=".DashBoard"
             android:exported="false" />
         <activity
-            android:name=".BudgetAdd"
-            android:exported="false" />
-        <activity
-            android:name=".ExpenseAdd"
-            android:exported="false" />
-        <activity
-            android:name=".CreditDatesProcessing"
-            android:exported="false" />
-        <activity
-            android:name=".SubscriptionProcessing"
-            android:exported="false" />
-        <activity
             android:name=".ProcessingScreens"
             android:exported="false" />
         <activity

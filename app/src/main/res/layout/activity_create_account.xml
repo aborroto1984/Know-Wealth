@@ -6,22 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".CreateAccount">
 
+    <ImageView
+        android:id="@+id/createAccountHeader"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:contentDescription="@string/top_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/main_header" />
+
+    <ImageView
+        android:id="@+id/createAccountChin"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:contentDescription="@string/top_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/main_header" />
+
     <Button
         android:id="@+id/createAccountButton"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="261dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/main_button"
         android:contextClickable="false"
-        android:paddingEnd="28dp"
         android:paddingStart="28dp"
+        android:paddingEnd="28dp"
         android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
         android:text="@string/sign_up"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/imageView9"
+        app:layout_constraintBottom_toTopOf="@+id/createAccountChin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordCreateAccount2" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordCreateAccount2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/createAccountText"
@@ -31,10 +56,10 @@
         android:textColor="@color/main_color"
         android:textSize="34sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/fullName"
+        app:layout_constraintBottom_toTopOf="@+id/nameLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/createAccountHeader" />
 
     <TextView
         android:id="@+id/createPasswordLabel2"
@@ -77,6 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
+        android:autofillHints=""
         android:background="@drawable/rectangle_122"
         android:ems="10"
         android:hint="@string/enter_name"
@@ -88,16 +114,13 @@
         android:textColorHint="#800B6374"
         app:layout_constraintBottom_toTopOf="@+id/userIdCreateAccount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/userIdCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:autofillHints=""
         android:background="@drawable/rectangle_122"
         android:ems="10"
         android:hint="@string/email"
@@ -107,81 +130,54 @@
         android:padding="16dp"
         android:singleLine="true"
         android:textColorHint="#800B6374"
-        app:layout_constraintBottom_toTopOf="@+id/passwordCreateAccount1"
+        app:layout_constraintBottom_toTopOf="@+id/createAccountChin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/createAccountHeader" />
 
     <EditText
         android:id="@+id/passwordCreateAccount2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:autofillHints=""
         android:background="@drawable/rectangle_122"
         android:ems="10"
         android:hint="@string/password_dots"
         android:inputType="textPassword"
         android:padding="16dp"
         android:textColorHint="#800B6374"
-        app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.75"
-        tools:ignore="DuplicateSpeakableTextCheck"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordCreateAccount1"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/passwordCreateAccount1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="40dp"
+        android:autofillHints=""
+
         android:background="@drawable/rectangle_122"
         android:ems="10"
-
         android:hint="@string/password_dots"
         android:inputType="textPassword"
         android:padding="16dp"
         android:textColorHint="#800B6374"
-        app:layout_constraintBottom_toTopOf="@+id/passwordCreateAccount2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="" />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/primary" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/primary" />
+        app:layout_constraintTop_toBottomOf="@+id/userIdCreateAccount" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/top_header"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/createAccountHeader"
+        app:layout_constraintEnd_toEndOf="@+id/createAccountHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/createAccountHeader"
         app:srcCompat="@drawable/group_1" />
 
     <TextView
@@ -204,7 +200,7 @@
         android:rotation="180"
         app:layout_constraintBottom_toBottomOf="@+id/createAccountButton"
         app:layout_constraintEnd_toEndOf="@+id/createAccountButton"
-        app:layout_constraintHorizontal_bias="0.64"
+        app:layout_constraintHorizontal_bias="0.70"
         app:layout_constraintStart_toStartOf="@+id/createAccountButton"
         app:layout_constraintTop_toTopOf="@+id/createAccountButton"
         app:srcCompat="@drawable/arrow"
@@ -214,12 +210,13 @@
         android:id="@+id/backArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:contentDescription="@string/back_arrow"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/createAccountHeader"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/createAccountHeader"
+        app:layout_constraintTop_toTopOf="@+id/createAccountHeader"
         app:srcCompat="@drawable/arrow" />
 
     <TextView
@@ -230,9 +227,9 @@
         android:textColor="#FFFFFF"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView9"
-        app:layout_constraintStart_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+        app:layout_constraintEnd_toEndOf="@+id/createAccountChin"
+        app:layout_constraintStart_toStartOf="@+id/createAccountChin"
+        app:layout_constraintTop_toTopOf="@+id/createAccountChin" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
