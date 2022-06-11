@@ -75,33 +75,33 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         budgetCategory = new ArrayList<>();
         budgetData = new ArrayList<>();
 
-            if(user.utilities.size() > 0) {
-                for (int i = 0; i <= user.utilities.size() - 1; i++) {
-                    User.UtilDate temp = user.utilities.get(i);
+            if(User.utilities.size() > 0) {
+                for (int i = 0; i <= User.utilities.size() - 1; i++) {
+                    User.UtilDate temp = User.utilities.get(i);
                     if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
                         addToList(temp);
                     }
                 }
             }
-            if(user.creditCards.size() > 0) {
-                for (int i = 0; i <= user.creditCards.size() - 1; i++) {
-                    User.UtilDate temp = user.creditCards.get(i);
+            if(User.creditCards.size() > 0) {
+                for (int i = 0; i <= User.creditCards.size() - 1; i++) {
+                    User.UtilDate temp = User.creditCards.get(i);
                     if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
                         addToList(temp);
                     }
                 }
             }
-            if(user.subscriptions.size() > 0) {
-                for (int i = 0; i <= user.subscriptions.size() - 1; i++) {
-                    User.UtilDate temp = user.subscriptions.get(i);
+            if(User.subscriptions.size() > 0) {
+                for (int i = 0; i <= User.subscriptions.size() - 1; i++) {
+                    User.UtilDate temp = User.subscriptions.get(i);
                     if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
                         addToList(temp);
                     }
                 }
             }
-            if(user.expenses.size() > 0) {
-                for (int i = 0; i <= user.expenses.size() - 1; i++) {
-                    User.Expense temp = user.expenses.get(i);
+            if(User.expenses.size() > 0) {
+                for (int i = 0; i <= User.expenses.size() - 1; i++) {
+                    User.Expense temp = User.expenses.get(i);
 
                     float amount = Float.parseFloat(temp.getAmount().replaceAll("[^0-9, .]", ""));
                     float budget = Float.parseFloat(temp.getBudget().replaceAll("[^0-9, .]", ""));
