@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/expenseNameTitle" />
 
             <TextView
-                android:id="@+id/expenseAmountTitle"
+                android:id="@+id/amountText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -59,8 +59,10 @@
                 android:textSize="20sp"
                 android:textStyle="normal"
                 android:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@+id/nameSpinner"
-                tools:layout_editor_absoluteX="33dp" />
+                app:layout_constraintEnd_toEndOf="@+id/amount"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/amount"
+                app:layout_constraintTop_toBottomOf="@+id/nameSpinner" />
 
             <TextView
                 android:id="@+id/expenseCategoryTite"
@@ -109,7 +111,7 @@
                 tools:layout_editor_absoluteX="240dp" />
 
             <EditText
-                android:id="@+id/amountExpense"
+                android:id="@+id/amount"
                 style="@style/textBox"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
@@ -124,7 +126,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/nameSpinner"
-                app:layout_constraintTop_toBottomOf="@+id/expenseAmountTitle"
+                app:layout_constraintTop_toBottomOf="@+id/amountText"
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

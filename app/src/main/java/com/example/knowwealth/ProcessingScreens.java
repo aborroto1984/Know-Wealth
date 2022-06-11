@@ -363,7 +363,12 @@ public class ProcessingScreens extends AppCompatActivity {
     // Dialog to enter values into the recyclerView and the user instance storage
     private void showAddValueDialog(){
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.add_utility_dialog);
+        if (currentActivity == "expenses"){
+            dialog.setContentView(R.layout.add_expense_dialog);
+        }else{
+            dialog.setContentView(R.layout.add_utility_dialog);
+        }
+
         // This closes the dialog if the user clicks outside the dialog
         dialog.setCancelable(true);
         spinnerOptions.clear();
@@ -402,10 +407,10 @@ public class ProcessingScreens extends AppCompatActivity {
                 break;
             case "expenses":
                 description.setText("Expense Type");
-                dueDateSpinner.setVisibility(View.GONE);
-                dueDate.setVisibility(View.GONE);
-                amountText.setVisibility(View.VISIBLE);
-                amount.setVisibility(View.VISIBLE);
+//                dueDateSpinner.setVisibility(View.GONE);
+//                dueDate.setVisibility(View.GONE);
+//                amountText.setVisibility(View.VISIBLE);
+//                amount.setVisibility(View.VISIBLE);
                 spinnerOptions.add("Food - Drink"); spinnerOptions.add("Groceries"); spinnerOptions.add("Fuel");
                 spinnerOptions.add("Shopping"); spinnerOptions.add("Entertainment"); spinnerOptions.add("Transportation"); spinnerOptions.add("Restaurant");
                 break;
