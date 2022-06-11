@@ -214,7 +214,6 @@ public class BankLinkDemo extends AppCompatActivity {
                                             if (name != null){
                                                 user.expenses.add(new User.Expense(name, amountNum));
                                             }
-
                                         }
                                     }
                                 }
@@ -222,6 +221,7 @@ public class BankLinkDemo extends AppCompatActivity {
                         }
                     }
                     user.setProcessingCompleted(true);
+                    user.userDatabase.child(User.getuID()).child("Processing Completed").setValue("true");
                     startActivity(new Intent(BankLinkDemo.this, DashBoard.class));
                 }
             }
