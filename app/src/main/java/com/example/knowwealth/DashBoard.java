@@ -77,6 +77,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
 
         addExp = findViewById(R.id.add_expense_button);
 
+    //----------------------------------------------------------------------------------------------------------------  BUTTONS
         addExp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -88,6 +89,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         gestureDetector = new GestureDetector(getApplicationContext(),this);
     }
 
+    //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
     @Override
     protected void onResume() {
         super.onResume();
@@ -184,6 +186,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         startActivity(new Intent(DashBoard.this, Menu.class));
     }
 
+    //----------------------------------------------------------------------------------------------------------------  SWIPE METHOD
     @Override
     public boolean onDown(MotionEvent motionEvent) {
         return false;
