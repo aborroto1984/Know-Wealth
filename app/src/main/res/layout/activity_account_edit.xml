@@ -50,7 +50,7 @@
         android:id="@+id/activity_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Account"
+        android:text="Edit Account"
         android:textColor="@color/main_color"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -58,18 +58,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/accountHeader" />
-
-    <TextView
-        android:id="@+id/nameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/full_name"
-        android:textColor="@color/main_color"
-        app:layout_constraintBottom_toTopOf="@+id/fullName"
-        app:layout_constraintEnd_toEndOf="@+id/fullName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/fullName" />
 
     <EditText
         android:id="@+id/fullName"
@@ -91,26 +79,15 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/userIdLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/user_id"
-        android:textColor="@color/main_color"
-        app:layout_constraintBottom_toTopOf="@+id/userIdCreateAccount"
-        app:layout_constraintEnd_toEndOf="@+id/userIdCreateAccount"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/userIdCreateAccount" />
-
     <EditText
         android:id="@+id/userIdCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:autofillHints=""
         android:background="@drawable/rectangle_122"
         android:ems="10"
-        android:hint="@string/email"
+        android:hint="@string/user_id"
         android:inputType="textShortMessage|textPassword"
         android:maxLength="30"
         android:maxLines="1"
@@ -146,6 +123,19 @@
         android:inputType="textPassword"
         android:padding="16dp"
         android:textColorHint="#800B6374"
+    <Button
+        android:id="@+id/apply_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="261dp"
+        android:layout_height="50dp"
+        android:background="@drawable/main_button"
+        android:contextClickable="false"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
+        android:text="Apply"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/password_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userIdCreateAccount" />
@@ -178,9 +168,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordCreateAccount1"
         tools:ignore="DuplicateSpeakableTextCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/userIdCreateAccount" />
 
     <Button
-        android:id="@+id/apply_button"
+        android:id="@+id/password_button"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="261dp"
         android:layout_height="50dp"
@@ -190,10 +181,14 @@
         android:paddingStart="28dp"
         android:paddingEnd="28dp"
         android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
-        android:text="Apply"
+        android:text="Reset Password"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/accountHeader"
         app:layout_constraintBottom_toTopOf="@+id/accountChin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/apply_button"
+        app:layout_constraintVertical_bias=".1" />
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -207,5 +202,14 @@
         app:layout_constraintStart_toStartOf="@+id/accountHeader"
         app:layout_constraintTop_toTopOf="@+id/accountHeader"
         app:srcCompat="@drawable/group_1" />
+
+    <TextView
+        android:id="@+id/or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="And/Or"
+        app:layout_constraintBottom_toTopOf="@+id/userIdCreateAccount"
+        app:layout_constraintStart_toStartOf="@+id/userIdCreateAccount"
+        app:layout_constraintTop_toBottomOf="@+id/fullName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

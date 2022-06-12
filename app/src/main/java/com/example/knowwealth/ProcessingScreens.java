@@ -22,6 +22,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -135,13 +139,11 @@ public class ProcessingScreens extends AppCompatActivity {
         else if (currentActivity.equals("budgets")){
             budgets = new ArrayList<>();
             bAmounts = new ArrayList<>();
-            if( user.expenses.size() > 0){
-                for (int i = 0; i <= user.expenses.size() - 1; i++){
-                    User.Expense temp = user.expenses.get(i);
-                    if (Float.parseFloat(temp.getBudget()) > 0){
+            if( user.budgets.size() > 0){
+                for (int i = 0; i < user.budgets.size(); i++){
+                    User.Budget temp = user.budgets.get(i);
                         budgets.add(temp.getName());
-                        bAmounts.add(formatCurrency(temp.getBudget()));
-                    }
+                        bAmounts.add(temp.getAmount());
                 }
             }
             setSkipNext();
@@ -281,14 +283,14 @@ public class ProcessingScreens extends AppCompatActivity {
             addToFirebase("Utilities", name, data, paid);
         }
         else if (currentActivity.equals("subscriptions")){
-           // user.subscriptions.add(new User.UtilDate(data, name, paid));
+           user.subscriptions.add(new User.UtilDate(LocalDate.now().getMonth().toString(), name, data, paid));
             subscriptions.add(name);
             sDates.add(data);
             sPaid.add(paid);
             addToFirebase("Subscriptions", name, data, paid);
         }
         else if (currentActivity.equals("creditCards")){
-           // user.creditCards.add(new User.UtilDate(data, name, paid));
+           user.creditCards.add(new User.UtilDate(LocalDate.now().getMonth().toString(), name, data, paid));
             creditCards.add(name);
             cDates.add(data);
             cPaid.add(paid);
@@ -312,27 +314,30 @@ public class ProcessingScreens extends AppCompatActivity {
             eAmounts.add(data);
         }
         else if (currentActivity.equals("budgets")){
-            boolean contains = false;
-            for (int i = 0; i < user.getExpenses().size(); i++) {
-                if (user.getExpenses().get(i).getName().equals(name)){
-                    contains = true;
-                }
-            }
-            if (!contains){
-                User.Expense expense = new User.Expense(name, "0");
-                expense.setBudget(data);
-                user.expenses.add(expense);
-
-            }else{
-                for (int i = 0; i < user.expenses.size(); i++){
-                    if(user.getExpenses().get(i).getName().equals(name)){
-
-                        user.getExpenses().get(i).setBudget(data);
+            DatabaseReference userDatabase= user.userDatabase.child(User.getuID());
+            userDatabase.child("Budgets/" + name).setValue(data);
+            if (budgets.size() > 0) { //if any budgets exist
+                boolean exists = false;
+                for (int i = 0; i < budgets.size(); i++) { // update existing budget
+                    if (budgets.get(i).equals(name)) {
+                        bAmounts.set(i, data);
+                        exists = true;
                     }
                 }
+                if (!exists){ // or create a new one
+                    budgets.add(name);
+                    bAmounts.add(data);
+                }
             }
-            budgets.add(name);
-            bAmounts.add(data);
+            else{
+                budgets.add(name);
+                bAmounts.add(data);
+            }
+            for(int temp = 0; temp <= 6; ++temp) {
+                if (Budgets.values()[temp].toString() == name){
+                    user.budgets.set(temp, new User.Budget(name, data));
+                }
+            }
         }
         setSkipNext();
     }
@@ -365,7 +370,6 @@ public class ProcessingScreens extends AppCompatActivity {
         }
 
     }
-
     //----------------------------------------------------------------------------------------------------------------  DIALOGS
 
     // Dialog to enter values into the recyclerView and the user instance storage

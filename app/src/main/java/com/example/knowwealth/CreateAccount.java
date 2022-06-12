@@ -118,6 +118,13 @@ public class CreateAccount extends AppCompatActivity {
                             userDatabase.child(mAuth.getUid() + "/Email").setValue(userEmail);
                             userDatabase.child(mAuth.getUid() + "/Full Name").setValue(userFullName);
                             userDatabase.child(mAuth.getUid() + "/First Name").setValue(User.getFirstName());
+                            userDatabase.child(mAuth.getUid() + "/Budgets/Food - Drink").setValue("0");
+                            userDatabase.child(mAuth.getUid() + "/Budgets/Groceries").setValue("0");
+                            userDatabase.child(mAuth.getUid() + "/Budgets/Fuel").setValue("0");
+                            userDatabase.child(mAuth.getUid() + "/Budgets/Shopping").setValue("0");
+                            userDatabase.child(mAuth.getUid() + "/Budgets/Entertainment").setValue("0");
+                            userDatabase.child(mAuth.getUid() + "/Budgets/Transportation").setValue("0");
+                            userDatabase.child(mAuth.getUid() + "/Budgets/Restaurant").setValue("0");
                             Month month1 = Month.JANUARY;
                             for (int i = 0; i < 12; i++) {
                                 month = month1.toString();

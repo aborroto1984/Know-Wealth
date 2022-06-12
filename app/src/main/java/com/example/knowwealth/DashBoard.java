@@ -152,6 +152,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             }
         }
     }
+
     // Currency formatter
     private static String formatCurrency(String number, boolean signed){
         DecimalFormat formatter;
