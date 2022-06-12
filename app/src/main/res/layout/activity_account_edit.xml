@@ -99,35 +99,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/accountHeader" />
 
-    <TextView
-        android:id="@+id/createPasswordLabel1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/password"
-        android:textColor="@color/main_color"
-        app:layout_constraintBottom_toTopOf="@+id/passwordCreateAccount1"
-        app:layout_constraintEnd_toEndOf="@+id/passwordCreateAccount1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/passwordCreateAccount1" />
-
-    <EditText
-        android:id="@+id/passwordCreateAccount1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:autofillHints=""
-        android:background="@drawable/rectangle_122"
-        android:ems="10"
-        android:hint="@string/password_dots"
-        android:inputType="textPassword"
-        android:padding="16dp"
-        android:textColorHint="#800B6374"
     <Button
         android:id="@+id/apply_button"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="261dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/main_button"
         android:contextClickable="false"
         android:paddingStart="28dp"
@@ -137,38 +114,15 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/password_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userIdCreateAccount" />
+        app:layout_constraintStart_toStartOf="parent" /><![CDATA[
 
-    <TextView
-        android:id="@+id/createPasswordLabel2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/confirm_password"
-        android:textColor="@color/main_color"
-        app:layout_constraintBottom_toTopOf="@+id/passwordCreateAccount2"
-        app:layout_constraintEnd_toEndOf="@+id/passwordCreateAccount2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/passwordCreateAccount2" />
 
-    <EditText
-        android:id="@+id/passwordCreateAccount2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:autofillHints=""
-        android:background="@drawable/rectangle_122"
-        android:ems="10"
-        android:hint="@string/password_dots"
-        android:inputType="textPassword"
-        android:padding="16dp"
-        android:textColorHint="#800B6374"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordCreateAccount1"
-        tools:ignore="DuplicateSpeakableTextCheck" />
-        app:layout_constraintTop_toBottomOf="@+id/userIdCreateAccount" />
+
+    app:layout_constraintTop_toBottomOf="@+id/userIdCreateAccount" />
+
+
+
+    ]]>
 
     <Button
         android:id="@+id/password_button"
@@ -183,12 +137,9 @@
         android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
         android:text="Reset Password"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/accountHeader"
         app:layout_constraintBottom_toTopOf="@+id/accountChin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apply_button"
-        app:layout_constraintVertical_bias=".1" />
+        app:layout_constraintStart_toStartOf="parent" />
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
