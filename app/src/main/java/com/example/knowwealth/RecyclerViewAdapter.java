@@ -27,6 +27,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     FloatingActionButton closeBtn;
     MaterialCheckBox checkBox;
     Context context;
+    String curAct;
 
     public RecyclerViewAdapter (Context ct, ArrayList<String> utilities, ArrayList<String> uDates, ArrayList<String> paid, FloatingActionButton closeBtn, MaterialCheckBox checkBox){
         this.name = utilities;
@@ -41,15 +42,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_rows, parent, false);
-
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.text1.setText(name.get(position));
-
-        String curAct = context.getClass().getName();
+        curAct = context.getClass().getName();
         if(curAct.equals("com.example.knowwealth.DashBoard")){
             holder.text2.setVisibility(View.GONE);
             holder.dashExpenseText.setText(data.get(position));

@@ -19,7 +19,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginVertical="10dp"
+        android:layout_marginBottom="5dp"
         android:background="#6B0B6374"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
