@@ -139,15 +139,19 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             }
         }
         if(user.expenses.size() > 0) {
-            for (int i = 0; i <= user.expenses.size() - 1; i++) {
-                User.Expense temp = user.expenses.get(i);
+            for (int i = 0; i < user.expenses.size(); i++) {
+                User.Expense tempExpense = user.expenses.get(i);
+                User.Budget temp = null;
+                for (int j = 0; j < user.budgets.size(); j++){
+                    temp = user.budgets.get(j);
+                    if (tempExpense.getName().equals(temp)){
+                        break;
+                    }
+                }
+                if (tempExpense.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                    budgetCategory.add(tempExpense.getName());
 
-                float amount = Float.parseFloat(temp.getAmount().replaceAll("[^0-9, .]", ""));
-                float budget = Float.parseFloat(temp.getBudget().replaceAll("[^0-9, .]", ""));
-
-                if (Float.parseFloat(temp.getBudget()) > 0){
-                    budgetCategory.add(temp.getName());
-                    budgetData.add(formatCurrency(String.valueOf(temp.getAmount()), true) + "    /    " + formatCurrency(String.valueOf(temp.getBudget()), false));
+                    budgetData.add(formatCurrency(String.valueOf(tempExpense.getAmount()), true) + "    /    " + formatCurrency(String.valueOf(temp.getAmount()), false));
                 }
             }
         }

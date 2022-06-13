@@ -66,8 +66,8 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
                 User.Expense temp = user.expenses.get(i);
                 expenses.add(temp.getName());
                 eAmounts.add(formatCurrency(temp.getAmount()));
-                String text = formatCurrency(temp.getBudget());
-                if (Float.parseFloat(temp.getBudget()) > 0){
+                String text = formatCurrency(temp.getName());//String text = formatCurrency(temp.getBudget());
+                if (Float.parseFloat(temp.getName()) > 0){//if (Float.parseFloat(temp.getBudget()) > 0){
                     budgets.add("BUDGET: " + text.replaceAll("[-]", ""));
                 }else{
                     budgets.add("");

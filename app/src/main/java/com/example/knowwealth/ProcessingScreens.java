@@ -313,7 +313,7 @@ public class ProcessingScreens extends AppCompatActivity {
             boolean contains = false;
             int index = 0;
             for (int i = 0; i < user.expenses.size(); i++){
-                if(user.getExpenses().get(i).getName().equals(name)){
+                if(user.getExpenses().get(i).getName().equals(name) && user.getExpenses().get(i).getMonth().equals(LocalDate.now().getMonth().toString())){
                     contains = true;
                     index = i;
                 }

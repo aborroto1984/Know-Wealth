@@ -3,8 +3,12 @@ package com.example.knowwealth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
+
 enum Budgets{
     Entertainment,
     Food,
@@ -105,13 +109,11 @@ public class User {
         private String paid;
         private String month;
 
-        public UtilDate(){ }
         public UtilDate( String month, String name, String dueDay, String paid ){
             this.dueDay = dueDay;
             this.name = name;
             this.paid = paid;
             this.month = month;
-
         }
         public String getData(){return dueDay;}
         public String getName(){return name;}
@@ -167,32 +169,26 @@ public class User {
         // Fields
         private String name;
         private String amount;
-        private String budget;
+        private String month;
 
         //Constructors
-        public Expense(){}
-        public Expense(String name, String amount, Budget budget){ // add budget to parameter
+        public Expense(String name, String amount){ // add budget to parameter
             this.name = name;
             String amountNum = amount.replaceAll("[$,,]", "");
             this.amount = amountNum;
-            this.budget = budget.getAmount();
+            this.month = LocalDate.now().getMonth().toString();
         }
 
         // Expense amount getter
         public String getAmount() { return amount; }
         public String getName() { return name; }
+        public String getMonth() {return month;}
+        public void setMonth(String month) {this.month = month;}
 
         // Method to add to the expense amount
         public void AddExpense(String amount) {
             String expenseNum = amount.replaceAll("[$,,]", "");
             this.amount += Float.parseFloat(expenseNum);
-        }
-
-        // Budget getter and setter
-        public String getBudget() { return String.valueOf(budget); }
-        public void setBudget(String budget) {
-            String budgetName = budget.replaceAll("[$,,]", "");
-            this.budget = budgetName;
         }
     }
 
