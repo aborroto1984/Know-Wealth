@@ -6,36 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".NotificationSettings">
 
-    <LinearLayout
-        android:id="@+id/header"
+    <ImageView
+        android:id="@+id/notificationHeader"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@color/main_color"
-        app:layout_constraintBottom_toBottomOf="@id/activity_title"
+        android:layout_height="60dp"
+        android:contentDescription="@string/top_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main_header" />
+
+    <ImageView
+        android:id="@+id/notificationChin"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:contentDescription="@string/top_header"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/main_header" />
+
+    <ImageView
+        android:id="@+id/header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="Know Wealth top"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/notificationHeader"
+        app:srcCompat="@drawable/group_1" />
+
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginStart="32dp"
+        android:contentDescription="@string/back_arrow"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationHeader"
+        app:layout_constraintEnd_toEndOf="@+id/notificationHeader"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/notificationHeader"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <ImageView
-            android:id="@+id/backArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="30dp"
-            android:contentDescription="@string/back_arrow"
-            app:srcCompat="@drawable/arrow" />
-
-        <ImageView
-            android:id="@+id/header_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="66dp"
-            android:contentDescription="Know Wealth top"
-            app:srcCompat="@drawable/group_1" />
-    </LinearLayout>
+        app:srcCompat="@drawable/arrow" />
 
     <TextView
         android:id="@+id/activity_title"
@@ -45,26 +62,25 @@
         android:textColor="@color/main_color"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias=".05"/>
+        app:layout_constraintTop_toBottomOf="@+id/notificationHeader" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="408dp"
         android:layout_height="261dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/apply_button"
+        app:layout_constraintBottom_toTopOf="@+id/notificationChin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_title">
+        app:layout_constraintTop_toBottomOf="@+id/notificationHeader">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch1"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="48dp"
             android:paddingHorizontal="50dp"
             android:text="Allow Due Dates Notifications"
             android:textColor="@color/main_color" />
@@ -72,8 +88,7 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="10dp"
-           >
+            android:paddingVertical="10dp">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -145,7 +160,8 @@
             android:valueTo="7"
             app:thumbColor="@color/common_google_signin_btn_text_dark_disabled"
             app:trackColorActive="@color/main_color"
-            app:trackColorInactive="@color/teal_700" />
+            app:trackColorInactive="@color/teal_700"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/num_days"
@@ -166,28 +182,16 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="261dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/main_button"
         android:contextClickable="false"
         android:gravity="center"
         android:stateListAnimator="@android:anim/accelerate_decelerate_interpolator"
         android:text="Apply"
         android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
+        app:layout_constraintBottom_toTopOf="@+id/notificationChin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@color/main_color"
-        android:orientation="horizontal"
-        app:layout_constraintVertical_bias="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

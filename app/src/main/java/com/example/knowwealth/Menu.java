@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Menu extends AppCompatActivity {
     User user = LoginActivity.user;
     @Override
@@ -45,6 +47,7 @@ public class Menu extends AppCompatActivity {
                 user = null;
                 Intent i = new Intent(Menu.this, LoginActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                FirebaseAuth.getInstance().signOut();
                 startActivity(i);
             }
         });

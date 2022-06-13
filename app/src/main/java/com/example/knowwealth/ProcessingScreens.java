@@ -274,23 +274,36 @@ public class ProcessingScreens extends AppCompatActivity {
 
     // Method to populate the storage lists in the user instance
     private void populateLists(String name, String data, String paid){
+        String month = LocalDate.now().getMonth().toString();
+        int cnt = 1;
         if (currentActivity.equals("utility")){
-
-            user.utilities.add(new User.UtilDate(LocalDate.now().getMonth().toString(), name, data, paid));
+            while (cnt < 6) {
+                user.utilities.add(new User.UtilDate(month, name, data, paid));
+                month = LocalDate.now().getMonth().plus(cnt).toString();
+                cnt++;
+            }
             utilities.add(name);
             uDates.add(data);
             uPaid.add(paid);
             addToFirebase("Utilities", name, data, paid);
         }
         else if (currentActivity.equals("subscriptions")){
-           user.subscriptions.add(new User.UtilDate(LocalDate.now().getMonth().toString(), name, data, paid));
+            while (cnt < 6) {
+                user.subscriptions.add(new User.UtilDate(month, name, data, paid));
+                month = LocalDate.now().getMonth().plus(cnt).toString();
+                cnt++;
+            }
             subscriptions.add(name);
             sDates.add(data);
             sPaid.add(paid);
             addToFirebase("Subscriptions", name, data, paid);
         }
         else if (currentActivity.equals("creditCards")){
-           user.creditCards.add(new User.UtilDate(LocalDate.now().getMonth().toString(), name, data, paid));
+            while (cnt < 6) {
+                user.creditCards.add(new User.UtilDate(month, name, data, paid));
+                month = LocalDate.now().getMonth().plus(cnt).toString();
+                cnt++;
+            }
             creditCards.add(name);
             cDates.add(data);
             cPaid.add(paid);

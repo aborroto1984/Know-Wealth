@@ -126,11 +126,18 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
 
     private void addToList(User.UtilDate temp){
         int today = 1;
+        int numDays = selectedDate.lengthOfMonth();
+
         String[] tempdayNum = temp.getData().split(" ");
         String dayNum = tempdayNum[1];
         int dayLength = dayNum.length();
         dayNum = dayNum.substring(0,dayLength -2);
         dayLength = Integer.parseInt(dayNum);
+        //change date to end of month if greater then end of month
+       if(dayLength > numDays){
+           dayLength = numDays;
+           dayNum = Integer.toString(numDays);
+       }
         if (dayText == null){
             today = Integer.parseInt(dayFromDate(selectedDate));
         }else {
@@ -141,10 +148,10 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
             data.add(temp.getData());
             paid.add(temp.getPaid());
         }
-        int i = -1;
-        do {
+        int i = 0;
+        while (!dayNum.equals(daysInMonth.get(i))){
             i++;
-        }while (!dayNum.equals(daysInMonth.get(i)));
+        }
         eventOnDay.set(i, 0);
     }
 

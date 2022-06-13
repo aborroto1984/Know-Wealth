@@ -75,59 +75,9 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         budgetCategory = new ArrayList<>();
         budgetData = new ArrayList<>();
 
-            if(User.utilities.size() > 0) {
-                for (int i = 0; i <= User.utilities.size() - 1; i++) {
-                    User.UtilDate temp = User.utilities.get(i);
-                    if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
-                        addToList(temp);
-                    }
-                }
-            }
-            if(User.creditCards.size() > 0) {
-                for (int i = 0; i <= User.creditCards.size() - 1; i++) {
-                    User.UtilDate temp = User.creditCards.get(i);
-                    if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
-                        addToList(temp);
-                    }
-                }
-            }
-            if(User.subscriptions.size() > 0) {
-                for (int i = 0; i <= User.subscriptions.size() - 1; i++) {
-                    User.UtilDate temp = User.subscriptions.get(i);
-                    if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
-                        addToList(temp);
-                    }
-                }
-            }
-            if(User.expenses.size() > 0) {
-                for (int i = 0; i <= User.expenses.size() - 1; i++) {
-                    User.Expense temp = User.expenses.get(i);
-
-                    float amount = Float.parseFloat(temp.getAmount().replaceAll("[^0-9, .]", ""));
-                    float budget = Float.parseFloat(temp.getBudget().replaceAll("[^0-9, .]", ""));
-
-                    if (Float.parseFloat(temp.getBudget()) > 0){
-                        budgetCategory.add(temp.getName());
-                        budgetData.add(formatCurrency(String.valueOf(temp.getAmount()), true) + "    /    " + formatCurrency(String.valueOf(temp.getBudget()), false));
-                    }
-                }
-            }
-            if (name.size() > 0) {
-                dueList = (RecyclerView) findViewById(R.id.Due_List);
-                adapter = new RecyclerViewAdapter(this, name, data, null, null, null);
-                layoutManager = new LinearLayoutManager(this);
-                dueList.setAdapter(adapter);
-                dueList.setLayoutManager(layoutManager);
-            }
-            if (budgetCategory.size() > 0){
-                overBudgetList = findViewById(R.id.budget_List);
-                budgetAdapter = new RecyclerViewAdapter(this, budgetCategory, budgetData, null, null, null);
-                layoutManager = new LinearLayoutManager(this);
-                overBudgetList.setAdapter(budgetAdapter);
-                overBudgetList.setLayoutManager(layoutManager);
-            }
         addExp = findViewById(R.id.add_expense_button);
 
+    //----------------------------------------------------------------------------------------------------------------  BUTTONS
         addExp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -137,6 +87,70 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         });
 
         gestureDetector = new GestureDetector(getApplicationContext(),this);
+    }
+
+    //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
+    @Override
+    protected void onResume() {
+        super.onResume();
+        name.clear();
+        data.clear();
+        PopulateLists();
+        if (name.size() > 0) {
+            dueList = (RecyclerView) findViewById(R.id.Due_List);
+            adapter = new RecyclerViewAdapter(this, name, data, null, null, null);
+            layoutManager = new LinearLayoutManager(this);
+            dueList.setAdapter(adapter);
+            dueList.setLayoutManager(layoutManager);
+        }
+        if (budgetCategory.size() > 0){
+            overBudgetList = findViewById(R.id.budget_List);
+            budgetAdapter = new RecyclerViewAdapter(this, budgetCategory, budgetData, null, null, null);
+            layoutManager = new LinearLayoutManager(this);
+            overBudgetList.setAdapter(budgetAdapter);
+            overBudgetList.setLayoutManager(layoutManager);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    private void PopulateLists(){
+        if(user.utilities.size() > 0) {
+            for (int i = 0; i <= user.utilities.size() - 1; i++) {
+                User.UtilDate temp = user.utilities.get(i);
+                if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                    addToList(temp);
+                }
+            }
+        }
+        if(user.creditCards.size() > 0) {
+            for (int i = 0; i <= user.creditCards.size() - 1; i++) {
+                User.UtilDate temp = user.creditCards.get(i);
+                if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                    addToList(temp);
+                }
+            }
+        }
+        if(user.subscriptions.size() > 0) {
+            for (int i = 0; i <= user.subscriptions.size() - 1; i++) {
+                User.UtilDate temp = user.subscriptions.get(i);
+                if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                    addToList(temp);
+                }
+            }
+        }
+        if(user.expenses.size() > 0) {
+            for (int i = 0; i <= user.expenses.size() - 1; i++) {
+                User.Expense temp = user.expenses.get(i);
+
+                float amount = Float.parseFloat(temp.getAmount().replaceAll("[^0-9, .]", ""));
+                float budget = Float.parseFloat(temp.getBudget().replaceAll("[^0-9, .]", ""));
+
+                if (Float.parseFloat(temp.getBudget()) > 0){
+                    budgetCategory.add(temp.getName());
+                    budgetData.add(formatCurrency(String.valueOf(temp.getAmount()), true) + "    /    " + formatCurrency(String.valueOf(temp.getBudget()), false));
+                }
+            }
+        }
     }
 
     // Currency formatter
@@ -173,6 +187,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         startActivity(new Intent(DashBoard.this, Menu.class));
     }
 
+    //----------------------------------------------------------------------------------------------------------------  SWIPE METHOD
     @Override
     public boolean onDown(MotionEvent motionEvent) {
         return false;

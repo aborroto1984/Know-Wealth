@@ -89,12 +89,12 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         expensesList.setLayoutManager(expensesLayoutManager);
         expensesAdapter.notifyDataSetChanged();
 
+        //----------------------------------------------------------------------------------------------------------------  BUTTONS
         addBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 user.setCurrentActivity("budgets");
                 startActivity(new Intent(MonthlyExpenses.this, ProcessingScreens.class));
-                finish();
             }
         });
 
@@ -103,7 +103,6 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
             public void onClick(View view) {
                 user.setCurrentActivity("expenses");
                 startActivity(new Intent(MonthlyExpenses.this, ProcessingScreens.class));
-                finish();
             }
         });
     }
