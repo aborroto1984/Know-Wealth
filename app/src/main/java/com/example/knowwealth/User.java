@@ -13,7 +13,8 @@ enum Budgets{
     Restaurant,
     Shopping,
     Transportation
-}public class User {
+}
+public class User {
     // User's first name to be used in DashBoard
     private static String firstName;
     private static String fullName;
@@ -170,27 +171,28 @@ enum Budgets{
 
         //Constructors
         public Expense(){}
-        public Expense(String name, String amount){
+        public Expense(String name, String amount, Budget budget){ // add budget to parameter
             this.name = name;
             String amountNum = amount.replaceAll("[$,,]", "");
             this.amount = amountNum;
+            this.budget = budget.getAmount();
         }
 
         // Expense amount getter
-        public String getAmount() { return String.valueOf(amount); }
+        public String getAmount() { return amount; }
         public String getName() { return name; }
 
         // Method to add to the expense amount
         public void AddExpense(String amount) {
-            String amountNum = amount.replaceAll("[$,,]", "");
-            this.amount += Float.parseFloat(amountNum);
+            String expenseNum = amount.replaceAll("[$,,]", "");
+            this.amount += Float.parseFloat(expenseNum);
         }
 
         // Budget getter and setter
         public String getBudget() { return String.valueOf(budget); }
         public void setBudget(String budget) {
-            String amountNum = budget.replaceAll("[$,,]", "");
-            this.budget = amountNum;
+            String budgetName = budget.replaceAll("[$,,]", "");
+            this.budget = budgetName;
         }
     }
 
@@ -207,9 +209,7 @@ enum Budgets{
             return name;
         }
 
-        public String getAmount() {
-            return amount;
-        }
+        public String getAmount() { return amount; }
 
         public void setAmount(String amount) {
             this.amount = amount;
