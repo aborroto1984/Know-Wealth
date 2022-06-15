@@ -142,14 +142,18 @@ public class User {
     }
 
     // method to remove deleted expenses
-    //public static void deleteExpenseFromList(String removeDueDay, String removeName, List<Expense> array){
-    //    for (int i = 0; i < array.size(); i++){
-    //        Expense data = array.get(i);
-    //        if (data.name.equals(removeName) && data.amount == Float.parseFloat(removeDueDay)){
-    //            array.remove(i);
-    //        }
-    //    }
-    //}
+    public static void deleteExpenseFromList(String month, String name, String amount, List<Expense> array){
+        for (int i = 0; i < array.size(); i++){
+            Expense tempExpense = array.get(i);
+            if (tempExpense.name.equals(name) && tempExpense.month.equals(month)){
+                String expenseNum = amount.replaceAll("[$,,]", "");
+                Float tempSubtract = Float.parseFloat(expenseNum);
+                Float tempOld = Float.parseFloat(tempExpense.getAmount());
+                tempOld -= tempSubtract;
+                tempExpense.setAmount(String.valueOf(tempOld));
+            }
+        }
+    }
 
     // method to remove deleted budgets
     //public static void deleteBudget(String removeName, List<Expense> array){
@@ -179,16 +183,21 @@ public class User {
             this.month = LocalDate.now().getMonth().toString();
         }
 
-        // Expense amount getter
+        // getter
         public String getAmount() { return amount; }
         public String getName() { return name; }
         public String getMonth() {return month;}
+
         public void setMonth(String month) {this.month = month;}
+        public void setAmount(String amount) {this.amount = amount;}
 
         // Method to add to the expense amount
         public void AddExpense(String amount) {
             String expenseNum = amount.replaceAll("[$,,]", "");
-            this.amount += Float.parseFloat(expenseNum);
+            Float tempAdd = Float.parseFloat(expenseNum);
+            Float tempOld = Float.parseFloat(this.amount);
+            tempOld += tempAdd;
+            this.amount = String.valueOf(tempOld);
         }
     }
 

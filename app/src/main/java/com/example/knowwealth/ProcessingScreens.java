@@ -126,10 +126,16 @@ public class ProcessingScreens extends AppCompatActivity {
             expenses = new ArrayList<>();
             eAmounts = new ArrayList<>();
             if( user.expenses.size() > 0){
-                for (int i = 0; i <= user.expenses.size() - 1; i++){
-                    User.Expense temp = user.expenses.get(i);
-                    expenses.add(temp.getName());
-                    eAmounts.add(formatCurrency(temp.getAmount()));
+                for (int i = 0; i < user.expenses.size(); i++){
+                    User.Expense tempExpense = user.expenses.get(i);
+                    if (tempExpense.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                        if (!tempExpense.getAmount().equals(" 0.00")){
+                            if (!tempExpense.getAmount().equals("0.0")){
+                                expenses.add(tempExpense.getName());
+                                eAmounts.add(formatCurrency(tempExpense.getAmount()));
+                            }
+                        }
+                    }
                 }
             }
             setSkipNext();
@@ -168,10 +174,10 @@ public class ProcessingScreens extends AppCompatActivity {
                         user.userDatabase.child(User.getuID()).child("Processing Completed").setValue("true");
                         startActivity(new Intent(ProcessingScreens.this, DashBoard.class));
                     } else if (currentActivity.equals("expenses")) {
-                        finish();
+                        //finish();
                         startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
                     } else if (currentActivity.equals("budgets")) {
-                        finish();
+                        //finish();
                         startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
                     }
                 }
@@ -323,8 +329,12 @@ public class ProcessingScreens extends AppCompatActivity {
             }else{
                 user.expenses.add(new User.Expense(name, data));
             }
-            expenses.add(name);
-            eAmounts.add(data);
+            if (!data.equals("$ 0.00")){
+                if (!data.equals("0.0")){
+                    expenses.add(name);
+                    eAmounts.add(data);
+                }
+            }
         }
         else if (currentActivity.equals("budgets")){
             DatabaseReference userDatabase= user.userDatabase.child(User.getuID());

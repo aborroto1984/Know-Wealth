@@ -110,6 +110,9 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             overBudgetList.setAdapter(budgetAdapter);
             overBudgetList.setLayoutManager(layoutManager);
         }
+        if (budgetAdapter != null){
+            budgetAdapter.notifyDataSetChanged();
+        }
         adapter.notifyDataSetChanged();
     }
 
@@ -139,19 +142,24 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             }
         }
         if(user.expenses.size() > 0) {
-            for (int i = 0; i < user.expenses.size(); i++) {
-                User.Expense tempExpense = user.expenses.get(i);
+            budgetCategory.clear();
+            budgetData.clear();
+            for (int i = 0; i < user.expenses.size(); i++) {       // for each expense
+                User.Expense tempExpense = user.expenses.get(i);   // store a temporary expense
                 User.Budget temp = null;
-                for (int j = 0; j < user.budgets.size(); j++){
+                for (int j = 0; j < user.budgets.size(); j++){     // loop through budgets to store a match as temp
                     temp = user.budgets.get(j);
-                    if (tempExpense.getName().equals(temp)){
+                    if (tempExpense.getName().equals(temp.getName())){
                         break;
                     }
                 }
                 if (tempExpense.getMonth().equals(LocalDate.now().getMonth().toString())) {
-                    budgetCategory.add(tempExpense.getName());
-
-                    budgetData.add(formatCurrency(String.valueOf(tempExpense.getAmount()), true) + "    /    " + formatCurrency(String.valueOf(temp.getAmount()), false));
+                    if (!tempExpense.getAmount().equals(" 0.00")){
+                        if (!tempExpense.getAmount().equals("0.0")){
+                            budgetCategory.add(tempExpense.getName());
+                            budgetData.add(formatCurrency(tempExpense.getAmount(), true) + "    /    " + temp.getAmount());
+                        }
+                    }
                 }
             }
         }

@@ -16,6 +16,7 @@ import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 
@@ -147,7 +148,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         break;
                     case "expenses":
                         String amountNum = data.get(position).replaceAll("[$,,]", "");
-                        //User.deleteExpenseFromList(amountNum, name.get(position), User.expenses);
+                        User.deleteExpenseFromList(LocalDate.now().getMonth().toString(),name.get(position), amountNum, User.expenses);
                         break;
                     case "budgets":
                         //User.deleteBudget(name.get(position), User.expenses);
