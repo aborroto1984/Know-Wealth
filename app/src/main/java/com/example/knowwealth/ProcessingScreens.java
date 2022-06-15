@@ -345,7 +345,16 @@ public class ProcessingScreens extends AppCompatActivity {
                     if (budgets.get(i).equals(name)) {
                         bAmounts.set(i, data);
                         exists = true;
+                        User.Budget tempBudget = null;
+                        for (int j = 0; j < User.budgets.size(); j++) {     // loop through budgets to store a match as temp
+                            tempBudget = User.budgets.get(j);
+                            if (name.equals(tempBudget.getName())) {
+                                tempBudget.setAmount(data);
+                            }
+                        }
+                        break;
                     }
+
                 }
                 if (!exists){ // or create a new one
                     budgets.add(name);

@@ -61,33 +61,8 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         eAmounts = new ArrayList<>();
         budgets = new ArrayList<>();
         percent = new ArrayList<>();
-        if( user.expenses.size() > 0){
-            for (int i = 0; i <= user.expenses.size() - 1; i++){
-                User.Expense temp = user.expenses.get(i);
-                expenses.add(temp.getName());
-                eAmounts.add(formatCurrency(temp.getAmount()));
-                String text = formatCurrency(temp.getName());//String text = formatCurrency(temp.getBudget());
-                if (Float.parseFloat(temp.getName()) > 0){//if (Float.parseFloat(temp.getBudget()) > 0){
-                    budgets.add("BUDGET: " + text.replaceAll("[-]", ""));
-                }else{
-                    budgets.add("");
-                }
-                total += Float.parseFloat(temp.getAmount());
-            }
-            expensesTotal.setText(formatCurrency(String.valueOf(total)));
-        }
+        ///////////////////////// test
 
-        // Calculating the progress bar values
-        calculateExpensePercent();
-
-        // Setting up the expenses list
-        expensesBar = findViewById(R.id.expenseProgressBar);
-        expensesList = findViewById(R.id.expensesList);
-        expensesAdapter = new ExpensesAdapter(this, expenses, eAmounts, percent, budgets, expensesBar);
-        expensesLayoutManager = new LinearLayoutManager(this);
-        expensesList.setAdapter(expensesAdapter);
-        expensesList.setLayoutManager(expensesLayoutManager);
-        expensesAdapter.notifyDataSetChanged();
 
         //----------------------------------------------------------------------------------------------------------------  BUTTONS
         addBudget.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +82,51 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        expenses.clear();
+        eAmounts.clear();
+        budgets.clear();
+        if( user.expenses.size() > 0){
+            for (int i = 0; i < user.expenses.size(); i++){
+                User.Expense tempExpense = user.expenses.get(i);
+                if (tempExpense.getMonth().equals(LocalDate.now().getMonth().toString())) {
+                    if (!tempExpense.getAmount().equals(" 0.00")){
+                        if (!tempExpense.getAmount().equals("0.0")){
+                            User.Budget tempBudget = null;
+                            for (int j = 0; j < User.budgets.size(); j++) {     // loop through budgets to store a match as temp
+                                tempBudget = User.budgets.get(j);
+                                if (tempExpense.getName().equals(tempBudget.getName())) {
+                                    break;
+                                }
+                            }
+                            expenses.add(tempExpense.getName());
+                            eAmounts.add(formatCurrency(tempExpense.getAmount()));
+                            String text = tempBudget.getAmount();
+                            budgets.add("BUDGET: " + text.replaceAll("[-]", ""));
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // Calculating the progress bar values
+        calculateExpensePercent();
+
+        // Setting up the expenses list
+        expensesBar = findViewById(R.id.expenseProgressBar);
+        expensesList = findViewById(R.id.expensesList);
+        expensesAdapter = new ExpensesAdapter(this, expenses, eAmounts, percent, budgets, expensesBar);
+        expensesLayoutManager = new LinearLayoutManager(this);
+        expensesList.setAdapter(expensesAdapter);
+        expensesList.setLayoutManager(expensesLayoutManager);
+        expensesAdapter.notifyDataSetChanged();
+    }
+
     //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
+
     // Menu
     public void Menu(View view) {
         startActivity(new Intent(MonthlyExpenses.this, Menu.class));
