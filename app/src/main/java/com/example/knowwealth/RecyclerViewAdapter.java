@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
 
 import java.lang.reflect.Array;
 import java.time.LocalDate;
@@ -151,11 +152,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         User.deleteExpenseFromList(LocalDate.now().getMonth().toString(),name.get(position), amountNum, User.expenses);
                         break;
                     case "budgets":
-                        //User.deleteBudget(name.get(position), User.expenses);
+                        data.set(position, "$ 0.00");
+                        DatabaseReference userDatabase= User.userDatabase.child(User.getuID());
+                        userDatabase.child("Budgets/" + name.get(position)).setValue("$ 0.00");
+                        for (int j = 0; j < User.budgets.size(); j++) {     // loop through budgets to store a match as temp
+                            User.Budget tempBudget = User.budgets.get(j);
+                            if (name.get(position).equals(tempBudget.getName())) {
+                                tempBudget.setAmount("$ 0.00");
+                            }
+                        }
                         break;
                 }
-                name.remove(position);
-                data.remove(position);
+                if (User.currentActivity != "budgets"){
+                    name.remove(position);
+                    data.remove(position);
+                }
                 notifyDataSetChanged();
             }
         });

@@ -155,18 +155,6 @@ public class User {
         }
     }
 
-    // method to remove deleted budgets
-    //public static void deleteBudget(String removeName, List<Expense> array){
-    //    for (int i = 0; i < array.size(); i++){
-    //        Expense data = array.get(i);
-    //        if (data.name.equals(removeName) && data.budget != 0){
-    //            data.budget = 0;
-    //            if (data.amount == 0){
-    //                array.remove(i);
-    //            }
-    //        }
-    //    }
-    //}
 
     // Expenses
     public static class Expense {
