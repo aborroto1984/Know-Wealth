@@ -144,6 +144,7 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
     }
 
     public void calculateExpensePercent(){
+        percent.clear();
         float greater = 0;
         for (int i = 0; i < eAmounts.size(); i++) {
             String amountNum = eAmounts.get(i).replaceAll("[$,,-]", "");
