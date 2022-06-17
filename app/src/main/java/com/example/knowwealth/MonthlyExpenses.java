@@ -158,6 +158,9 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
             float amount = Float.parseFloat(amountNum);
             percent.add((int) Math.ceil(amount*100/greater));
         }
+        if (expensesAdapter != null){
+            expensesAdapter.notifyDataSetChanged();
+        }
     }
     //----------------------------------------------------------------------------------------------------------------  SWIPING METHODS
     @Override
