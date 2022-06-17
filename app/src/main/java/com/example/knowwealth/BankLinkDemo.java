@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,10 +22,14 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class BankLinkDemo extends AppCompatActivity {
+
+    // Initializing database
+    static DatabaseReference userDatabase= User.userDatabase.child(User.getuID());
 
     // Initializing screen elements
     Button link;
@@ -212,7 +218,8 @@ public class BankLinkDemo extends AppCompatActivity {
                                             user.getExpenses().get(index).AddExpense(amountNum);
                                         }else{
                                             if (name != null){
-                                                user.expenses.add(new User.Expense(getMonth[1], name, amountNum));
+                                                user.expenses.add(new User.Expense(getMonth[1].toUpperCase(), name, amountNum));
+                                                userDatabase.child(getMonth[1].toUpperCase() + "/Expenses/" + name).setValue(amountNum);
                                             }
 
                                         }
@@ -222,6 +229,7 @@ public class BankLinkDemo extends AppCompatActivity {
                         }
                     }
                     user.setProcessingCompleted(true);
+                    user.userDatabase.child(User.getuID()).child("Processing Completed").setValue("true");
                     startActivity(new Intent(BankLinkDemo.this, DashBoard.class));
                 }
             }

@@ -172,9 +172,10 @@ public class ProcessingScreens extends AppCompatActivity {
                         user.setCurrentActivity("creditCards");
                         refreshActivity();
                     } else if (currentActivity.equals("creditCards")) {
-                        user.setProcessingCompleted(true);
-                        user.userDatabase.child(User.getuID()).child("Processing Completed").setValue("true");
-                        startActivity(new Intent(ProcessingScreens.this, DashBoard.class));
+//                        user.setProcessingCompleted(true);
+//                        user.userDatabase.child(User.getuID()).child("Processing Completed").setValue("true");
+//                        startActivity(new Intent(ProcessingScreens.this, DashBoard.class));
+                        startActivity(new Intent(ProcessingScreens.this, BankLinkDemo.class));
                     } else if (currentActivity.equals("expenses")) {
                         //finish();
                         startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
