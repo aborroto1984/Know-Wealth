@@ -45,9 +45,12 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.MyView
         holder.category.setText(name.get(position));
         holder.amount.setText(data.get(position));
         holder.bar.setProgress(percent.get(position));
-        holder.budgetText.setText(budget.get(position));
+        if (!budget.get(position).equals("BUDGET: 0")){
+            holder.budgetText.setText(budget.get(position));
+        }
 
         String test = holder.budgetText.getText().toString();
+
         if (!test.isEmpty()){
             float amount = Float.parseFloat(holder.amount.getText().toString().replaceAll("[^\\d|.]", ""));
             float budget = Float.parseFloat(test.replaceAll("[^\\d|.]", ""));
