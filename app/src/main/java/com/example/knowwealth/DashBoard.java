@@ -113,7 +113,9 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         if (budgetAdapter != null){
             budgetAdapter.notifyDataSetChanged();
         }
-        adapter.notifyDataSetChanged();
+        if (adapter != null){
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void PopulateLists(){

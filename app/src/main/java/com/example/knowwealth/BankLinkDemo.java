@@ -212,7 +212,7 @@ public class BankLinkDemo extends AppCompatActivity {
                                             user.getExpenses().get(index).AddExpense(amountNum);
                                         }else{
                                             if (name != null){
-                                                user.expenses.add(new User.Expense(name, amountNum));
+                                                user.expenses.add(new User.Expense(getMonth[1], name, amountNum));
                                             }
 
                                         }

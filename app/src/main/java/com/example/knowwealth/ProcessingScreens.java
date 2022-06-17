@@ -39,9 +39,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ProcessingScreens extends AppCompatActivity {
 
+    static DatabaseReference userDatabase= User.userDatabase.child(User.getuID());
     // Processing screen elements
     Button addBtn;
     FloatingActionButton closeBtn;
@@ -327,7 +329,7 @@ public class ProcessingScreens extends AppCompatActivity {
             if(contains){
                 user.getExpenses().get(index).AddExpense(data);
             }else{
-                user.expenses.add(new User.Expense(name, data));
+                user.expenses.add(new User.Expense(LocalDate.now().getMonth().toString(), name, data));
             }
             if (!data.equals("$ 0.00")){
                 if (!data.equals("0.0")){
@@ -335,9 +337,9 @@ public class ProcessingScreens extends AppCompatActivity {
                     eAmounts.add(data);
                 }
             }
+            userDatabase.child(LocalDate.now().getMonth().toString() + "/Expenses/" + name).setValue(data);
         }
         else if (currentActivity.equals("budgets")){
-            DatabaseReference userDatabase= user.userDatabase.child(User.getuID());
             userDatabase.child("Budgets/" + name).setValue(data);
             if (budgets.size() > 0) { //if any budgets exist
                 boolean exists = false;
@@ -393,7 +395,6 @@ public class ProcessingScreens extends AppCompatActivity {
 
         Month month1 = Month.JANUARY;
         String month = month1.toString();
-        DatabaseReference userDatabase= user.userDatabase.child(User.getuID());
         for (int i = 0; i < 12; i++) {
             userDatabase.child(month + "/" + arrList + "/" + name).child("Due Date").setValue(data);
             userDatabase.child(month + "/" + arrList + "/" + name).child("Paid").setValue(paid);

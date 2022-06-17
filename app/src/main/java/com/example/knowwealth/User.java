@@ -155,7 +155,6 @@ public class User {
         }
     }
 
-
     // Expenses
     public static class Expense {
         // Fields
@@ -164,18 +163,19 @@ public class User {
         private String month;
 
         //Constructors
-        public Expense(String name, String amount){ // add budget to parameter
+        public Expense(String month, String name, String amount){ // add budget to parameter
             this.name = name;
             String amountNum = amount.replaceAll("[$,,]", "");
             this.amount = amountNum;
-            this.month = LocalDate.now().getMonth().toString();
+            this.month = month;
         }
 
-        // getter
+        // getters
         public String getAmount() { return amount; }
         public String getName() { return name; }
         public String getMonth() {return month;}
 
+        // sEtTers
         public void setMonth(String month) {this.month = month;}
         public void setAmount(String amount) {this.amount = amount;}
 

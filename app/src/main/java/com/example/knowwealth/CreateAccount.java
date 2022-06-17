@@ -147,6 +147,7 @@ public class CreateAccount extends AppCompatActivity {
             userDatabase.child(mAuth.getUid() + "/" + month + "/Credit Cards").setValue("0");
             userDatabase.child(mAuth.getUid() + "/" + month + "/Subscriptions").setValue("0");
             userDatabase.child(mAuth.getUid() + "/" + month + "/Utilities").setValue("0");
+            userDatabase.child(mAuth.getUid() + "/" + month + "/Expenses").setValue("0");
 
         }
 

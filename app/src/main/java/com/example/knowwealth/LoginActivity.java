@@ -131,6 +131,11 @@ public class LoginActivity extends AppCompatActivity {
                                                     user.utilities.add(new User.UtilDate(monthStr, k.getKey(),k.child("Due Date").getValue().toString(),k.child("Paid").getValue().toString()));
                                                 };
                                             }
+                                            if (j.getKey().equals("Expenses")){
+                                                for (DataSnapshot k : snapshot.child(monthStr + "/Expenses").getChildren()){
+                                                    user.getExpenses().add(new User.Expense(monthStr, k.getKey(), k.child("Amount").getValue().toString()));
+                                                }
+                                            }
                                         }
                                         month = month.plus(1);
                                         monthStr = month.name();
