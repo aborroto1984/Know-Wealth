@@ -115,6 +115,9 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         // Calculating the progress bar values
         calculateExpensePercent();
 
+        // Calculating expenses total
+        expensesTotal.setText(calculateExpenseTotal());
+
         // Setting up the expenses list
         expensesBar = findViewById(R.id.expenseProgressBar);
         expensesList = findViewById(R.id.expensesList);
@@ -131,6 +134,7 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
     public void Menu(View view) {
         startActivity(new Intent(MonthlyExpenses.this, Menu.class));
     }
+
     // Currency formatter
     private static String formatCurrency(String number){
         DecimalFormat formatter = new DecimalFormat("-$ ###,###,##0.00");
@@ -141,6 +145,17 @@ public class MonthlyExpenses extends AppCompatActivity implements GestureDetecto
         DateFormat dateFormat = new SimpleDateFormat("MMMM");
         Date date = new Date();
         expensesPageTitle.setText(dateFormat.format(date) + "\nExpenses");
+    }
+
+    public String calculateExpenseTotal(){
+        float total = 0;
+        if (!eAmounts.isEmpty()){
+            for (int i = 0; i < eAmounts.size(); i++) {
+                String amountNum = eAmounts.get(i).replaceAll("[$,,-]", "");
+                total += Float.parseFloat(amountNum);
+            }
+        }
+        return formatCurrency(String.valueOf(total));
     }
 
     public void calculateExpensePercent(){

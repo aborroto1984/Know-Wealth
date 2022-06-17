@@ -44,6 +44,7 @@
         android:id="@+id/pageTitle"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_marginTop="60dp"
         android:text="@string/utilities"
         android:textColor="@color/main_color"
         android:textSize="34sp"
@@ -52,7 +53,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/processingHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/processingHeader"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/backArrow2"
@@ -112,7 +114,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/utilityDueDatesList"
         android:layout_width="match_parent"
-        android:layout_height="444dp"
+        android:layout_height="400dp"
         app:layout_constraintBottom_toTopOf="@+id/processingChin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
