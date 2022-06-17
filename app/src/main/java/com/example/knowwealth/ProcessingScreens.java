@@ -156,7 +156,7 @@ public class ProcessingScreens extends AppCompatActivity {
             }
             setSkipNext();
             pageTitle = findViewById(R.id.pageTitle);
-            pageTitle.setText("Add Budget");
+            pageTitle.setText("Edit Budget");
             setRecyclerView(this, budgets, bAmounts, closeBtn);
         }
 
