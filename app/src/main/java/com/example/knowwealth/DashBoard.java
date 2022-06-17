@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import android.view.View;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DashBoard extends AppCompatActivity implements GestureDetector.OnGestureListener{
@@ -35,8 +33,8 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
     RecyclerView dueList;
     RecyclerView overBudgetList;
     RecyclerView.LayoutManager  layoutManager;
-    RecyclerView.Adapter adapter;
-    RecyclerView.Adapter budgetAdapter;
+    RecyclerViewAdapter adapter;
+    RecyclerViewAdapter budgetAdapter;
     Calendar calendar = Calendar.getInstance();
     private GestureDetector gestureDetector;
 
@@ -45,20 +43,18 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
 
+        // set up notifications
         FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            System.out.println("Fetching FCM registration token failed");
-                            return;
-                        }
-
-                        // Get new FCM registration token
-                        String token = task.getResult();
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        System.out.println("Fetching FCM registration token failed");
                     }
+
+                    // Get new FCM registration token
+                    //String token = task.getResult(); // would be used with server to automate notifications
                 });
 
+        //Adds date to display
         String curDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         TextView viewDate = findViewById(R.id.view_date);
         viewDate.setText(curDate);
@@ -68,32 +64,31 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
         TextView userFirstName = findViewById(R.id.view_Name);
         userFirstName.setText(userName);
 
+        //Create local arrays
         name = new ArrayList<>();
         data = new ArrayList<>();
         budgetCategory = new ArrayList<>();
         budgetData = new ArrayList<>();
 
-        addExp = findViewById(R.id.add_expense_button);
-
     //----------------------------------------------------------------------------------------------------------------  BUTTONS
-        addExp.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                user.setCurrentActivity("expenses");
-                startActivity(new Intent(DashBoard.this, ProcessingScreens.class));
-            }
+        addExp = findViewById(R.id.add_expense_button);
+        addExp.setOnClickListener(view -> {
+            user.setCurrentActivity("expenses");
+            startActivity(new Intent(DashBoard.this, ProcessingScreens.class));
         });
 
         gestureDetector = new GestureDetector(getApplicationContext(),this);
     }
 
     //----------------------------------------------------------------------------------------------------------------  HELPER METHODS
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onResume() {
         super.onResume();
         name.clear();
         data.clear();
         PopulateLists();
+        // if the list are not empty set the recycler view for due in next 7 days
         if (name.size() > 0) {
             dueList = (RecyclerView) findViewById(R.id.Due_List);
             adapter = new RecyclerViewAdapter(this, name, data, null, null, null);
@@ -101,6 +96,7 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
             dueList.setAdapter(adapter);
             dueList.setLayoutManager(layoutManager);
         }
+        // if expenses are not empty set the recycler view for expense/budget
         if (budgetCategory.size() > 0){
             overBudgetList = findViewById(R.id.budget_List);
             budgetAdapter = new RecyclerViewAdapter(this, budgetCategory, budgetData, null, null, null);
@@ -117,38 +113,39 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
     }
 
     private void PopulateLists(){
-        if(user.utilities.size() > 0) {
-            for (int i = 0; i <= user.utilities.size() - 1; i++) {
-                User.UtilDate temp = user.utilities.get(i);
+        // loops through the user class arrays checking for entries
+        if(User.utilities.size() > 0) {
+            for (int i = 0; i <= User.utilities.size() - 1; i++) {
+                User.UtilDate temp = User.utilities.get(i);
                 if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
                     addToList(temp);
                 }
             }
         }
-        if(user.creditCards.size() > 0) {
-            for (int i = 0; i <= user.creditCards.size() - 1; i++) {
-                User.UtilDate temp = user.creditCards.get(i);
+        if(User.creditCards.size() > 0) {
+            for (int i = 0; i <= User.creditCards.size() - 1; i++) {
+                User.UtilDate temp = User.creditCards.get(i);
                 if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
                     addToList(temp);
                 }
             }
         }
-        if(user.subscriptions.size() > 0) {
-            for (int i = 0; i <= user.subscriptions.size() - 1; i++) {
-                User.UtilDate temp = user.subscriptions.get(i);
+        if(User.subscriptions.size() > 0) {
+            for (int i = 0; i <= User.subscriptions.size() - 1; i++) {
+                User.UtilDate temp = User.subscriptions.get(i);
                 if(temp.getMonth().equals(LocalDate.now().getMonth().toString())) {
                     addToList(temp);
                 }
             }
         }
-        if(user.expenses.size() > 0) {
+        if(User.expenses.size() > 0) {
             budgetCategory.clear();
             budgetData.clear();
-            for (int i = 0; i < user.expenses.size(); i++) {       // for each expense
-                User.Expense tempExpense = user.expenses.get(i);   // store a temporary expense
+            for (int i = 0; i < User.expenses.size(); i++) {       // for each expense
+                User.Expense tempExpense = User.expenses.get(i);   // store a temporary expense
                 User.Budget temp = null;
-                for (int j = 0; j < user.budgets.size(); j++){     // loop through budgets to store a match as temp
-                    temp = user.budgets.get(j);
+                for (int j = 0; j < User.budgets.size(); j++){     // loop through budgets to store a match as temp
+                    temp = User.budgets.get(j);
                     if (tempExpense.getName().equals(temp.getName())){
                         break;
                     }
@@ -157,7 +154,8 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
                     if (!tempExpense.getAmount().equals(" 0.00")){
                         if (!tempExpense.getAmount().equals("0.0")){
                             budgetCategory.add(tempExpense.getName());
-                            budgetData.add(formatCurrency(tempExpense.getAmount(), true) + "    /    " + temp.getAmount());
+                            assert temp != null;
+                            budgetData.add(formatCurrency(tempExpense.getAmount()) + "    /    " + temp.getAmount());
                         }
                     }
                 }
@@ -166,20 +164,15 @@ public class DashBoard extends AppCompatActivity implements GestureDetector.OnGe
     }
 
     // Currency formatter
-    private static String formatCurrency(String number, boolean signed){
+    private static String formatCurrency(String number){
         DecimalFormat formatter;
-        if (signed){
-            formatter = new DecimalFormat("-$ ###,###,##0.00");
-        }
-        else{
-            formatter = new DecimalFormat("$ ###,###,##0.00");
-        }
+        formatter = new DecimalFormat("-$ ###,###,##0.00");
         return formatter.format(Float.parseFloat(number));
     }
 
     private void addToList(User.UtilDate temp){
-        String[] tempdayNum = temp.getData().split(" ");
-        String dayNum = tempdayNum[1];
+        String[] tempDayNum = temp.getData().split(" ");
+        String dayNum = tempDayNum[1];
         int dayLength = dayNum.length();
         dayNum = dayNum.substring(0,dayLength -2);
         dayLength = Integer.parseInt(dayNum);
