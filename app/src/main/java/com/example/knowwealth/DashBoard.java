@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -19,7 +18,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

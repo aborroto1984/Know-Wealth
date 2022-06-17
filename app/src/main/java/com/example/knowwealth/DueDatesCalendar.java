@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -24,10 +25,11 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
+
     RecyclerView itemList;
     RecyclerView.LayoutManager  layoutManager;
-    RecyclerView.Adapter adapter;
-    User user = LoginActivity.user;
+    RecyclerViewAdapter adapter;
+
     String dayText;
     ArrayList<String> name, data, daysInMonth, paid;
     ArrayList<Integer> eventOnDay;
@@ -39,13 +41,18 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_due_dates_calendar);
-        name = new ArrayList<>();
-        data = new ArrayList<>();
-        paid = new ArrayList<>();
-        eventOnDay = new ArrayList<>();
+        // Initialize local arrays
+        name = new ArrayList<>(); // holds the name of the bill.
+        data = new ArrayList<>(); // holds the date of the bill.
+        paid = new ArrayList<>(); // holds status of paid check box.
+        eventOnDay = new ArrayList<>(); // used to update with dates will have a dot.
+
         initWidgets();
-        selectedDate = LocalDate.now();
+
+        selectedDate = LocalDate.now(); // gets current date.
+
         setMonthView();
+
         TextView textView = findViewById(R.id.selectedDay);
         textView.setText(dayFromDate(selectedDate));
         updateListview();
@@ -59,10 +66,13 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     }
 
     private void setMonthView() {
-        monthYearText.setText(monthYearFromDate(selectedDate));
-        monthName = selectedDate.getMonth().toString().toUpperCase();
-        daysInMonth = daysInMonthArray(selectedDate);
+        monthYearText.setText(monthYearFromDate(selectedDate)); // adds month and year to display
+        monthName = selectedDate.getMonth().toString().toUpperCase(); // gets the name of the month based on the date stored in selectedDate.
+        daysInMonth = daysInMonthArray(selectedDate); // gets the number of days in the month based on the date stored in selectedDate.
+
+        //Initializes calendar.
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this, eventOnDay);
+        //Initializes layout for the calendar
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
@@ -70,7 +80,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
 
     private ArrayList<String> daysInMonthArray(LocalDate date){
         ArrayList<String> daysInMonthArray = new ArrayList<>();
-        eventOnDay.clear();
+        eventOnDay.clear(); // clears out array to reset for new month.
         YearMonth yearMonth = YearMonth.from(date);
 
         int daysInMonth = yearMonth.lengthOfMonth();
@@ -84,7 +94,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
             }else{
                 daysInMonthArray.add(String.valueOf(i-dayOfWeek));
             }
-            eventOnDay.add(4);
+            eventOnDay.add(4); // adds 4s to the whole array, 4 sets the dot to invisible.
         }
         return daysInMonthArray;
     }
@@ -102,37 +112,37 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     }
 
     public void previousMonthAction(View view){
-        selectedDate = selectedDate.minusMonths(1);
-        monthName = selectedDate.getMonth().toString().toUpperCase();
-        setMonthView();
-        updateListview();
+        selectedDate = selectedDate.minusMonths(1); // sets the month to the previous month
+        monthName = selectedDate.getMonth().toString().toUpperCase(); // sets the monthName variable to the new months name
+        setMonthView(); // resets the calendar recycler view to update to the new month.
+        updateListview(); // resets the list view to the new month.
     }
 
     public void nextMonthAction(View view){
-        selectedDate = selectedDate.plusMonths(1);
-        monthName = selectedDate.getMonth().toString().toUpperCase();
-        setMonthView();
-        updateListview();
+        selectedDate = selectedDate.plusMonths(1); // sets the month to the next month
+        monthName = selectedDate.getMonth().toString().toUpperCase(); // sets the monthName variable to the new months name
+        setMonthView(); // resets the calendar recycler view to update to the new month.
+        updateListview(); // resets the list view to the new month.
     }
     @Override
     public void onItemClick(int position, String _dayText) {
-        if (!_dayText.equals("")) {
-            TextView textView = findViewById(R.id.selectedDay);
-            textView.setText(_dayText);
-            dayText = _dayText;
-            updateListview();
+        if (!_dayText.equals("")) { // checks for a click on a blank day.
+            TextView textView = findViewById(R.id.selectedDay); //gets the day selected box from the xml file.
+            textView.setText(_dayText); // sets the day selected box to the new selected date.
+            dayText = _dayText; // updates variable for use latter.
+            updateListview(); // resets the list view to the new selected day.
         }
     }
 
     private void addToList(User.UtilDate temp){
-        int today = 1;
-        int numDays = selectedDate.lengthOfMonth();
+        int today;
+        int numDays = selectedDate.lengthOfMonth(); // set numDays to the number of days in the month
 
-        String[] tempdayNum = temp.getData().split(" ");
-        String dayNum = tempdayNum[1];
-        int dayLength = dayNum.length();
-        dayNum = dayNum.substring(0,dayLength -2);
-        dayLength = Integer.parseInt(dayNum);
+        String[] tempDayNum = temp.getData().split(" "); // splits up the date into separate arrays. Example temp data "Every 1st"
+        String dayNum = tempDayNum[1]; //sets dayNum array to the second string. "1st"
+        int dayLength = dayNum.length(); // gets the length of the dayNum string. 3
+        dayNum = dayNum.substring(0,dayLength -2); // removes the last to elements of the string. 1
+        dayLength = Integer.parseInt(dayNum); //converts the string to int
         //change date to end of month if greater then end of month
        if(dayLength > numDays){
            dayLength = numDays;
@@ -144,72 +154,71 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
             today = Integer.parseInt(dayText);
         }
         if (dayLength == today) {
+            // fills in local array for displaying data
             name.add(temp.getName());
             data.add(temp.getData());
             paid.add(temp.getPaid());
         }
         int i = 0;
+        // matches the eventOnDay array with the current month array
         while (!dayNum.equals(daysInMonth.get(i))){
             i++;
         }
-        eventOnDay.set(i, 0);
+        eventOnDay.set(i, 0); // changes the eventOnDay to 0 for the matching day of the month. 0 sets the dot to visible.
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void updateListview(){
+        // clears the local arrays
         name.clear();
         data.clear();
         paid.clear();
 
-        if(user.utilities.size() > 0) {
-            for (int i = 0; i <= user.utilities.size() - 1; i++) {
-                User.UtilDate temp = user.utilities.get(i);
+        // loops through each of the user arrays for filling in the local arrays
+        if(User.utilities.size() > 0) {
+            for (int i = 0; i <= User.utilities.size() - 1; i++) {
+                User.UtilDate temp = User.utilities.get(i);
                 if(temp.getMonth().equals(monthName)) {
                     addToList(temp);
                 }
             }
         }
-        if(user.creditCards.size() > 0) {
-            for (int i = 0; i <= user.creditCards.size() - 1; i++) {
-                User.UtilDate temp = user.creditCards.get(i);
+        if(User.creditCards.size() > 0) {
+            for (int i = 0; i <= User.creditCards.size() - 1; i++) {
+                User.UtilDate temp = User.creditCards.get(i);
                 if(temp.getMonth().equals(monthName)) {
                     addToList(temp);
                 }
             }
         }
-        if(user.subscriptions.size() > 0) {
-            for (int i = 0; i <= user.subscriptions.size() - 1; i++) {
-                User.UtilDate temp = user.subscriptions.get(i);
+        if(User.subscriptions.size() > 0) {
+            for (int i = 0; i <= User.subscriptions.size() - 1; i++) {
+                User.UtilDate temp = User.subscriptions.get(i);
                 if(temp.getMonth().equals(monthName)) {
                     addToList(temp);
                 }
             }
         }
-        // giving conflict when switch expenses to store Expense object instead of UtilDate
-//        if(user.expenses.size() > 0) {
-//            for (int i = 0; i <= user.expenses.size() - 1; i++) {
-//                User.UtilDate temp = user.expenses.get(i);
-//                addToList(temp);
-//            }
-//        }
-        if (name.size() > 0 && adapter == null) {
-            itemList = (RecyclerView) findViewById(R.id.items_List);
-            checkBox = findViewById(R.id.checkBox);
-            adapter = new RecyclerViewAdapter(this, name, data, paid, null, checkBox);
-            layoutManager = new LinearLayoutManager(this);
+
+        if (name.size() > 0 && adapter == null) { // checks for entries in the local array and that the recycler view has not been initialized.
+            itemList = (RecyclerView) findViewById(R.id.items_List); // selects the xml element for the recycler view
+            checkBox = findViewById(R.id.checkBox); // find the check box element
+            adapter = new RecyclerViewAdapter(this, name, data, paid, null, checkBox); // initializes the recycler view adapter
+            layoutManager = new LinearLayoutManager(this); //sets the layout manager
             itemList.setAdapter(adapter);
             itemList.setLayoutManager(layoutManager);
-        }else if(adapter != null){
+        }else if(adapter != null){ // if adapter already exists. Updates the data in the list
             adapter.notifyDataSetChanged();
         }
 
     }
 
     public static String getMonthName() {return monthName;}
-
+    // Switches to the menu if the menu icon is clicked
     public void Menu(View view) {
         startActivity(new Intent(DueDatesCalendar.this, Menu.class));
     }
-
+    // gesture listener for catching swipe motion
     @Override
     public boolean onDown(MotionEvent motionEvent) {
         return false;
