@@ -156,6 +156,7 @@ public class User {
                 Float tempOld = Float.parseFloat(tempExpense.getAmount());
                 tempOld -= tempSubtract;
                 tempExpense.setAmount(String.valueOf(tempOld));
+                userDatabase.child(uID + "/" + month + "/Expenses/" + name).setValue(String.valueOf(tempOld));
             }
         }
     }

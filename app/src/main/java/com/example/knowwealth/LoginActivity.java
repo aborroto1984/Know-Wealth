@@ -139,9 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                             if (j.getKey().equals("Expenses")){
                                                 for (DataSnapshot k : snapshot.child(monthStr + "/Expenses").getChildren()){
-                                                    if(k.hasChildren()) {
-                                                        user.expenses.add(new User.Expense(monthStr, k.getKey(), k.getValue().toString()));
-                                                    }
+                                                    user.expenses.add(new User.Expense(monthStr, k.getKey(), k.getValue().toString()));
                                                 }
                                             }
                                         }

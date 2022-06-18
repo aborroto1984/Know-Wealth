@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.BreakIterator;
 
 public class AccountEdit extends AppCompatActivity {
-    FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser fbUser;
     User user = LoginActivity.user;
     Button appbtn;
     Button resetBtn;
@@ -38,6 +38,7 @@ public class AccountEdit extends AppCompatActivity {
          resetBtn = findViewById(R.id.password_button);
          fullNameField = findViewById(R.id.fullName);
          userIdField = findViewById(R.id.userIdCreateAccount);
+         fbUser = FirebaseAuth.getInstance().getCurrentUser();
 
         appbtn.setOnClickListener(new View.OnClickListener() {
             @Override
