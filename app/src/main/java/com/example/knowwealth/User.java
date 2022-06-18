@@ -132,11 +132,16 @@ public class User {
         }
     }
     // method to remove deleted entries
-    public static void deleteFromList(String removeDueDay, String removeName, List<UtilDate> array){
+    public static void deleteFromList(String removeDueDay, String removeName, List<UtilDate> array, String arrayName){
+        int j = 0;
         for (int i = 0; i < array.size(); i++){
             UtilDate data = array.get(i);
             if (data.name.equals(removeName) && data.dueDay.equals(removeDueDay)){
+                String month = LocalDate.now().getMonth().plus(j).toString();
                 array.remove(i);
+                userDatabase.child(uID + "/" + month + "/" + arrayName + "/" + removeName).setValue("0");
+                j++;
+                i--;
             }
         }
     }

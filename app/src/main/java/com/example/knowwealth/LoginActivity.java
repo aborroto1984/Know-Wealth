@@ -118,22 +118,30 @@ public class LoginActivity extends AppCompatActivity {
                                         for (DataSnapshot j : snapshot.child(monthStr).getChildren()) {
                                             if(j.getKey().equals("Credit Cards")){
                                                 for(DataSnapshot k : snapshot.child(monthStr + "/Credit Cards").getChildren()){
-                                                    user.creditCards.add(new User.UtilDate(monthStr, k.getKey(),k.child("Due Date").getValue().toString(),k.child("Paid").getValue().toString()));
-                                                };
+                                                    if(k.hasChildren()) {
+                                                        user.creditCards.add(new User.UtilDate(monthStr, k.getKey(), k.child("Due Date").getValue().toString(), k.child("Paid").getValue().toString()));
+                                                    }
+                                                }
                                             }
                                             if(j.getKey().equals("Subscriptions")){
                                                 for(DataSnapshot k : snapshot.child(monthStr + "/Subscriptions").getChildren()){
-                                                    user.subscriptions.add(new User.UtilDate(monthStr, k.getKey(),k.child("Due Date").getValue().toString(),k.child("Paid").getValue().toString()));
-                                                };
+                                                    if(k.hasChildren()) {
+                                                        user.subscriptions.add(new User.UtilDate(monthStr, k.getKey(), k.child("Due Date").getValue().toString(), k.child("Paid").getValue().toString()));
+                                                    }
+                                                }
                                             }
                                             if(j.getKey().equals("Utilities")){
                                                 for(DataSnapshot k : snapshot.child(monthStr + "/Utilities").getChildren()){
-                                                    user.utilities.add(new User.UtilDate(monthStr, k.getKey(),k.child("Due Date").getValue().toString(),k.child("Paid").getValue().toString()));
-                                                };
+                                                    if(k.hasChildren()) {
+                                                        user.utilities.add(new User.UtilDate(monthStr, k.getKey(), k.child("Due Date").getValue().toString(), k.child("Paid").getValue().toString()));
+                                                    }
+                                                }
                                             }
                                             if (j.getKey().equals("Expenses")){
                                                 for (DataSnapshot k : snapshot.child(monthStr + "/Expenses").getChildren()){
-                                                    user.expenses.add(new User.Expense(monthStr, k.getKey(), k.getValue().toString()));
+                                                    if(k.hasChildren()) {
+                                                        user.expenses.add(new User.Expense(monthStr, k.getKey(), k.getValue().toString()));
+                                                    }
                                                 }
                                             }
                                         }
@@ -145,7 +153,6 @@ public class LoginActivity extends AppCompatActivity {
                                     }else{
                                         startActivity(new Intent(LoginActivity.this, DashBoard.class));
                                     }
-                    //                expenses = new ArrayList<>();
                                 }
 
 
