@@ -102,6 +102,9 @@ public class User {
     // Expenses list getter
     public ArrayList<Expense> getExpenses(){ return expenses; }
 
+    // Budgets list getter
+    public ArrayList<Budget> getBudgets(){ return budgets; }
+
     // Utilities
     public static class UtilDate{
         private String dueDay;
@@ -192,10 +195,12 @@ public class User {
     public static class Budget {
         private String name;
         private String amount;
+        boolean isExpanded;
 
         public Budget(String name, String amount){
             this.name = name;
             this.amount = amount;
+            this.isExpanded = false;
         }
 
         public String getName() {
@@ -203,6 +208,10 @@ public class User {
         }
 
         public String getAmount() { return amount; }
+
+        public boolean getIsExpanded() { return isExpanded; }
+
+        public void setExpanded(boolean expanded) { isExpanded = expanded; }
 
         public void setAmount(String amount) {
             this.amount = amount;

@@ -72,6 +72,7 @@ public class ProcessingScreens extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager  layoutManager;
     RecyclerView.Adapter adapter;
+    RecyclerView.Adapter budgetAdapter;
 
     // Calendar instance
     Calendar calendar = Calendar.getInstance();
@@ -147,6 +148,9 @@ public class ProcessingScreens extends AppCompatActivity {
         else if (currentActivity.equals("budgets")){
             budgets = new ArrayList<>();
             bAmounts = new ArrayList<>();
+            addBtn.setVisibility(View.GONE);
+            ImageView plusSymbol = findViewById(R.id.plusSymbol);
+            plusSymbol.setVisibility(View.GONE);
             if( user.budgets.size() > 0){
                 for (int i = 0; i < user.budgets.size(); i++){
                     User.Budget temp = user.budgets.get(i);
@@ -157,7 +161,8 @@ public class ProcessingScreens extends AppCompatActivity {
             setSkipNext();
             pageTitle = findViewById(R.id.pageTitle);
             pageTitle.setText("Edit Budget");
-            setRecyclerView(this, budgets, bAmounts, closeBtn);
+            //setRecyclerView(this, budgets, bAmounts, closeBtn);
+            setBudgetRecyclerView(this, user.getBudgets());
         }
 
         //----------------------------------------------------------------------------------------------------------------  BUTTONS
@@ -278,6 +283,22 @@ public class ProcessingScreens extends AppCompatActivity {
         adapter = new RecyclerViewAdapter(ct, names, dueDates, null, closeBtn, null);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
+    // Method to set the budget recyclerView adapter
+    private void setBudgetRecyclerView(Context ct, ArrayList<User.Budget> budgets){
+
+        // Initiating buttons and views
+        Button budgetEdit = findViewById(R.id.budgetEditBtn);
+        Button budgetReset = findViewById(R.id.budgetResetBtn);
+        Button budgetDone = findViewById(R.id.budgetDoneBtn);
+        ImageView budgetUndo = findViewById(R.id.budgetUndoBtn);
+        EditText budgetEditText = findViewById(R.id.budgetEditText);
+
+        budgetAdapter = new BudgetEditAdapter(ct, budgets,budgetEdit, budgetReset, budgetDone, budgetUndo, budgetEditText);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setAdapter(budgetAdapter);
         recyclerView.setLayoutManager(layoutManager);
     }
 

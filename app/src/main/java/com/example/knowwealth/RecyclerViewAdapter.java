@@ -151,17 +151,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         String amountNum = data.get(position).replaceAll("[$,,]", "");
                         User.deleteExpenseFromList(LocalDate.now().getMonth().toString(),name.get(position), amountNum, User.expenses);
                         break;
-                    case "budgets":
-                        data.set(position, "$ 0.00");
-                        DatabaseReference userDatabase= User.userDatabase.child(User.getuID());
-                        userDatabase.child("Budgets/" + name.get(position)).setValue("$ 0.00");
-                        for (int j = 0; j < User.budgets.size(); j++) {     // loop through budgets to store a match as temp
-                            User.Budget tempBudget = User.budgets.get(j);
-                            if (name.get(position).equals(tempBudget.getName())) {
-                                tempBudget.setAmount("$ 0.00");
-                            }
-                        }
-                        break;
+//                    case "budgets":
+//                        data.set(position, "$ 0.00");
+//                        DatabaseReference userDatabase= User.userDatabase.child(User.getuID());
+//                        userDatabase.child("Budgets/" + name.get(position)).setValue("$ 0.00");
+//                        for (int j = 0; j < User.budgets.size(); j++) {     // loop through budgets to store a match as temp
+//                            User.Budget tempBudget = User.budgets.get(j);
+//                            if (name.get(position).equals(tempBudget.getName())) {
+//                                tempBudget.setAmount("$ 0.00");
+//                            }
+//                        }
+//                        break;
                 }
                 if (User.currentActivity != "budgets"){
                     name.remove(position);
