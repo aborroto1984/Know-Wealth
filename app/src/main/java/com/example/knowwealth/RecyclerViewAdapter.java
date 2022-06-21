@@ -43,8 +43,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.list_rows, parent, false);
-        return new MyViewHolder(view);
+        curAct = context.getClass().getName();
+        if(curAct.equals("com.example.knowwealth.DueDatesCalendar")){
+            View view = inflater.inflate(R.layout.calendar_paid_row, parent, false);
+            return new MyViewHolder(view);
+        }else{
+            View view = inflater.inflate(R.layout.list_rows, parent, false);
+            return new MyViewHolder(view);
+        }
     }
 
     @Override
@@ -133,43 +139,46 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
-        holder.closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if(!curAct.equals("com.example.knowwealth.DueDatesCalendar")){
+            holder.closeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                switch (User.currentActivity){
-                    case "utility":
-                        User.deleteFromList(data.get(position), name.get(position), User.utilities, "Utilities");
-                        break;
-                    case "subscriptions":
-                        User.deleteFromList(data.get(position), name.get(position), User.subscriptions, "Subscriptions");
-                        break;
-                    case "creditCards":
-                        User.deleteFromList(data.get(position), name.get(position), User.creditCards, "Credit Cards");
-                        break;
-                    case "expenses":
-                        String amountNum = data.get(position).replaceAll("[$,,]", "");
-                        User.deleteExpenseFromList(LocalDate.now().getMonth().toString(),name.get(position), amountNum, User.expenses);
-                        break;
-                    case "budgets":
-                        data.set(position, "$ 0.00");
-                        DatabaseReference userDatabase= User.userDatabase.child(User.getuID());
-                        userDatabase.child("Budgets/" + name.get(position)).setValue("$ 0.00");
-                        for (int j = 0; j < User.budgets.size(); j++) {     // loop through budgets to store a match as temp
-                            User.Budget tempBudget = User.budgets.get(j);
-                            if (name.get(position).equals(tempBudget.getName())) {
-                                tempBudget.setAmount("$ 0.00");
-                            }
-                        }
-                        break;
+                    switch (User.currentActivity){
+                        case "utility":
+                            User.deleteFromList(data.get(position), name.get(position), User.utilities);
+                            break;
+                        case "subscriptions":
+                            User.deleteFromList(data.get(position), name.get(position), User.subscriptions);
+                            break;
+                        case "creditCards":
+                            User.deleteFromList(data.get(position), name.get(position), User.creditCards);
+                            break;
+                        case "expenses":
+                            String amountNum = data.get(position).replaceAll("[$,,]", "");
+                            User.deleteExpenseFromList(LocalDate.now().getMonth().toString(),name.get(position), amountNum, User.expenses);
+                            break;
+//                    case "budgets":
+//                        data.set(position, "$ 0.00");
+//                        DatabaseReference userDatabase= User.userDatabase.child(User.getuID());
+//                        userDatabase.child("Budgets/" + name.get(position)).setValue("$ 0.00");
+//                        for (int j = 0; j < User.budgets.size(); j++) {     // loop through budgets to store a match as temp
+//                            User.Budget tempBudget = User.budgets.get(j);
+//                            if (name.get(position).equals(tempBudget.getName())) {
+//                                tempBudget.setAmount("$ 0.00");
+//                            }
+//                        }
+//                        break;
+                    }
+                    if (User.currentActivity != "budgets"){
+                        name.remove(position);
+                        data.remove(position);
+                    }
+                    notifyDataSetChanged();
                 }
-                if (User.currentActivity != "budgets"){
-                    name.remove(position);
-                    data.remove(position);
-                }
-                notifyDataSetChanged();
-            }
-        });
+            });
+        }
+
     }
 
     @Override
@@ -197,9 +206,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 closeBtn.setVisibility(View.VISIBLE);
                 closeBtn.setPadding(0,0,45,0);
             }else if(curAct.equals("com.example.knowwealth.DueDatesCalendar")){
-                text1.setPadding(70,0,0,0);
-                text2.setVisibility(View.GONE);
-                checkBox.setVisibility(View.VISIBLE);
+                text1 = itemView.findViewById(R.id.calendarName);
+                checkBox = itemView.findViewById(R.id.calendarCheckBox);
+//                text1.setPadding(70,0,0,0);
+//                text2.setVisibility(View.GONE);
+//                checkBox.setVisibility(View.VISIBLE);
             }else if(curAct.equals("com.example.knowwealth.DashBoard")){
                 text2.setPadding(70,0,0,0);
             }

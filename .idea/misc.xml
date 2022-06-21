@@ -22,18 +22,20 @@
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_create_account.xml" value="0.21536267318663407" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_credit_dates_processing.xml" value="0.18956270627062707" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_dash_board.xml" value="0.22" />
-        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_due_dates_calendar.xml" value="0.21536267318663407" />
+        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_due_dates_calendar.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_expense_add.xml" value="0.2518518518518518" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_menu.xml" value="0.21536267318663407" />
-        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_monthly_expenses.xml" value="0.22" />
+        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_monthly_expenses.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_notification_settings.xml" value="0.22" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_subscription_processing.xml" value="0.5505208333333333" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/activity_utility_processing.xml" value="0.22" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/add_expense_dialog.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/add_other_dialog.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/add_utility_dialog.xml" value="0.4466666666666667" />
-        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/calendar_blocks.xml" value="0.3632246376811594" />
+        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/budget_edit_row.xml" value="0.40307971014492755" />
+        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/calendar_blocks.xml" value="0.5754795663052544" />
+        <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/calendar_paid_row.xml" value="0.412109375" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/expenses_rows.xml" value="0.5" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/list_rows.xml" value="0.3269927536231884" />
         <entry key="..\:/Users/aborr/AndroidStudioProjects/Know-Wealth/app/src/main/res/layout/list_rows_calendar.xml" value="0.5" />

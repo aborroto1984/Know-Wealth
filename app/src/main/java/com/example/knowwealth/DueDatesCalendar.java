@@ -29,6 +29,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     RecyclerView itemList;
     RecyclerView.LayoutManager  layoutManager;
     RecyclerViewAdapter adapter;
+    CalendarAdapter calendarAdapter;
 
     String dayText;
     ArrayList<String> name, data, daysInMonth, paid;
@@ -63,6 +64,8 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     protected void onResume() {
         super.onResume();
         initWidgets();
+        updateListview();
+        calendarAdapter.notifyDataSetChanged();
     }
 
     private void setMonthView() {
