@@ -27,6 +27,7 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     RecyclerView itemList;
     RecyclerView.LayoutManager  layoutManager;
     RecyclerView.Adapter adapter;
+    CalendarAdapter calendarAdapter;
     User user = LoginActivity.user;
     String dayText;
     ArrayList<String> name, data, daysInMonth, paid;
@@ -56,13 +57,15 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
     protected void onResume() {
         super.onResume();
         initWidgets();
+        updateListview();
+        calendarAdapter.notifyDataSetChanged();
     }
 
     private void setMonthView() {
         monthYearText.setText(monthYearFromDate(selectedDate));
         monthName = selectedDate.getMonth().toString().toUpperCase();
         daysInMonth = daysInMonthArray(selectedDate);
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this, eventOnDay);
+        calendarAdapter = new CalendarAdapter(daysInMonth, this, eventOnDay);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
