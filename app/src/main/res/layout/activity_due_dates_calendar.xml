@@ -117,9 +117,10 @@
             android:layout_height="240dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/datesCalendarHeader"
-            app:layout_constraintVertical_bias="0.35" />
+            app:layout_constraintVertical_bias="0.45" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -168,19 +169,21 @@
                 android:textColor="@color/main_color"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout4"
             android:layout_width="414dp"
             android:layout_height="55dp"
+            android:layout_marginTop="24dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/items_List"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/items_List"
             app:layout_constraintTop_toBottomOf="@+id/calRecyclerView"
-            app:layout_constraintVertical_bias="0.2">
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/selectedDay"
