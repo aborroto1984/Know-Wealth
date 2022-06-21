@@ -197,21 +197,25 @@ public class ProcessingScreens extends AppCompatActivity {
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (processingCompleted){finish();}
-                if(currentActivity.equals("utility")){
+                if (!processingCompleted){
+                    if(currentActivity.equals("utility")){
+
+                    }else if (currentActivity.equals("subscriptions")){
+                        user.setCurrentActivity("utility");
+                        refreshActivity();
+                    }else if (currentActivity.equals("creditCards")){
+                        user.setCurrentActivity("subscriptions");
+                        refreshActivity();
+                    }else if (currentActivity.equals("expenses")){
+                        finish();
+                    }else if (currentActivity.equals("budgets")){
+                        finish();
+                        startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
+                    }
+                }else{
                     finish();
-                }else if (currentActivity.equals("subscriptions")){
-                    user.setCurrentActivity("utility");
-                    refreshActivity();
-                }else if (currentActivity.equals("creditCards")){
-                    user.setCurrentActivity("subscriptions");
-                    refreshActivity();
-                }else if (currentActivity.equals("expenses")){
-                    finish();
-                }else if (currentActivity.equals("budgets")){
-                    finish();
-                    startActivity(new Intent(ProcessingScreens.this, MonthlyExpenses.class));
                 }
+
             }
         });
 

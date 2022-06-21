@@ -146,13 +146,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     switch (User.currentActivity){
                         case "utility":
-                            User.deleteFromList(data.get(position), name.get(position), User.utilities);
+                            User.deleteFromList(data.get(position), name.get(position), User.utilities, "Utilities");
                             break;
                         case "subscriptions":
-                            User.deleteFromList(data.get(position), name.get(position), User.subscriptions);
+                            User.deleteFromList(data.get(position), name.get(position), User.subscriptions, "Subscriptions");
                             break;
                         case "creditCards":
-                            User.deleteFromList(data.get(position), name.get(position), User.creditCards);
+                            User.deleteFromList(data.get(position), name.get(position), User.creditCards, "Credit Cards");
                             break;
                         case "expenses":
                             String amountNum = data.get(position).replaceAll("[$,,]", "");

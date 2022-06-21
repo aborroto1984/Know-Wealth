@@ -180,6 +180,7 @@ public class BankLinkDemo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 user.setProcessingCompleted(true);
+                userDatabase.child("/Processing Completed").setValue("true");
                 startActivity(new Intent(BankLinkDemo.this, DashBoard.class));
             }
         });

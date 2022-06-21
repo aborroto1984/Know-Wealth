@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -81,7 +82,7 @@
             android:id="@+id/budgetEditExpanded"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,10 +128,10 @@
                     android:layout_height="25dp"
                     android:background="@drawable/rectangle_122"
                     android:ems="10"
+                    android:gravity="center"
                     android:hint="Enter new amount"
                     android:inputType="numberDecimal"
                     android:maxLength="7"
-                    android:paddingStart="16dp"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

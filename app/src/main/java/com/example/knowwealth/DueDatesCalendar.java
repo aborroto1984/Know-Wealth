@@ -47,25 +47,18 @@ public class DueDatesCalendar extends AppCompatActivity implements CalendarAdapt
         data = new ArrayList<>(); // holds the date of the bill.
         paid = new ArrayList<>(); // holds status of paid check box.
         eventOnDay = new ArrayList<>(); // used to update with dates will have a dot.
-
-        initWidgets();
-
         selectedDate = LocalDate.now(); // gets current date.
-
-        setMonthView();
-
         TextView textView = findViewById(R.id.selectedDay);
         textView.setText(dayFromDate(selectedDate));
-        updateListview();
-        gestureDetector = new GestureDetector(getApplicationContext(),this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         initWidgets();
+        setMonthView();
         updateListview();
-        calendarAdapter.notifyDataSetChanged();
+        gestureDetector = new GestureDetector(getApplicationContext(),this);
     }
 
     private void setMonthView() {
